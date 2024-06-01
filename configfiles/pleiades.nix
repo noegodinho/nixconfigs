@@ -143,7 +143,7 @@
   programs.hyprland.enable = false; # change later to true if decide to try it
   programs.java.enable = true;
   programs.solaar.enable = true;
-  # programs.adb.enable = true; # check if needed in pc afeer installing
+  # programs.adb.enable = true; # check if needed in pc after installing
 
   programs.steam = {
     enable = true;
@@ -169,6 +169,8 @@
     valgrind
     wget
     usbutils
+    pciutils
+    gparted
     fh
     unzip
     zip
@@ -191,7 +193,6 @@
     fusuma
     lshw
     glxinfo
-    pciutils
     linuxKernel.packages.linux_zen.turbostat
     wineWowPackages.waylandFull # wineWowPackages.full
     winetricks
