@@ -102,7 +102,6 @@
       kate
       neovim
       zellij
-      conda
       keepass
       thunderbird
       # kmail # decide which one to use
@@ -194,6 +193,7 @@
     lshw
     glxinfo
     linuxKernel.packages.linux_zen.turbostat
+    python312Packages.conda
     wineWowPackages.waylandFull # wineWowPackages.full
     winetricks
     yabridge
