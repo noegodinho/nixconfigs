@@ -4,10 +4,45 @@
   networking.hostName = "milkyway"; # Define your hostname.
 
   # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-  services.xserver.libinput.touchpad.naturalScrolling = true;
+  # services.libinput.enable = true;
+  services.libinput.touchpad.naturalScrolling = true;
 
-  # hardware.bumblebee.enable = true; # check if needed in pc when installing
+  # Set your time zone.
+  time.timeZone = "Europe/Lisbon";
+
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_GB.UTF-8";
+
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "pt_PT.UTF-8";
+    LC_IDENTIFICATION = "pt_PT.UTF-8";
+    LC_MEASUREMENT = "pt_PT.UTF-8";
+    LC_MONETARY = "pt_PT.UTF-8";
+    LC_NAME = "pt_PT.UTF-8";
+    LC_NUMERIC = "pt_PT.UTF-8";
+    LC_PAPER = "pt_PT.UTF-8";
+    LC_TELEPHONE = "pt_PT.UTF-8";
+    LC_TIME = "pt_PT.UTF-8";
+  };
+
+  # Configure console keymap
+  console.keyMap = "pt-latin1";
+
+  # Configure keymap in X11
+  services.xserver = {
+    enable = true;
+    xkb.layout = "pt";
+    xkb.variant = "";
+  };
+
+  # Enable the KDE Plasma Desktop Environment.
+  # services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
+  services.desktopManager.plasma6.enable = true;
+
+  # Enable networking
+  networking.networkmanager.enable = true;
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # hardware.pulseaudio = {
   #  enable = true;
@@ -71,6 +106,14 @@
     };
   };
 
+  services.flatpak.enable = true;
+  services.flatpak.update.onActivation = true;
+
+  services.flatpak.update.auto = {
+    enable = true;
+    onCalendar = "weekly"; # Default value
+  };
+
   nix.gc = {
     automatic = true;
     dates = "weekly";
@@ -80,12 +123,4 @@
   system.autoUpgrade.enable = true;
   system.autoUpgrade.dates = "daily";
   system.autoUpgrade.allowReboot = false; # decide later
-  
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
 }
