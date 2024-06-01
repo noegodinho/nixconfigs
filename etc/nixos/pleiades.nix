@@ -9,6 +9,7 @@
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"];
+  # hardware.bumblebee.enable = true; # check if needed in pc when installing 
 
   nixpkgs.config.nvidia.acceptLicense = true;
 
@@ -78,52 +79,14 @@
   };
 
   # Enable automatic login for the user.
-  # services.xserver.displayManager.autoLogin.enable = true;
-  # services.xserver.displayManager.autoLogin.user = "pleiades";
+  # services.displayManager.autoLogin.enable = true;
+  # services.displayManager.autoLogin.user = "pleiades";
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  networking.networkmanager.enable = true;  
-
-  # Set your time zone.
-  time.timeZone = "Europe/Lisbon";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_GB.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "pt_PT.UTF-8";
-    LC_IDENTIFICATION = "pt_PT.UTF-8";
-    LC_MEASUREMENT = "pt_PT.UTF-8";
-    LC_MONETARY = "pt_PT.UTF-8";
-    LC_NAME = "pt_PT.UTF-8";
-    LC_NUMERIC = "pt_PT.UTF-8";
-    LC_PAPER = "pt_PT.UTF-8";
-    LC_TELEPHONE = "pt_PT.UTF-8";
-    LC_TIME = "pt_PT.UTF-8";
-  };
-
-  # Configure console keymap
-  console.keyMap = "pt-latin1";
-
-  # services.xserver.enable = false;
-  # Configure keymap in X11
-  services.xserver = {
-    enable = true;
-    layout = "pt";
-    xkbVariant = "";
-  };
-
-  # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  # services.xserver.displayManager.sddm.wayland.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-  # services.desktopManager.plasma6.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -176,10 +139,10 @@
   };
 
   programs.firefox.enable = false;
-  programs.hyprland.enable = false; # change later to true
+  programs.hyprland.enable = false; # change later to true if decide to try it
   programs.java.enable = true;
   programs.solaar.enable = true;
-  programs.adb.enable = true;
+  # programs.adb.enable = true; # check if needed in pc afeer installing
 
   programs.steam = {
     enable = true;
@@ -299,14 +262,6 @@
      })
   ];
 
-  services.flatpak.enable = true;
-  services.flatpak.update.onActivation = true;
-
-  services.flatpak.update.auto = {
-    enable = true;
-    onCalendar = "weekly"; # Default value
-  };
-
   services.flatpak.packages = [
     { appId = "com.brave.Browser"; origin = "flathub";  }
   ];
@@ -329,4 +284,12 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "24.05"; # Did you read the comment?
 }
