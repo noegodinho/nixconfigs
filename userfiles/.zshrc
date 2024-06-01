@@ -8,7 +8,7 @@ function conda_update() {
 	conda-shell -c "conda activate general && conda update --all -y"
 	conda-shell -c "conda activate solver && conda update --all -y"
 	conda-shell -c "conda activate space && conda update --all -y"
-        conda-shell -c "conda activate yafs && conda update --all -y"
+    conda-shell -c "conda activate yafs && conda update --all -y"
 }
 
 function update_rebuild() {
@@ -24,7 +24,7 @@ if [[ -d  ~/powerlevel10k/ ]]; then
 fi
 
 if [[ -d  ~/zsh-autocomplete/ ]]; then
-        source ~/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+    source ~/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 fi
 
 alias update="sudo nix-channel --update"
