@@ -13,9 +13,7 @@ function conda_update() {
 
 function update_rebuild() {
 	cd ~/zsh-autocomplete && git pull && cd - && cd ~/powerlevel10k && git pull && cd -
-
-	sudo nix-channel --update
-	sudo nixos-rebuild switch
+	sudo nixos-rebuild switch --upgrade-all
 }
 
 if [[ -d  ~/powerlevel10k/ ]]; then
