@@ -158,6 +158,14 @@
 
   programs.steam.gamescopeSession.enable = true;
 
+  # allows dynamically linked executables to be run on nixos
+  # only possible to use x86_64 executables
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    # avoid using conda-shell and having direct access to conda -> useful for vscodium
+    python312Packages.conda
+  ];
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -193,7 +201,6 @@
     lshw
     glxinfo
     linuxKernel.packages.linux_zen.turbostat
-    python312Packages.conda
     wineWowPackages.waylandFull # wineWowPackages.full
     winetricks
     yabridge
