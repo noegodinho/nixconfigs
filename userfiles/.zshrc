@@ -36,6 +36,10 @@ if [[ -d  ~/zsh-autocomplete/ ]]; then
     source ~/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 fi
 
+if [[ -d  ~/zsh-nix-shell/ ]]; then
+    source ~/zsh-nix-shell/nix-shell.plugin.zsh
+fi
+
 alias update="sudo nix-channel --update"
 alias rebuild="sudo nixos-rebuild switch"
 
