@@ -122,6 +122,7 @@
       rare
       renpy
       texliveFull
+      todo-txt-cli
     ];
   };
 
@@ -185,7 +186,6 @@
     rar
     unrar
     gnutar
-    jre8
     ffmpeg
     bat
     atuin
