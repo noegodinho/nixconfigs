@@ -39,6 +39,38 @@
   services.displayManager.sddm.wayland.enable = true;
   services.desktopManager.plasma6.enable = true;
 
+  # Power management and CPU frequency scaling.
+  powerManagement.enable = true;
+  services.thermald.enable = true;
+  services.tlp = {
+      enable = true;
+      settings = {
+        CPU_SCALING_GOVERNOR_ON_AC = "performance";
+        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+        CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
+        CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
+
+        CPU_MIN_PERF_ON_AC = 0;
+        CPU_MAX_PERF_ON_AC = 100;
+        CPU_MIN_PERF_ON_BAT = 0;
+        CPU_MAX_PERF_ON_BAT = 40;
+
+        CPU_BOOST_ON_AC = 1;
+        CPU_BOOST_ON_BAT = 0;
+
+        CPU_HWP_DYN_BOOST_ON_AC = 1;
+        CPU_HWP_DYN_BOOST_ON_BAT = 0;
+
+        RUNTIME_PM_ON_AC = auto;
+        RUNTIME_PM_ON_BAT = auto;
+
+        #Optional helps save long term battery health
+        START_CHARGE_THRESH_BAT0 = 40; # 40 and below it starts to charge
+        STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
+      };
+};
+
   # Enable networking
   networking.networkmanager.enable = true;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -237,6 +269,7 @@
       renpy
       texliveFull
       todo-txt-cli
+      ardour
     ];
   };
 
@@ -310,6 +343,9 @@
     nvtopPackages.intel
     undervolt
     lm_sensors
+    psensor
+    stress
+    linuxKernel.packages.linux_zen.cpupower
     smartmontools
     fusuma
     lshw
