@@ -65,7 +65,7 @@
         RUNTIME_PM_ON_AC = auto;
         RUNTIME_PM_ON_BAT = auto;
 
-        #Optional helps save long term battery health
+        # Optional helps save long term battery health
         START_CHARGE_THRESH_BAT0 = 40; # 40 and below it starts to charge
         STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
       };
@@ -239,6 +239,16 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  documentation = {
+    enable = true;
+    man = {
+      enable = true;
+      man-db.enable = false;
+      mandoc.enable = true;
+      generateCaches = true;
+    };
+  };
+
   users.users.pleiades = {
     shell = pkgs.zsh;
     isNormalUser = true;
@@ -317,6 +327,9 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    linux-manual
+    man-pages
+    man-pages-posix
     git
     gcc
     gdb
