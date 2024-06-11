@@ -23,7 +23,7 @@ function conda_update_all() {
 }
 
 function update_rebuild() {
-	cd ~/zsh-autocomplete && git pull && cd - && cd ~/powerlevel10k && git pull && cd -
+	cd ~/zsh-autocomplete && git pull && cd - && cd ~/powerlevel10k && git pull && cd - && cd ~/zsh-nix-shell && git pull && cd -
 	sudo nixos-rebuild switch --upgrade-all
 }
 
