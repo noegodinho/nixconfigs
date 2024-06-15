@@ -142,8 +142,8 @@
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
-  # programs.zsh = {
-  #      enable = true;
+  programs.zsh = {
+       enable = true;
   #      autosuggestions.enable = true;
   #      syntaxHighlighting.enable = true;
   #      enableCompletion = false;
@@ -153,13 +153,7 @@
   #               "git" 
   #          ];
   #      };
-  # };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    
-  ];
+  };
 
   services.flatpak.packages = [
     # { appId = "com.brave.Browser"; origin = "flathub"; }
