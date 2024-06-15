@@ -74,23 +74,48 @@
   #   userEmail = "xiaoyin_c@qq.com";
   # };
 
-  programs.zsh = {
-       enable = true;
-       autosuggestion.enable = true;
-       syntaxHighlighting.enable = true;
-       enableCompletion = false;
-       oh-my-zsh = {
-           enable = true;
-           plugins = [
+  programs = {
+      zsh = {
+        enable = true;
+        autosuggestion.enable = true;
+        syntaxHighlighting.enable = true;
+        enableCompletion = false;
+        oh-my-zsh = {
+            enable = true;
+            plugins = [
                 "git" 
-           ];
-       };
-  };
+            ];
+        };
+        shellAliases = {
+           update="sudo nix-channel --update";
+           rebuild="sudo nixos-rebuild switch";
+           update_rebuild="cd ~/zsh-autocomplete && git pull && cd - && cd ~/powerlevel10k && git pull && cd - && cd ~/zsh-nix-shell && git pull && cd - && sudo nixos-rebuild switch --upgrade-all";
+        };
 
-  programs.zellij.enable = true;
-  programs.atuin.enable = true;
-  programs.firefox.enable = true;
-  programs.java.enable = true;
+        initExtra=''
+          eval "$(zellij setup --generate-auto-start zsh)"
+          eval "$(atuin init zsh)"
+          source ~/powerlevel10k/powerlevel10k.zsh-theme
+          source ~/.p10k.zsh
+          source ~/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+          source ~/zsh-nix-shell/nix-shell.plugin.zsh
+        '';
+      };
+
+      atuin = {
+        enable = true;
+        enableZshIntegration = true;
+      };
+
+      zellij = {
+        enable = true;
+        enableZshIntegration = true;
+      };
+
+      firefox.enable = true;
+      java.enable = true;
+      home-manager.enable = true;
+  };
 
   # programs.bash = {
   #   enable = true;
@@ -117,7 +142,4 @@
   # the home Manager release notes for a list of state version
   # changes in each release.
   home.stateVersion = "24.05";
-
-  # Let home Manager install and manage itself.
-  programs.home-manager.enable = true;
 }
