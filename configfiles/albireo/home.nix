@@ -40,8 +40,17 @@
       unzip
       zip
       gzip
+      p7zip
+      xz
       rar
-      unrar
+      file
+      which
+      tree
+      gnused
+      gawk
+      zstd
+      gnupg
+      direnv
       gnutar
       bat
       atuin
@@ -56,6 +65,8 @@
       neovim
       zellij
       kate
+      firefox
+      #java
   ];
 
   # basic configuration of git, please change to your own
@@ -78,10 +89,10 @@
        };
   };
 
-  programs.zellij.enable = true;
-  programs.atuin.enable = true;
+  #programs.zellij.enable = true;
+  #programs.atuin.enable = true;
   programs.firefox.enable = true;
-  programs.java.enable = true;
+  #programs.java.enable = true;
 
   # programs.bash = {
   #   enable = true;
