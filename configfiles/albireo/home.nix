@@ -28,6 +28,7 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
+      oh-my-zsh
       git
       gcc
       gdb
@@ -69,7 +70,7 @@
        autosuggestions.enable = true;
        syntaxHighlighting.enable = true;
        enableCompletion = false;
-       ohMyZsh = {
+       oh-my-zsh = {
            enable = true;
            plugins = [
                 "git" 
@@ -79,6 +80,8 @@
 
   programs.zellij.enable = true;
   programs.atuin.enable = true;
+  programs.firefox.enable = true;
+  programs.java.enable = true;
 
   # programs.bash = {
   #   enable = true;

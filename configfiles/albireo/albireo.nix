@@ -132,9 +132,7 @@
   services.displayManager.autoLogin.user = "albireo";
 
   # Enable CUPS to print documents.
-  services.printing.enable = false;
-
-  
+  services.printing.enable = false;  
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.albireo = {
@@ -146,10 +144,6 @@
       
     ];
   };
-
-  # Install firefox.
-  programs.firefox.enable = true;
-  programs.java.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
