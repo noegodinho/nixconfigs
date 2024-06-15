@@ -74,18 +74,18 @@
   #   userEmail = "xiaoyin_c@qq.com";
   # };
 
-  # programs.zsh = {
-  #      enable = true;
-  #      autosuggestion.enable = true;
-  #      syntaxHighlighting.enable = true;
-  #      enableCompletion = false;
-  #      oh-my-zsh = {
-  #          enable = true;
-  #          plugins = [
-  #               "git" 
-  #          ];
-  #      };
-  # };
+  programs.zsh = {
+       enable = true;
+       autosuggestion.enable = true;
+       syntaxHighlighting.enable = true;
+       enableCompletion = false;
+       oh-my-zsh = {
+           enable = true;
+           plugins = [
+                "git" 
+           ];
+       };
+  };
 
   # programs.zellij.enable = true;
   # programs.atuin.enable = true;
