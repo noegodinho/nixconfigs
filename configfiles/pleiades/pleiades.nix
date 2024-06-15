@@ -344,8 +344,18 @@
     unzip
     zip
     gzip
+    p7zip
+    xz
     rar
-    unrar
+    #unrar
+    file
+    which
+    tree
+    gnused
+    gawk
+    zstd
+    gnupg
+    direnv
     gnutar
     ffmpeg
     bat
