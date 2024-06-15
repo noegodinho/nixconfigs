@@ -28,43 +28,43 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
-      oh-my-zsh
-      git
-      gcc
-      gdb
-      gnumake
-      valgrind
-      wget
-      usbutils
-      fh
-      unzip
-      zip
-      gzip
-      p7zip
-      xz
-      rar
-      file
-      which
-      tree
-      gnused
-      gawk
-      zstd
-      gnupg
-      direnv
-      gnutar
-      bat
-      atuin
-      fzf
-      htop
-      btop
-      undervolt
-      lm_sensors
-      fusuma
-      lshw
-      ffmpeg
-      neovim
-      zellij
-      kate
+      # oh-my-zsh
+      # git
+      # gcc
+      # gdb
+      # gnumake
+      # valgrind
+      # wget
+      # usbutils
+      # fh
+      # unzip
+      # zip
+      # gzip
+      # p7zip
+      # xz
+      # rar
+      # file
+      # which
+      # tree
+      # gnused
+      # gawk
+      # zstd
+      # gnupg
+      # direnv
+      # gnutar
+      # bat
+      # atuin
+      # fzf
+      # htop
+      # btop
+      # undervolt
+      # lm_sensors
+      # fusuma
+      # lshw
+      # ffmpeg
+      # neovim
+      # zellij
+      # kate
   ];
 
   # basic configuration of git, please change to your own
@@ -74,23 +74,23 @@
   #   userEmail = "xiaoyin_c@qq.com";
   # };
 
-  programs.zsh = {
-       enable = true;
-       autosuggestion.enable = true;
-       syntaxHighlighting.enable = true;
-       enableCompletion = false;
-       oh-my-zsh = {
-           enable = true;
-           plugins = [
-                "git" 
-           ];
-       };
-  };
+  # programs.zsh = {
+  #      enable = true;
+  #      autosuggestion.enable = true;
+  #      syntaxHighlighting.enable = true;
+  #      enableCompletion = false;
+  #      oh-my-zsh = {
+  #          enable = true;
+  #          plugins = [
+  #               "git" 
+  #          ];
+  #      };
+  # };
 
-  programs.zellij.enable = true;
-  programs.atuin.enable = true;
-  programs.firefox.enable = true;
-  programs.java.enable = true;
+  # programs.zellij.enable = true;
+  # programs.atuin.enable = true;
+  # programs.firefox.enable = true;
+  # programs.java.enable = true;
 
   # programs.bash = {
   #   enable = true;

@@ -141,11 +141,60 @@
     description = "Albireo";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      
+      git
+      gcc
+      gdb
+      gnumake
+      valgrind
+      wget
+      usbutils
+      fh
+      unzip
+      zip
+      gzip
+      p7zip
+      xz
+      rar
+      file
+      which
+      tree
+      gnused
+      gawk
+      zstd
+      gnupg
+      direnv
+      gnutar
+      bat
+      atuin
+      fzf
+      htop
+      btop
+      undervolt
+      lm_sensors
+      fusuma
+      lshw
+      ffmpeg
+      neovim
+      zellij
+      kate
     ];
   };
 
-  programs.zsh.enable = true;
+  programs.zsh = {
+       enable = true;
+       autosuggestion.enable = true;
+       syntaxHighlighting.enable = true;
+       enableCompletion = false;
+       ohMyZsh = {
+           enable = true;
+           plugins = [
+                "git" 
+           ];
+       };
+  };
+  
+  programs.firefox.enable = true;
+  programs.java.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
