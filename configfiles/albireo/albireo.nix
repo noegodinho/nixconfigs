@@ -141,42 +141,42 @@
     description = "Albireo";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      git
-      gcc
-      gdb
-      gnumake
-      valgrind
-      wget
-      usbutils
-      fh
-      unzip
-      zip
-      gzip
-      p7zip
-      xz
-      rar
-      file
-      which
-      tree
-      gnused
-      gawk
-      zstd
-      gnupg
-      direnv
-      gnutar
-      bat
-      atuin
-      fzf
-      htop
-      btop
-      undervolt
-      lm_sensors
-      fusuma
-      lshw
-      ffmpeg
-      neovim
-      zellij
-      kate
+      # git
+      # gcc
+      # gdb
+      # gnumake
+      # valgrind
+      # wget
+      # usbutils
+      # fh
+      # unzip
+      # zip
+      # gzip
+      # p7zip
+      # xz
+      # rar
+      # file
+      # which
+      # tree
+      # gnused
+      # gawk
+      # zstd
+      # gnupg
+      # direnv
+      # gnutar
+      # bat
+      # atuin
+      # fzf
+      # htop
+      # btop
+      # undervolt
+      # lm_sensors
+      # fusuma
+      # lshw
+      # ffmpeg
+      # neovim
+      # zellij
+      # kate
     ];
   };
 

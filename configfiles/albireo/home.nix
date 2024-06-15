@@ -28,43 +28,43 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
-      # oh-my-zsh
-      # git
-      # gcc
-      # gdb
-      # gnumake
-      # valgrind
-      # wget
-      # usbutils
-      # fh
-      # unzip
-      # zip
-      # gzip
-      # p7zip
-      # xz
-      # rar
-      # file
-      # which
-      # tree
-      # gnused
-      # gawk
-      # zstd
-      # gnupg
-      # direnv
-      # gnutar
-      # bat
-      # atuin
-      # fzf
-      # htop
-      # btop
-      # undervolt
-      # lm_sensors
-      # fusuma
-      # lshw
-      # ffmpeg
-      # neovim
-      # zellij
-      # kate
+      oh-my-zsh
+      git
+      gcc
+      gdb
+      gnumake
+      valgrind
+      wget
+      usbutils
+      fh
+      unzip
+      zip
+      gzip
+      p7zip
+      xz
+      rar
+      file
+      which
+      tree
+      gnused
+      gawk
+      zstd
+      gnupg
+      direnv
+      gnutar
+      bat
+      atuin
+      fzf
+      htop
+      btop
+      undervolt
+      lm_sensors
+      fusuma
+      lshw
+      ffmpeg
+      neovim
+      zellij
+      kate
   ];
 
   # basic configuration of git, please change to your own
