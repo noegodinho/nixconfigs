@@ -134,18 +134,7 @@
   # Enable CUPS to print documents.
   services.printing.enable = false;
 
-  programs.zsh = {
-       enable = true;
-       autosuggestions.enable = true;
-       syntaxHighlighting.enable = true;
-       enableCompletion = false;
-       ohMyZsh = {
-           enable = true;
-           plugins = [
-                "git" 
-           ];
-       };
-  };
+  
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.albireo = {
@@ -154,33 +143,7 @@
     description = "Albireo";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      git
-      gcc
-      gdb
-      gnumake
-      valgrind
-      wget
-      usbutils
-      fh
-      unzip
-      zip
-      gzip
-      rar
-      unrar
-      gnutar
-      bat
-      atuin
-      fzf
-      htop
-      btop
-      undervolt
-      lm_sensors
-      fusuma
-      lshw
-      ffmpeg
-      neovim
-      zellij
-      kate
+      
     ];
   };
 
