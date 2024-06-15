@@ -10,7 +10,7 @@
     };
   };
 
-  outputs = inputs@{nixpkgs, nix-flatpak, home-manager, ...}: {
+  outputs = {nixpkgs, nix-flatpak, home-manager, ...}: {
     nixosConfigurations.milkyway = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
