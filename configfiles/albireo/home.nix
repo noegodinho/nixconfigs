@@ -87,10 +87,10 @@
        };
   };
 
-  # programs.zellij.enable = true;
-  # programs.atuin.enable = true;
-  # programs.firefox.enable = true;
-  # programs.java.enable = true;
+  programs.zellij.enable = true;
+  programs.atuin.enable = true;
+  programs.firefox.enable = true;
+  programs.java.enable = true;
 
   # programs.bash = {
   #   enable = true;

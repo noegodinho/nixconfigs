@@ -140,9 +140,6 @@
     isNormalUser = true;
     description = "Albireo";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      
-    ];
   };
 
   # programs.zsh = {
