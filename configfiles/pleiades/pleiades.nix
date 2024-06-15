@@ -280,6 +280,7 @@
       texliveFull
       todo-txt-cli
       ardour
+      tor-browser
     ];
   };
 
