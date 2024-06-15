@@ -281,6 +281,7 @@
       todo-txt-cli
       ardour
       tor-browser
+      youtube-dl
     ];
   };
 
