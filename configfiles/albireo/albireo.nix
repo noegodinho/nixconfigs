@@ -142,18 +142,7 @@
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
-  programs.zsh = {
-       enable = true;
-  #      autosuggestions.enable = true;
-  #      syntaxHighlighting.enable = true;
-  #      enableCompletion = false;
-  #      ohMyZsh = {
-  #          enable = true;
-  #          plugins = [
-  #               "git" 
-  #          ];
-  #      };
-  };
+  programs.zsh.enable = true;
 
   services.flatpak.packages = [
     # { appId = "com.brave.Browser"; origin = "flathub"; }

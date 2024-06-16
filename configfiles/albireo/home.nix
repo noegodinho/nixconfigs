@@ -7,6 +7,12 @@
   # enable numlock by default
   xsession.numlock.enable = true;
 
+  home.packages = with pkgs; [
+      (nerdfonts.override { fonts = [ "Meslo" ]; })
+  ];
+
+  fonts.fontconfig.enable = true;
+
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
 
@@ -21,12 +27,6 @@
   # home.file.".xxx".text = ''
   #     xxx
   # '';
-
-  # set cursor size and dpi for 4k monitor
-  # xresources.properties = {
-  #   "Xcursor.size" = 16;
-  #   "Xft.dpi" = 172;
-  # };
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
