@@ -144,11 +144,11 @@
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     plasma-browser-integration
-    xterm
     ark
-    kwallet
-    kwrite
+    kwalletmanager
   ];
+
+  services.xserver.excludePackages = [ pkgs.xterm ];
 
   services.flatpak.packages = [
     # { appId = "com.brave.Browser"; origin = "flathub"; }
