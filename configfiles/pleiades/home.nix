@@ -145,10 +145,28 @@
           update="sudo nix-channel --update";
           rebuild="sudo nixos-rebuild switch";
           upgrade_all="sudo nixos-rebuild switch --upgrade-all";
+          conda_update="conda activate general && conda update --all -y && conda activate solver && conda update --all -y && conda activate space && conda update --all -y && conda activate yafs && conda update --all -y";
         };
 
         initExtra=''
           source ~/.p10k.zsh
+
+          # >>> conda initialize >>>
+          # !! Contents within this block are managed by 'conda init' !!
+          __conda_setup="$('/home/pleiades/.conda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+          if [ $? -eq 0 ]; then
+              eval "$__conda_setup"
+          else
+              if [ -f "/home/pleiades/.conda/etc/profile.d/conda.sh" ]; then
+                  . "/home/pleiades/.conda/etc/profile.d/conda.sh"
+              else
+                  export PATH="/home/pleiades/.conda/bin:$PATH"
+              fi
+          fi
+          unset __conda_setup
+          # <<< conda initialize <<<
+
+          conda activate general
         '';
       };
 
