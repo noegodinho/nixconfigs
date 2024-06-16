@@ -146,8 +146,10 @@
     plasma-browser-integration
     ark
     khelpcenter
+    print-manager
   ];
 
+  security.pam.services.kde.enableKwallet = false;
   services.xserver.excludePackages = [ pkgs.xterm ];
 
   services.flatpak.packages = [
