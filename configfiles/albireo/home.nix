@@ -7,10 +7,7 @@
   # enable numlock by default
   xsession.numlock.enable = true;
 
-  home.packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "Meslo" ]; })
-  ];
-
+  # enable config of fonts
   fonts.fontconfig.enable = true;
 
   # link the configuration file in current directory to the specified location in home directory
@@ -66,6 +63,8 @@
       neovim
       zellij
       kate
+      
+      (nerdfonts.override { fonts = [ "Meslo" ]; })
   ];
 
   # basic configuration of git, please change to your own
