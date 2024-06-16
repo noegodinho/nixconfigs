@@ -30,7 +30,6 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
-      oh-my-zsh
       git
       gcc
       gdb
@@ -82,27 +81,37 @@
         autosuggestion.enable = true;
         syntaxHighlighting.enable = true;
         enableCompletion = false;
-        oh-my-zsh = {
-            enable = true;
-            plugins = [
-                "git" 
-            ];
+        # oh-my-zsh = {
+        #     enable = true;
+        #     plugins = [
+        #         "git" 
+        #     ];
+        # };
+
+        zplug = {
+          enable = true;
+          plugins = {
+            { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
+            { name = "marlonrichert/zsh-autocomplete"; tags = [ depth:1 ]; }
+            { name = "chisui/zsh-nix-shell"; }
+          };
         };
 
         shellAliases = {
-           update="sudo nix-channel --update";
-           rebuild="sudo nixos-rebuild switch";
-           upgrade_all="sudo nixos-rebuild switch --upgrade-all";
-           update_rebuild="cd ~/zsh-autocomplete && git pull && cd - && cd ~/powerlevel10k && git pull && cd - && cd ~/zsh-nix-shell && git pull && cd - && sudo nixos-rebuild switch --upgrade-all";
+          update="sudo nix-channel --update";
+          rebuild="sudo nixos-rebuild switch";
+          upgrade_all="sudo nixos-rebuild switch --upgrade-all";
+          # update_rebuild="cd ~/zsh-autocomplete && git pull && cd - && cd ~/powerlevel10k && git pull && cd - && cd ~/zsh-nix-shell && git pull && cd - && sudo nixos-rebuild switch --upgrade-all";
         };
 
         initExtra=''
           eval "$(atuin init zsh)"
-          source ~/powerlevel10k/powerlevel10k.zsh-theme
-          source ~/.p10k.zsh
-          source ~/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-          source ~/zsh-nix-shell/nix-shell.plugin.zsh
         '';
+          # source ~/powerlevel10k/powerlevel10k.zsh-theme
+          # source ~/.p10k.zsh
+          # source ~/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+          # source ~/zsh-nix-shell/nix-shell.plugin.zsh
+        # '';
       };
 
       atuin = {
