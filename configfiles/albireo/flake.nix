@@ -10,11 +10,10 @@
     };
   };
 
-  outputs = {nixpkgs, nix-flatpak, home-manager, ...}: {
+  outputs = {nixpkgs, home-manager, nix-flatpak, ...}: {
     nixosConfigurations.milkyway = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-          nix-flatpak.nixosModules.nix-flatpak
           # make home-manager as a module of nixos
           # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
           home-manager.nixosModules.home-manager
@@ -25,6 +24,7 @@
 
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
           }
+          nix-flatpak.nixosModules.nix-flatpak
           ./configuration.nix
       ];
     };
