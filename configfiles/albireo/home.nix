@@ -90,11 +90,11 @@
 
         zplug = {
           enable = true;
-          plugins = {
+          plugins = [
             { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
             { name = "marlonrichert/zsh-autocomplete"; tags = [ depth:1 ]; }
             { name = "chisui/zsh-nix-shell"; }
-          };
+          ];
         };
 
         shellAliases = {
