@@ -79,8 +79,7 @@
     hunspell
     hunspellDicts.pt_PT
     hunspellDicts.en_GB-ise
-      
-    kate
+
     neovim
     zellij
     keepass
@@ -105,6 +104,7 @@
     ardour
     tor-browser
     youtube-dl
+    qalculate-qt
 
     (nerdfonts.override { fonts = [ "Meslo" ]; })
 
