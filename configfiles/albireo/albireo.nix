@@ -86,10 +86,6 @@
     #media-session.enable = true;
   };
 
-  fonts.packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "Meslo" ]; })
-  ];
-
   nixpkgs.config = {
     # allow proprietary packages
     allowUnfree = true;
@@ -132,7 +128,9 @@
   services.displayManager.autoLogin.user = "albireo";
 
   # Enable CUPS to print documents.
-  services.printing.enable = false;  
+  services.printing.enable = false; 
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ]; 
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.albireo = {
