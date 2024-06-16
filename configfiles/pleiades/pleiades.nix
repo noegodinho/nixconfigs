@@ -118,10 +118,6 @@
     #media-session.enable = true;
   };
 
-  fonts.packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "Meslo" ]; })
-  ];
-
   nixpkgs.config = {
     # allow proprietary packages
     allowUnfree = true;
@@ -213,7 +209,7 @@
   #   };
   # };
 
-  # fprintd-enroll
+  # fingerprint
   services.fprintd = {
     enable = true;
     package = pkgs.fprintd-tod;
@@ -254,60 +250,15 @@
     isNormalUser = true;
     description = "Pleiades";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      kate
-      neovim
-      zellij
-      keepass
-      thunderbird
-      # kmail # decide which one to use
-      ktorrent
-      skypeforlinux
-      zotero
-      slack
-      musescore
-      pympress
-      dropbox
-      # maestral # decide which one to use
-      veracrypt
-      duplicati # http://localhost:8200/
-      gphoto2
-      vlc
-      pcsxr
-      itch
-      rare
-      renpy
-      texliveFull
-      todo-txt-cli
-      ardour
-      tor-browser
-      youtube-dl
-    ];
   };
 
-  programs.zsh = {
-       enable = true;
-       autosuggestions.enable = true;
-       syntaxHighlighting.enable = true;
-       enableCompletion = false;
-       ohMyZsh = {
-           enable = true;
-           plugins = [
-                "git" 
-           ];
-       };
-  };
-
-  programs.firefox.enable = false;
-  programs.hyprland.enable = false; # change later to true if decide to try it
-  programs.java.enable = true;
-  programs.solaar.enable = true;
-  # programs.adb.enable = true; # check if needed in pc after installing
+  programs.zsh.enable = true;
 
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = false; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = false; # Open ports in the firewall for Source Dedicated Server
+    gamescopeSession.enable = true;
   };
 
   # programs.steam.package = pkgs.steam.override {
@@ -315,8 +266,6 @@
   #    withJava = true;    # invalid?
   #    extraPkgs = pkgs: [ bumblebee glxinfo ];
   # };
-
-  programs.steam.gamescopeSession.enable = true;
 
   # allows dynamically linked executables to be run on nixos
   # only possible to use x86_64 executables
@@ -329,63 +278,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    linux-manual
-    man-pages
-    man-pages-posix
-    git
-    gcc
-    gdb
-    gnumake
-    valgrind
-    wget
-    usbutils
-    pciutils
-    gparted
-    fh
-    unzip
-    zip
-    gzip
-    p7zip
-    xz
-    rar
-    #unrar
-    file
-    which
-    tree
-    gnused
-    gawk
-    zstd
-    gnupg
-    direnv
-    gnutar
-    ffmpeg
-    bat
-    atuin
-    fzf
-    htop
-    btop
-    nvtopPackages.nvidia
-    nvtopPackages.intel
-    undervolt
-    lm_sensors
-    psensor
-    stress
-    linuxKernel.packages.linux_zen.cpupower
-    smartmontools
-    fusuma
-    lshw
-    glxinfo
-    linuxKernel.packages.linux_zen.turbostat
-    wineWowPackages.waylandFull # wineWowPackages.full
-    winetricks
-    yabridge
-    protonup-qt
-    
-    libreoffice-qt
-    hunspell
-    hunspellDicts.pt_PT
-    hunspellDicts.en_GB-ise
-
     (vscode-with-extensions.override {
      vscode = vscodium;
       vscodeExtensions = with vscode-extensions; [
