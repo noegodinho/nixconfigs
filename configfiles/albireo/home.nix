@@ -81,21 +81,21 @@
         autosuggestion.enable = true;
         syntaxHighlighting.enable = true;
         enableCompletion = false;
-        oh-my-zsh = {
-            enable = true;
-            plugins = [
-                "git" 
-            ];
-        };
-
-        # zplug = {
-        #   enable = true;
-        #   plugins = [
-        #     { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
-        #     { name = "marlonrichert/zsh-autocomplete"; tags = [ depth:1 ]; }
-        #     { name = "chisui/zsh-nix-shell"; }
-        #   ];
+        # oh-my-zsh = {
+        #     enable = true;
+        #     plugins = [
+        #         "git" 
+        #     ];
         # };
+
+        zplug = {
+          enable = true;
+          plugins = [
+            { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
+            { name = "marlonrichert/zsh-autocomplete"; tags = [ depth:1 ]; }
+            { name = "chisui/zsh-nix-shell"; }
+          ];
+        };
 
         shellAliases = {
           update="sudo nix-channel --update";
@@ -104,18 +104,19 @@
           # update_rebuild="cd ~/zsh-autocomplete && git pull && cd - && cd ~/powerlevel10k && git pull && cd - && cd ~/zsh-nix-shell && git pull && cd - && sudo nixos-rebuild switch --upgrade-all";
         };
 
-        initExtra=''
-          eval "$(atuin init zsh)"
-          source ~/powerlevel10k/powerlevel10k.zsh-theme
-          source ~/.p10k.zsh
-          source ~/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-          source ~/zsh-nix-shell/nix-shell.plugin.zsh
-        '';
+        # initExtra=''
+        #   eval "$(atuin init zsh)"
+        # '';
+          # source ~/powerlevel10k/powerlevel10k.zsh-theme
+          # source ~/.p10k.zsh
+          # source ~/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+          # source ~/zsh-nix-shell/nix-shell.plugin.zsh
+        # '';
       };
 
       atuin = {
         enable = true;
-        # enableZshIntegration = true;
+        enableZshIntegration = true;
         settings = {
           auto_sync = true;
           sync_frequency = "15m";
