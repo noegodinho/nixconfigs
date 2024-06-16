@@ -142,6 +142,14 @@
 
   programs.zsh.enable = true;
 
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    plasma-browser-integration
+    xterm
+    ark
+    kwallet
+    kwrite
+  ];
+
   services.flatpak.packages = [
     # { appId = "com.brave.Browser"; origin = "flathub"; }
   ];
