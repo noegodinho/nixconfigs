@@ -19,10 +19,7 @@
   #     xxx
   # '';
 
-  home.packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "Meslo" ]; })
-  ];
-
+  # enable configuration of fonts
   fonts.fontconfig.enable = true;
 
   # Packages that should be installed to the user profile.
@@ -87,16 +84,14 @@
     neovim
     zellij
     keepass
-    thunderbird
-    # kmail # decide which one to use
+    thunderbird # kmail # decide which one to use
     ktorrent
     skypeforlinux
     zotero
     slack
     musescore
     pympress
-    dropbox
-    # maestral # decide which one to use
+    dropbox # maestral # decide which one to use
     veracrypt
     duplicati # http://localhost:8200/
     gphoto2
@@ -110,15 +105,27 @@
     ardour
     tor-browser
     youtube-dl
+
+    (nerdfonts.override { fonts = [ "Meslo" ]; })
+
+    (lutris.override {
+        extraPkgs = pkgs: [
+          # List package dependencies here
+        ];
+
+        extraLibraries =  pkgs: [
+          # List library dependencies here
+        ];
+     })
   ];
 
-  programs.git = {
-    enable = true;
-    userName = "noegodinho";
-    userEmail = "noe.godinho.92@gmail.com";
-  };
-
   programs = {
+      git = {
+        enable = true;
+        userName = "noegodinho";
+        userEmail = "noe.godinho.92@gmail.com";
+      };
+
       zsh = {
         enable = true;
         autosuggestion.enable = true;

@@ -7,7 +7,7 @@
   # enable numlock by default
   xsession.numlock.enable = true;
 
-  # enable config of fonts
+  # enable configuration of fonts
   fonts.fontconfig.enable = true;
 
   # link the configuration file in current directory to the specified location in home directory
@@ -63,16 +63,9 @@
       neovim
       zellij
       kate
-      
+
       (nerdfonts.override { fonts = [ "Meslo" ]; })
   ];
-
-  # basic configuration of git, please change to your own
-  # programs.git = {
-  #   enable = true;
-  #   userName = "Ryan Yin";
-  #   userEmail = "xiaoyin_c@qq.com";
-  # };
 
   programs = {
       zsh = {
