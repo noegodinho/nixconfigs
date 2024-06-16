@@ -81,21 +81,21 @@
         autosuggestion.enable = true;
         syntaxHighlighting.enable = true;
         enableCompletion = false;
-        # oh-my-zsh = {
-        #     enable = true;
-        #     plugins = [
-        #         "git" 
-        #     ];
-        # };
-
-        zplug = {
-          enable = true;
-          plugins = [
-            { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
-            { name = "marlonrichert/zsh-autocomplete"; tags = [ depth:1 ]; }
-            { name = "chisui/zsh-nix-shell"; }
-          ];
+        oh-my-zsh = {
+            enable = true;
+            plugins = [
+                "git" 
+            ];
         };
+
+        # zplug = {
+        #   enable = true;
+        #   plugins = [
+        #     { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
+        #     { name = "marlonrichert/zsh-autocomplete"; tags = [ depth:1 ]; }
+        #     { name = "chisui/zsh-nix-shell"; }
+        #   ];
+        # };
 
         shellAliases = {
           update="sudo nix-channel --update";
@@ -106,12 +106,11 @@
 
         initExtra=''
           eval "$(atuin init zsh)"
+          source ~/powerlevel10k/powerlevel10k.zsh-theme
+          source ~/.p10k.zsh
+          source ~/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+          source ~/zsh-nix-shell/nix-shell.plugin.zsh
         '';
-          # source ~/powerlevel10k/powerlevel10k.zsh-theme
-          # source ~/.p10k.zsh
-          # source ~/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-          # source ~/zsh-nix-shell/nix-shell.plugin.zsh
-        # '';
       };
 
       atuin = {
