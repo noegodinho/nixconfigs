@@ -62,7 +62,6 @@
       ffmpeg
       neovim
       zellij
-      kate
 
       (nerdfonts.override { fonts = [ "Meslo" ]; })
   ];

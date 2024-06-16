@@ -145,9 +145,8 @@
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     plasma-browser-integration
     ark
+    khelpcenter
   ];
-
-  security.pam.services.login.enableKwallet = false;
 
   services.xserver.excludePackages = [ pkgs.xterm ];
 
