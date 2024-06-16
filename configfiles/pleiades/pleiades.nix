@@ -327,6 +327,15 @@
     })
   ];
 
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    plasma-browser-integration
+    ark
+    khelpcenter
+  ];
+  
+  # security.pam.services.kde.enableKwallet = false;
+  services.xserver.excludePackages = [ pkgs.xterm ];
+
   services.flatpak.enable = true;
   services.flatpak.update.onActivation = true;
 
