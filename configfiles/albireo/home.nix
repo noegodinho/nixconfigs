@@ -1,9 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  # TODO please change the username & home directory to your own
   home.username = "albireo";
   home.homeDirectory = "/home/albireo";
+
+  # enable numlock by default
+  xsession.numlock.enable = true;
 
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
@@ -86,13 +88,16 @@
                 "git" 
             ];
         };
+
         shellAliases = {
            update="sudo nix-channel --update";
            rebuild="sudo nixos-rebuild switch";
+           upgrade_all="sudo nixos-rebuild switch --upgrade-all";
            update_rebuild="cd ~/zsh-autocomplete && git pull && cd - && cd ~/powerlevel10k && git pull && cd - && cd ~/zsh-nix-shell && git pull && cd - && sudo nixos-rebuild switch --upgrade-all";
         };
 
         initExtra=''
+          eval "$(atuin init zsh)"
           source ~/powerlevel10k/powerlevel10k.zsh-theme
           source ~/.p10k.zsh
           source ~/zsh-autocomplete/zsh-autocomplete.plugin.zsh
@@ -102,8 +107,7 @@
 
       atuin = {
         enable = true;
-        enableBashIntegration = true;
-        enableZshIntegration = true;
+        # enableZshIntegration = true;
       };
 
       zellij = {
