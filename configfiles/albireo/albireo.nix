@@ -149,7 +149,7 @@
     print-manager
   ];
 
-  security.pam.services.kde.enableKwallet = false;
+  security.pam.services.sddm.enableKwallet = false;
   services.xserver.excludePackages = [ pkgs.xterm ];
 
   services.flatpak.packages = [
