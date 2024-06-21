@@ -105,6 +105,7 @@
     tor-browser
     youtube-dl
     qalculate-qt
+    kdePackages.kamoso
 
     (nerdfonts.override { fonts = [ "Meslo" ]; })
 
