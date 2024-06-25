@@ -66,6 +66,7 @@
     stress
     linuxKernel.packages.linux_zen.cpupower
     smartmontools
+    testdisk-qt
     fusuma
     lshw
     glxinfo
