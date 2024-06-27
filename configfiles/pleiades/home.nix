@@ -31,6 +31,7 @@
     gcc
     gdb
     gnumake
+    cmake
     valgrind
     wget
     usbutils
