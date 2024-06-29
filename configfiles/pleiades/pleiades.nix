@@ -3,6 +3,8 @@
 {
   networking.hostName = "milkyway"; # Define your hostname.
 
+  boot.supportedFilesystems = [ "ntfs" ];
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
   services.libinput.touchpad.naturalScrolling = true;
