@@ -90,6 +90,7 @@
     skypeforlinux
     zotero
     slack
+    discord # discordo # may try later
     musescore
     pympress
     dropbox # maestral # decide which one to use
