@@ -235,14 +235,6 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  services.openvpn.servers.deivpn = {
-    config = '' config /home/pleiades/vpn/deivpn.ovpn '';
-    autoStart = false;
-    authUserPass.password = "*****"; # to change
-    authUserPass.username = "*****"; # to change
-    updateResolvConf = true;
-  };
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   documentation = {
