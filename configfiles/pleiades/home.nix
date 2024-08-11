@@ -187,7 +187,7 @@
       firefox.enable = false;
       hyprland.enable = false; # change later to true if decide to try it
       java.enable = true;
-      solaar.enable = true;
+      # solaar.enable = true;
       # adb.enable = true; # check if needed in pc after installing
       home-manager.enable = true;
   };
