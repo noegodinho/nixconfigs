@@ -85,7 +85,7 @@
     neovim
     zellij
     keepass
-    thunderbird # kmail # decide which one to use
+    thunderbird-128
     ktorrent
     skypeforlinux
     zotero
@@ -105,7 +105,6 @@
     texliveFull
     todo-txt-cli
     ardour
-    tor-browser
     youtube-dl
     qalculate-qt
     kdePackages.kamoso
