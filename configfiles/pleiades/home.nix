@@ -91,7 +91,6 @@
     zotero
     slack
     discord # discordo # may try later
-    musescore
     pympress
     dropbox # maestral # decide which one to use
     veracrypt
@@ -105,6 +104,8 @@
     texliveFull
     todo-txt-cli
     ardour
+    lmms
+    musescore
     youtube-dl
     qalculate-qt
     kdePackages.kamoso
