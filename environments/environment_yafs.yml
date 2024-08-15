@@ -4,11 +4,11 @@ channels:
   - defaults
 dependencies:
   - _libgcc_mutex=0.1=conda_forge
-  - _openmp_mutex=4.5=2_gnu
+  - _openmp_mutex=4.5=2_kmp_llvm
   - alsa-lib=1.2.12=h4ab18f5_0
   - ampl-mp=3.1.0=h2cc385e_1006
   - attr=2.5.1=h166bdaf_1
-  - blas=1.0=openblas
+  - blas=1.0=mkl
   - bottleneck=1.3.7=py312ha883a20_0
   - brotli=1.1.0=hd590300_1
   - brotli-bin=1.1.0=hd590300_1
@@ -52,14 +52,14 @@ dependencies:
   - lerc=4.0.0=h27087fc_0
   - libasprintf=0.22.5=h661eb56_2
   - libasprintf-devel=0.22.5=h661eb56_2
-  - libblas=3.9.0=22_linux64_openblas
+  - libblas=3.9.0=20_linux64_mkl
   - libbrotlicommon=1.1.0=hd590300_1
   - libbrotlidec=1.1.0=hd590300_1
   - libbrotlienc=1.1.0=hd590300_1
   - libcap=2.69=h0f662aa_0
-  - libcblas=3.9.0=22_linux64_openblas
+  - libcblas=3.9.0=20_linux64_mkl
   - libclang-cpp15=15.0.7=default_h127d8a8_5
-  - libclang13=18.1.8=default_h6ae225f_0
+  - libclang13=18.1.8=default_h9def88c_2
   - libcups=2.3.3=h4637d8d_4
   - libdeflate=1.20=hd590300_0
   - libedit=3.1.20230828=h5eee18b_0
@@ -76,21 +76,21 @@ dependencies:
   - libglib=2.80.3=h8a4344b_1
   - libgomp=14.1.0=h77fa898_0
   - libgpg-error=1.49=h4f305b6_0
-  - libhwloc=2.11.0=default_h5622ce7_1000
+  - libhwloc=2.11.1=default_hecaa2ac_1000
   - libiconv=1.17=hd590300_2
   - libjpeg-turbo=3.0.3=h5eee18b_0
-  - liblapack=3.9.0=22_linux64_openblas
+  - liblapack=3.9.0=20_linux64_mkl
   - libllvm15=15.0.7=hb3ce162_4
-  - libllvm18=18.1.8=hc9dba70_0
+  - libllvm18=18.1.8=h8b73ec9_2
   - libnsl=2.0.1=hd590300_0
   - libogg=1.3.5=h27cfd23_1
   - libopenblas=0.3.27=pthreads_h413a1c8_0
   - libopus=1.3.1=h7b6447c_0
   - libpng=1.6.43=h2797004_0
   - libpq=16.3=ha72fbe1_0
-  - libscotch=7.0.4=h3055ed5_5
+  - libscotch=7.0.4=h2fe6a88_5
   - libsndfile=1.2.2=hc60ed4a_1
-  - libspral=2024.05.08=hdf4021c_2
+  - libspral=2024.05.08=h831f25b_3
   - libsqlite=3.46.0=hde9e2c9_0
   - libstdcxx-ng=13.2.0=hc0a3c3a_7
   - libsystemd0=255=h3516f8a_1
@@ -101,12 +101,17 @@ dependencies:
   - libxcb=1.15=h7f8727e_0
   - libxcrypt=4.4.36=hd590300_1
   - libxkbcommon=1.7.0=h662e7e4_0
-  - libxml2=2.12.7=hc051c1a_1
+  - libxml2=2.12.7=h4c95cb1_3
   - libzlib=1.3.1=h4ab18f5_1
+  - llvm-openmp=18.1.8=hf5423f3_1
   - lz4-c=1.9.4=h6a678d5_1
   - matplotlib=3.8.4=py312h06a4308_0
   - matplotlib-base=3.8.4=py312h526ad5a_0
   - metis=5.1.0=hf484d3e_4
+  - mkl=2023.2.0=h84fe81f_50496
+  - mkl-service=2.4.0=py312h5eee18b_1
+  - mkl_fft=1.3.8=py312h5eee18b_0
+  - mkl_random=1.2.4=py312hdb19cb5_0
   - mpc=1.3.1=hfe3b2da_0
   - mpfr=4.2.1=h9458935_1
   - mpg123=1.32.6=h59595ed_0
@@ -114,22 +119,22 @@ dependencies:
   - mumps-include=5.7.2=ha770c72_0
   - mumps-seq=5.7.2=h6e8dedb_0
   - munkres=1.1.4=py_0
-  - mysql-common=8.3.0=hf1915f5_4
-  - mysql-libs=8.3.0=hca2cd23_4
+  - mysql-common=8.3.0=h70512c7_5
+  - mysql-libs=8.3.0=ha479ceb_5
   - ncurses=6.5=h59595ed_0
   - nspr=4.35=h6a678d5_0
   - nss=3.100=hca3bf56_0
-  - numexpr=2.8.7=py312he7dcb8a_0
-  - numpy=1.26.4=py312h2809609_0
-  - numpy-base=1.26.4=py312he1a6c75_0
-  - openjpeg=2.5.2=h488ebb8_0
-  - openssl=3.3.0=h4ab18f5_2
+  - numexpr=2.8.7=py312hf827012_0
+  - numpy=1.26.4=py312hc5e2394_0
+  - numpy-base=1.26.4=py312h0da6c21_0
+  - openjpeg=2.5.2=he7f1fd0_0
+  - openssl=3.3.1=h4ab18f5_1
   - packaging=24.1=py312h06a4308_0
   - pandas=2.2.2=py312h526ad5a_0
   - patsy=0.5.6=py312h06a4308_0
-  - pcre2=10.44=h0f59acf_0
+  - pcre2=10.44=hba22ea6_2
   - pillow=10.3.0=py312hdcec9eb_0
-  - pip=24.0=py312h06a4308_0
+  - pip=24.2=py312h06a4308_0
   - pixman=0.43.2=h59595ed_0
   - ply=3.11=py312h06a4308_1
   - pthread-stubs=0.4=h36c2ea0_1001
@@ -139,7 +144,7 @@ dependencies:
   - pyqt=5.15.10=py312h6a678d5_0
   - pyqt5-sip=12.13.0=py312h5eee18b_0
   - pyscipopt=5.1.1=py312h7070661_0
-  - python=3.12.3=hab00c5b_0_cpython
+  - python=3.12.4=h194c7f8_0_cpython
   - python-dateutil=2.9.0post0=py312h06a4308_2
   - python-tzdata=2024.1=pyhd8ed1ab_0
   - python_abi=3.12=4_cp312
@@ -147,16 +152,16 @@ dependencies:
   - qt-main=5.15.8=hc9dc06e_21
   - readline=8.2=h5eee18b_0
   - scip=9.1.0=h4327a77_0
-  - scipy=1.13.1=py312h2809609_0
-  - scotch=7.0.4=h23d43cc_5
+  - scipy=1.13.1=py312hc5e2394_0
+  - scotch=7.0.4=hd53efc5_5
   - seaborn=0.13.2=py312h06a4308_0
   - seaborn-base=0.13.2=pyhd8ed1ab_0
-  - setuptools=70.0.0=pyhd8ed1ab_0
+  - setuptools=72.1.0=py312h06a4308_0
   - sip=6.7.12=py312h6a678d5_0
   - six=1.16.0=pyhd3eb1b0_1
   - statsmodels=0.14.2=py312ha883a20_0
   - sympy=1.12=py312h06a4308_0
-  - tbb=2021.12.0=h434a139_2
+  - tbb=2021.12.0=h434a139_3
   - tk=8.6.13=noxft_h4845f30_101
   - toml=0.10.2=pyhd3eb1b0_0
   - tomli=2.0.1=py312h06a4308_1
@@ -186,7 +191,7 @@ dependencies:
   - xz=5.4.6=h5eee18b_1
   - zlib=1.3.1=h4ab18f5_1
   - zstd=1.5.6=ha6fb4c9_0
-#  - pip:
-#      - networkx==3.3
-#      - simpy==4.1.1
-#      - yafs==0.3.0
+  #- pip:
+  #    - networkx==3.3
+  #    - simpy==4.1.1
+  #    - yafs==0.3.0
