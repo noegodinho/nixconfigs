@@ -149,7 +149,7 @@
           update="sudo nix-channel --update";
           rebuild="sudo nixos-rebuild switch";
           upgrade_all="sudo nixos-rebuild switch --upgrade-all";
-          conda_update="conda activate general && conda update --all -y && conda activate solver && conda update --all -y && conda activate space && conda update --all -y && conda activate tudat-space && conda update --all -y && conda activate yafs && conda update --all -y";
+          conda_update="conda activate general && conda update --all python=3.12.5 -y && conda activate solver && conda update --all -y && conda activate space && conda update --all -y && conda activate tudat-space && conda update --all -y && conda activate yafs && conda update --all -y";
         };
 
         initExtra=''
