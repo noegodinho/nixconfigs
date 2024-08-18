@@ -112,7 +112,7 @@
         # enableUpdateCheck = false;
         # enableExtensionUpdateCheck = false;
 
-        extensions = with pkgs.vscode-extensions; [
+        extensions = (with pkgs.vscode-extensions; [
           bbenoist.nix
           james-yu.latex-workshop
           mechatroner.rainbow-csv
@@ -126,7 +126,7 @@
           valentjn.vscode-ltex
           #visualstudioexptteam.vscodeintellicode
           yzhang.markdown-all-in-one
-         ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+         ]) ++ (pkgs.vscode-utils.extensionsFromVscodeMarketplace [
             {
                  name = "better-cpp-syntax";
                  publisher = "jeff-hykin";
@@ -151,7 +151,7 @@
                  version = "0.4.14";
                  sha256 = "GsbHzFcN56UbcaqFN9s+6u/KjUBn8tmks2ihK0pg3Ds=";
             }       
-         ];
+         ]);
          
          userSettings = {
             "files.autoSave" = "afterDelay";
