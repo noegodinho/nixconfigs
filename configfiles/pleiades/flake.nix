@@ -20,13 +20,19 @@
     };
   };
 
-  outputs = {nixpkgs, nixpkgs-unstable, home-manager, solaar, nix-flatpak, ...}: {
-    nixosConfigurations.milkyway = nixpkgs.lib.nixosSystem {
+  outputs = {self, nixpkgs, nixpkgs-unstable, home-manager, solaar, nix-flatpak, ...} @ inputs: let
+    system = "x86_64-linux";
+    unstable = import nixpkgs-unstable {
       system = "x86_64-linux";
-      unstable = import nixpkgs-unstable {
-        system = "x86_64-linux";
-        config = {allowUnfree = true;};
-      };
+      config = {allowUnfree = true;};
+    };
+    
+    user = "pleiades";
+    inherit (self) outputs;
+    
+    in {
+      nixosConfigurations.milkyway = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs user outputs;};
       modules = [
           # make home-manager as a module of nixos
           # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
@@ -35,7 +41,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit unstable user system inputs outputs;};
-            home-manager.users.pleiades = import ./home.nix;
+            home-manager.users.${user} = import ./home.nix;
 
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
           }
