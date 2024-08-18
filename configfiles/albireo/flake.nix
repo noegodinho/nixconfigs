@@ -13,13 +13,19 @@
     };
   };
 
-  outputs = {nixpkgs, nixpkgs-unstable, home-manager, nix-flatpak, ...}: {
-    nixosConfigurations.milkyway = nixpkgs.lib.nixosSystem {
+  outputs = {nixpkgs, nixpkgs-unstable, home-manager, nix-flatpak, ...} @ inputs: let
+    system = "x86_64-linux";
+    unstable = import nixpkgs-unstable {
       system = "x86_64-linux";
-      unstable = import nixpkgs-unstable {
-        system = "x86_64-linux";
-        config = {allowUnfree = true;};
-      };
+      config = {allowUnfree = true;};
+    };
+    
+    user = "albireo";
+    inherit (self) outputs;
+    
+    in {
+      nixosConfigurations.milkyway = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs user outputs;};
       modules = [
           # make home-manager as a module of nixos
           # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
