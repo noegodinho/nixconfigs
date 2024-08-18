@@ -112,13 +112,13 @@
         enableUpdateCheck = false;
         enableExtensionUpdateCheck = false;
 
-        extensions = with extensions.open-vsx;
+        extensions = with pkgs.open-vsx;
           [
             # bbenoist.nix
             # james-yu.latex-workshop
             # mechatroner.rainbow
           ]
-        ++ (with extensions.vscode-marketplace; [
+        ++ (with pkgs.vscode-marketplace; [
           bbenoist.nix
           james-yu.latex-workshop
           mechatroner.rainbow-csv
