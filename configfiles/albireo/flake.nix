@@ -13,7 +13,7 @@
     };
   };
 
-  outputs = {nixpkgs, nixpkgs-unstable, home-manager, nix-flatpak, ...} @ inputs: let
+  outputs = {self, nixpkgs, nixpkgs-unstable, home-manager, nix-flatpak, ...} @ inputs: let
     system = "x86_64-linux";
     unstable = import nixpkgs-unstable {
       system = "x86_64-linux";
