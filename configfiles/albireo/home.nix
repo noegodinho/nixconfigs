@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, unstable, ... }:
 
 {
   home.username = "albireo";
@@ -63,6 +63,7 @@
       ffmpeg
       neovim
       zellij
+      unstable.zotero
 
       (nerdfonts.override { fonts = [ "Meslo" ]; })
   ];
