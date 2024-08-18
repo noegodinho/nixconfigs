@@ -108,28 +108,28 @@
         enable = true;
         package = unstable.vscodium;
 
-        mutableExtensionsDir = false;
-        enableUpdateCheck = false;
-        enableExtensionUpdateCheck = false;
+        # mutableExtensionsDir = false;
+        # enableUpdateCheck = false;
+        # enableExtensionUpdateCheck = false;
 
-        extensions = with pkgs.vscode-extensions; [
-          bbenoist.nix
-          james-yu.latex-workshop
-          mechatroner.rainbow-csv
-          ms-python.isort
-          ms-python.python
-          ms-python.vscode-pylance
-          ms-toolsai.jupyter
-          ms-toolsai.jupyter-keymap
-          ms-toolsai.jupyter-renderers
-          ms-toolsai.vscode-jupyter-cell-tags
-          ms-toolsai.vscode-jupyter-slideshow
-          ms-vscode.cmake-tools
-          ms-vscode.cpptools
-          ms-vscode.makefile-tools
-          twxs.cmake
-          #visualstudioexptteam.vscodeintellicode
-          yzhang.markdown-all-in-one
+        #extensions = with pkgs.vscode-extensions; [
+        #  bbenoist.nix
+        #  james-yu.latex-workshop
+        #  mechatroner.rainbow-csv
+        #  ms-python.isort
+        #  ms-python.python
+        #  ms-python.vscode-pylance
+        #  ms-toolsai.jupyter
+        #  ms-toolsai.jupyter-keymap
+        #  ms-toolsai.jupyter-renderers
+        #  ms-toolsai.vscode-jupyter-cell-tags
+        #  ms-toolsai.vscode-jupyter-slideshow
+        #  ms-vscode.cmake-tools
+        #  ms-vscode.cpptools
+        #  ms-vscode.makefile-tools
+        #  twxs.cmake
+        #  #visualstudioexptteam.vscodeintellicode
+        #  yzhang.markdown-all-in-one
         # ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         #    {
         #         name = "better-cpp-syntax";
@@ -155,7 +155,7 @@
         #         version = "0.4.14";
         #         sha256 = "GsbHzFcN56UbcaqFN9s+6u/KjUBn8tmks2ihK0pg3Ds=";
         #    }       
-        ];
+        # ];
 
         # userSettings = {
         # };
@@ -166,15 +166,15 @@
       home-manager.enable = true;
   };
 
-  # services = {
-  #   home-manager.autoUpgrade = {
-  #     enable = true;
-  #     frequency = "daily";
-  #   };
-  # };
+  services = {
+    home-manager.autoUpgrade = {
+      enable = true;
+      frequency = "daily";
+    };
+  };
 
   #Nicely reload system units when changing configs
-  # systemd.user.startServices = "sd-switch";
+  systemd.user.startServices = "sd-switch";
 
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage
