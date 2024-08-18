@@ -156,6 +156,7 @@
          userSettings = {
             "files.autoSave" = "afterDelay";
             "terminal.integrated.fontFamily" = "MesloLGS NF";
+            "editor.wordWrap" = "on";
          };
       };
       
