@@ -154,6 +154,8 @@
          ];
          
          userSettings = {
+            "files.autoSave" = "afterDelay";
+            "terminal.integrated.fontFamily" = "MesloLGS NF";
          };
       };
       
