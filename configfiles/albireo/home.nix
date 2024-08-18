@@ -112,13 +112,7 @@
         enableUpdateCheck = false;
         enableExtensionUpdateCheck = false;
 
-        extensions = with pkgs.open-vsx;
-          [
-            # bbenoist.nix
-            # james-yu.latex-workshop
-            # mechatroner.rainbow
-          ]
-        ++ (with pkgs.vscode-marketplace; [
+        extensions = with pkgs.vscode-extensions; [
           bbenoist.nix
           james-yu.latex-workshop
           mechatroner.rainbow-csv
@@ -136,7 +130,7 @@
           twxs.cmake
           #visualstudioexptteam.vscodeintellicode
           yzhang.markdown-all-in-one
-        ]) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
            {
                 name = "better-cpp-syntax";
                 publisher = "jeff-hykin";
