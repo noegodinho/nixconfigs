@@ -1,4 +1,4 @@
-{ config, pkgs, unstable, ... }:
+{ lib, config, pkgs, unstable, user, system, ... }:
 
 {
   home.username = "albireo";
