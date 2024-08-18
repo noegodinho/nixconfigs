@@ -106,7 +106,7 @@
 
       vscode = {
         enable = true;
-        package = pkgs.vscodium;
+        package = unstable.vscodium;
 
         mutableExtensionsDir = false;
         enableUpdateCheck = false;
@@ -130,41 +130,51 @@
           twxs.cmake
           #visualstudioexptteam.vscodeintellicode
           yzhang.markdown-all-in-one
-        ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-           {
-                name = "better-cpp-syntax";
-                publisher = "jeff-hykin";
-                version = "1.17.2";
-                sha256 = "p3SKu9FbtuP6in2dSsr5a0aB5W+YNQ0kMgMJoDYrhcU=";
-           }
-           {
-                name = "languague-renpy";
-                publisher = "luquedaniel";
-                version = "2.3.6";
-                sha256 = "ubMtLCIs3C8UBrXr1vr3Kqm2K3B8wNlm/THftVyIDug=";
-           }
-           {
-                name = "doxdocgen";
-                publisher = "cschlosser";
-                version = "1.4.0";
-                sha256 = "InEfF1X7AgtsV47h8WWq5DZh6k/wxYhl2r/pLZz9JbU=";
-           } 
-           {
-                name = "latex-utilities";
-                publisher = "tecosaur";
-                version = "0.4.14";
-                sha256 = "GsbHzFcN56UbcaqFN9s+6u/KjUBn8tmks2ihK0pg3Ds=";
-           }       
+        # ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        #    {
+        #         name = "better-cpp-syntax";
+        #         publisher = "jeff-hykin";
+        #         version = "1.17.2";
+        #         sha256 = "p3SKu9FbtuP6in2dSsr5a0aB5W+YNQ0kMgMJoDYrhcU=";
+        #    }
+        #    {
+        #         name = "languague-renpy";
+        #         publisher = "luquedaniel";
+        #         version = "2.3.6";
+        #         sha256 = "ubMtLCIs3C8UBrXr1vr3Kqm2K3B8wNlm/THftVyIDug=";
+        #    }
+        #    {
+        #         name = "doxdocgen";
+        #         publisher = "cschlosser";
+        #         version = "1.4.0";
+        #         sha256 = "InEfF1X7AgtsV47h8WWq5DZh6k/wxYhl2r/pLZz9JbU=";
+        #    } 
+        #    {
+        #         name = "latex-utilities";
+        #         publisher = "tecosaur";
+        #         version = "0.4.14";
+        #         sha256 = "GsbHzFcN56UbcaqFN9s+6u/KjUBn8tmks2ihK0pg3Ds=";
+        #    }       
         ];
 
-        userSettings = {
-        };
+        # userSettings = {
+        # };
       };
 
       firefox.enable = true;
       java.enable = true;
       home-manager.enable = true;
   };
+
+  services = {
+    home-manager.autoUpgrade = {
+      enable = true;
+      frequency = "daily";
+    };
+  };
+
+  #Nicely reload system units when changing configs
+  systemd.user.startServices = "sd-switch";
 
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage
