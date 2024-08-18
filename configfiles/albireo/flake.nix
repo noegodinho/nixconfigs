@@ -34,7 +34,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit unstable user system inputs outputs;};
-            home-manager.users.albireo = import ./home.nix;
+            home-manager.users.${user} = import ./home.nix;
 
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
           }
