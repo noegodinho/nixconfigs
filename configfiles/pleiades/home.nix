@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, unstable, ... }:
 
 {
   home.username = "pleiades";
@@ -88,7 +88,7 @@
     thunderbird-128
     ktorrent
     skypeforlinux
-    zotero
+    unstable.zotero
     slack
     discord # discordo # may try later
     pympress
