@@ -10,6 +10,10 @@
   # enable configuration of fonts
   fonts.fontconfig.enable = true;
 
+  fonts.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "Meslo" ]; })
+  ];
+
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
 
@@ -63,8 +67,6 @@
       ffmpeg
       neovim
       zellij
-
-      (nerdfonts.override { fonts = [ "Meslo" ]; })
   ];
 
   programs = {
@@ -112,9 +114,10 @@
         # enableUpdateCheck = false;
         # enableExtensionUpdateCheck = false;
 
-        extensions = (with pkgs.vscode-extensions; [
+        extensions = with pkgs.vscode-extensions; [
           bbenoist.nix
           james-yu.latex-workshop
+          jnoortheen.nix-ide
           mechatroner.rainbow-csv
           ms-python.isort
           ms-python.python
@@ -126,7 +129,7 @@
           valentjn.vscode-ltex
           #visualstudioexptteam.vscodeintellicode
           yzhang.markdown-all-in-one
-         ]) ++ (pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+         ] ++ (pkgs.vscode-utils.extensionsFromVscodeMarketplace [
             {
                  name = "better-cpp-syntax";
                  publisher = "jeff-hykin";
@@ -153,11 +156,11 @@
             }       
          ]);
          
-         userSettings = {
-            "files.autoSave" = "afterDelay";
-            "terminal.integrated.fontFamily" = "MesloLGS NF";
-            "editor.wordWrap" = "on";
-         };
+        userSettings = {
+          "files.autoSave" = "afterDelay";
+          "terminal.integrated.fontFamily" = "MesloLGS NF";
+          "editor.wordWrap" = "on";
+        };
       };
       
       firefox.enable = true;
