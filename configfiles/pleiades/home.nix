@@ -22,10 +22,6 @@
   # enable configuration of fonts
   fonts.fontconfig.enable = true;
 
-  fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "Meslo" ]; })
-  ];
-
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     linux-manual
@@ -113,6 +109,8 @@
     youtube-dl
     qalculate-qt
     kdePackages.kamoso
+
+    (nerdfonts.override { fonts = [ "Meslo" ]; })
 
     (lutris.override {
         extraPkgs = pkgs: [
@@ -243,7 +241,7 @@
          
          userSettings = {
             "files.autoSave" = "afterDelay";
-            "terminal.integrated.fontFamily" = "MesloLGS NF";
+            "terminal.integrated.fontFamily" = "MesloLGS Nerd Font";
             "editor.wordWrap" = "on";
          };
       };
