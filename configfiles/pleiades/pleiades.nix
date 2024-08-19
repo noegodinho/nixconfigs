@@ -56,7 +56,7 @@
         CPU_MIN_PERF_ON_AC = 0;
         CPU_MAX_PERF_ON_AC = 100;
         CPU_MIN_PERF_ON_BAT = 0;
-        CPU_MAX_PERF_ON_BAT = 40;
+        CPU_MAX_PERF_ON_BAT = 50;
 
         CPU_BOOST_ON_AC = 1;
         CPU_BOOST_ON_BAT = 0;
@@ -69,7 +69,7 @@
 
         # Optional helps save long term battery health
         START_CHARGE_THRESH_BAT0 = 40; # 40 and below it starts to charge
-        STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
+        STOP_CHARGE_THRESH_BAT0 = 70; # 70 and above it stops charging
       };
 };
 
@@ -280,53 +280,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    (vscode-with-extensions.override {
-     vscode = vscodium;
-      vscodeExtensions = with vscode-extensions; [
-        bbenoist.nix
-        james-yu.latex-workshop
-        mechatroner.rainbow-csv
-        ms-python.isort
-        ms-python.python
-        ms-python.vscode-pylance
-        ms-toolsai.jupyter
-        ms-toolsai.jupyter-keymap
-        ms-toolsai.jupyter-renderers
-        ms-toolsai.vscode-jupyter-cell-tags
-        ms-toolsai.vscode-jupyter-slideshow
-        ms-vscode.cmake-tools
-        ms-vscode.cpptools
-        ms-vscode.makefile-tools
-        twxs.cmake
-        #visualstudioexptteam.vscodeintellicode
-        yzhang.markdown-all-in-one
-      ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-           {
-                name = "better-cpp-syntax";
-                publisher = "jeff-hykin";
-                version = "1.17.2";
-                sha256 = "p3SKu9FbtuP6in2dSsr5a0aB5W+YNQ0kMgMJoDYrhcU=";
-           }
-           {
-                name = "languague-renpy";
-                publisher = "luquedaniel";
-                version = "2.3.6";
-                sha256 = "ubMtLCIs3C8UBrXr1vr3Kqm2K3B8wNlm/THftVyIDug=";
-           }
-           {
-                name = "doxdocgen";
-                publisher = "cschlosser";
-                version = "1.4.0";
-                sha256 = "InEfF1X7AgtsV47h8WWq5DZh6k/wxYhl2r/pLZz9JbU=";
-           } 
-           {
-                name = "latex-utilities";
-                publisher = "tecosaur";
-                version = "0.4.14";
-                sha256 = "GsbHzFcN56UbcaqFN9s+6u/KjUBn8tmks2ihK0pg3Ds=";
-           }       
-      ];
-    })
+    
   ];
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [

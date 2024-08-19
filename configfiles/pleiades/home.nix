@@ -22,6 +22,10 @@
   # enable configuration of fonts
   fonts.fontconfig.enable = true;
 
+  fonts.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "Meslo" ]; })
+  ];
+
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     linux-manual
@@ -77,7 +81,7 @@
     yabridge
     protonup-qt
     
-    libreoffice-qt
+    libreoffice-qt6-fresh
     hunspell
     hunspellDicts.pt_PT
     hunspellDicts.en_GB-ise
@@ -85,7 +89,7 @@
     neovim
     zellij
     keepass
-    thunderbird-128
+    unstable.thunderbird
     ktorrent
     skypeforlinux
     unstable.zotero
@@ -98,7 +102,7 @@
     gphoto2
     vlc
     pcsxr
-    itch
+    unstable.itch
     rare
     renpy
     texliveFull
@@ -109,8 +113,6 @@
     youtube-dl
     qalculate-qt
     kdePackages.kamoso
-
-    (nerdfonts.override { fonts = [ "Meslo" ]; })
 
     (lutris.override {
         extraPkgs = pkgs: [
@@ -184,6 +186,68 @@
         enableZshIntegration = true;
       };
 
+      vscode = {
+        enable = true;
+        package = unstable.vscodium;
+
+        # mutableExtensionsDir = false;
+        # enableUpdateCheck = false;
+        # enableExtensionUpdateCheck = false;
+
+        extensions = with pkgs.vscode-extensions; [
+          bbenoist.nix
+          james-yu.latex-workshop
+          jnoortheen.nix-ide
+          mechatroner.rainbow-csv
+          ms-python.isort
+          ms-python.python
+          ms-python.vscode-pylance
+          # ms-toolsai.jupyter
+          # ms-toolsai.jupyter-keymap
+          # ms-toolsai.jupyter-renderers
+          # ms-toolsai.vscode-jupyter-cell-tags
+          # ms-toolsai.vscode-jupyter-slideshow
+          ms-vscode.cmake-tools
+          ms-vscode.cpptools
+          ms-vscode.makefile-tools
+          twxs.cmake
+          valentjn.vscode-ltex
+          # visualstudioexptteam.vscodeintellicode
+          yzhang.markdown-all-in-one
+         ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+            {
+                 name = "better-cpp-syntax";
+                 publisher = "jeff-hykin";
+                 version = "1.17.2";
+                 sha256 = "p3SKu9FbtuP6in2dSsr5a0aB5W+YNQ0kMgMJoDYrhcU=";
+            }
+            {
+                 name = "languague-renpy";
+                 publisher = "luquedaniel";
+                 version = "2.3.6";
+                 sha256 = "ubMtLCIs3C8UBrXr1vr3Kqm2K3B8wNlm/THftVyIDug=";
+            }
+            {
+                 name = "doxdocgen";
+                 publisher = "cschlosser";
+                 version = "1.4.0";
+                 sha256 = "InEfF1X7AgtsV47h8WWq5DZh6k/wxYhl2r/pLZz9JbU=";
+            } 
+            {
+                 name = "latex-utilities";
+                 publisher = "tecosaur";
+                 version = "0.4.14";
+                 sha256 = "GsbHzFcN56UbcaqFN9s+6u/KjUBn8tmks2ihK0pg3Ds=";
+            }       
+         ];
+         
+         userSettings = {
+            "files.autoSave" = "afterDelay";
+            "terminal.integrated.fontFamily" = "MesloLGS NF";
+            "editor.wordWrap" = "on";
+         };
+      };
+
       firefox.enable = false;
       hyprland.enable = false; # change later to true if decide to try it
       java.enable = true;
@@ -191,6 +255,16 @@
       # adb.enable = true; # check if needed in pc after installing
       home-manager.enable = true;
   };
+
+  services = {
+    home-manager.autoUpgrade = {
+      enable = true;
+      frequency = "daily";
+    };
+  };
+
+  #Nicely reload system units when changing configs
+  systemd.user.startServices = "sd-switch";
 
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage
