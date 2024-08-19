@@ -63,6 +63,8 @@
       ffmpeg
       neovim
       zellij
+
+      (nerdfonts.override { fonts = [ "Meslo" ]; })
   ];
 
   programs = {
@@ -100,63 +102,6 @@
       zellij = {
         enable = true;
         enableZshIntegration = true;
-      };
-
-      vscode = {
-        enable = true;
-        package = unstable.vscodium;
-
-        # mutableExtensionsDir = false;
-        # enableUpdateCheck = false;
-        # enableExtensionUpdateCheck = false;
-
-        extensions = with pkgs.vscode-extensions; [
-          bbenoist.nix
-          james-yu.latex-workshop
-          jnoortheen.nix-ide
-          mechatroner.rainbow-csv
-          ms-python.isort
-          ms-python.python
-          ms-python.vscode-pylance
-          ms-vscode.cmake-tools
-          ms-vscode.cpptools
-          ms-vscode.makefile-tools
-          twxs.cmake
-          valentjn.vscode-ltex
-          #visualstudioexptteam.vscodeintellicode
-          yzhang.markdown-all-in-one
-         ] ++ (pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-            {
-                 name = "better-cpp-syntax";
-                 publisher = "jeff-hykin";
-                 version = "1.17.2";
-                 sha256 = "p3SKu9FbtuP6in2dSsr5a0aB5W+YNQ0kMgMJoDYrhcU=";
-            }
-            {
-                 name = "languague-renpy";
-                 publisher = "luquedaniel";
-                 version = "2.3.6";
-                 sha256 = "ubMtLCIs3C8UBrXr1vr3Kqm2K3B8wNlm/THftVyIDug=";
-            }
-            {
-                 name = "doxdocgen";
-                 publisher = "cschlosser";
-                 version = "1.4.0";
-                 sha256 = "InEfF1X7AgtsV47h8WWq5DZh6k/wxYhl2r/pLZz9JbU=";
-            } 
-            {
-                 name = "latex-utilities";
-                 publisher = "tecosaur";
-                 version = "0.4.14";
-                 sha256 = "GsbHzFcN56UbcaqFN9s+6u/KjUBn8tmks2ihK0pg3Ds=";
-            }       
-         ]);
-         
-        userSettings = {
-          "files.autoSave" = "afterDelay";
-          "terminal.integrated.fontFamily" = "MesloLGS NF";
-          "editor.wordWrap" = "on";
-        };
       };
       
       firefox.enable = true;
