@@ -92,15 +92,15 @@
     # allow proprietary packages
     allowUnfree = true;
 
-    packageOverrides = super: let self = super.pkgs; in {
-      subtitleeditor = super.subtitleeditor.overrideAttrs (attrs: {
-        buildInputs = attrs.buildInputs ++ [
-          self.gst_all_1.gst-plugins-bad
-          self.gst_all_1.gst-plugins-ugly
-          self.gst_all_1.gst-libav
-        ];
-      });
-    };
+    # packageOverrides = super: let self = super.pkgs; in {
+    #   subtitleeditor = super.subtitleeditor.overrideAttrs (attrs: {
+    #     buildInputs = attrs.buildInputs ++ [
+    #       self.gst_all_1.gst-plugins-bad
+    #       self.gst_all_1.gst-plugins-ugly
+    #       self.gst_all_1.gst-libav
+    #     ];
+    #   });
+    # };
   };
 
   services.flatpak.enable = true;
