@@ -66,16 +66,13 @@
     psensor
     stress
     linuxKernel.packages.linux_zen.cpupower
+    linuxKernel.packages.linux_zen.turbostat
     smartmontools
     testdisk-qt
     fusuma
     lshw
     glxinfo
-    linuxKernel.packages.linux_zen.turbostat
-    wineWowPackages.waylandFull # wineWowPackages.full
-    winetricks
-    yabridge
-    protonup-qt
+    micromamba
     
     libreoffice-qt6-fresh
     hunspell
@@ -111,6 +108,11 @@
     kdePackages.kamoso
 
     (nerdfonts.override { fonts = [ "Meslo" ]; })
+
+    wineWowPackages.waylandFull # wineWowPackages.full
+    winetricks
+    yabridge
+    protonup-qt
 
     (lutris.override {
         extraPkgs = pkgs: [
@@ -149,7 +151,8 @@
           update="sudo nix-channel --update";
           rebuild="sudo nixos-rebuild switch";
           upgrade_all="sudo nixos-rebuild switch --upgrade-all";
-          conda_update="conda activate general && conda update --all python=3.12.5 -y && conda activate solver && conda update --all -y && conda activate space && conda update --all -y && conda activate tudat-space && conda update --all -y && conda activate yafs && conda update --all -y";
+          mmamba="micromamba";
+          mmamba_update="micromamba activate general && micromamba update --all python=3.12.5 -y && micromamba activate solver && micromamba update --all -y && micromamba activate space && micromamba update --all -y && micromamba activate tudat-space && micromamba update --all -y && micromamba activate yafs && micromamba update --all -y";
         };
 
         initExtra=''
@@ -157,20 +160,21 @@
 
           # >>> conda initialize >>>
           # !! Contents within this block are managed by 'conda init' !!
-          __conda_setup="$('/home/pleiades/.conda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-          if [ $? -eq 0 ]; then
-              eval "$__conda_setup"
-          else
-              if [ -f "/home/pleiades/.conda/etc/profile.d/conda.sh" ]; then
-                  . "/home/pleiades/.conda/etc/profile.d/conda.sh"
-              else
-                  export PATH="/home/pleiades/.conda/bin:$PATH"
-              fi
-          fi
-          unset __conda_setup
+          # __conda_setup="$('/home/pleiades/.conda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+          # if [ $? -eq 0 ]; then
+          #     eval "$__conda_setup"
+          # else
+          #     if [ -f "/home/pleiades/.conda/etc/profile.d/conda.sh" ]; then
+          #         . "/home/pleiades/.conda/etc/profile.d/conda.sh"
+          #     else
+          #         export PATH="/home/pleiades/.conda/bin:$PATH"
+          #     fi
+          # fi
+          # unset __conda_setup
           # <<< conda initialize <<<
 
-          conda activate general
+          eval "$(micromamba shell hook --shell zsh)"
+          micromamba activate general
         '';
       };
 

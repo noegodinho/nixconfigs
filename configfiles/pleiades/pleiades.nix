@@ -271,11 +271,11 @@
 
   # allows dynamically linked executables to be run on nixos
   # only possible to use x86_64 executables
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
+  # programs.nix-ld.enable = true;
+  # programs.nix-ld.libraries = with pkgs; [
     # avoid using conda-shell and having direct access to conda -> useful for vscodium
-    python312Packages.conda
-  ];
+    # python312Packages.conda
+  # ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
