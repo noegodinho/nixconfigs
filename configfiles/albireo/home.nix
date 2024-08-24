@@ -1,6 +1,13 @@
-{ lib, config, pkgs, unstable, user, system, ... }:
-
-{
+{ config, pkgs, unstable, system, ... }: let
+  extensions =
+    (import (builtins.fetchGit {
+      url = "https://github.com/nix-community/nix-vscode-extensions";
+      ref = "refs/heads/master";
+      rev = "c43d9089df96cf8aca157762ed0e2ddca9fcd71e";
+    }))
+    .extensions
+    .${system};
+in {
   home.username = "albireo";
   home.homeDirectory = "/home/albireo";
 
@@ -102,6 +109,38 @@
       zellij = {
         enable = true;
         enableZshIntegration = true;
+      };
+
+      vscode = {
+        enable = true;
+        package = unstable.vscodium;
+
+        extensions = with pkgs.vscode-extensions; [
+          bbenoist.nix
+          james-yu.latex-workshop
+          jnoortheen.nix-ide
+          mechatroner.rainbow-csv
+          ms-python.isort
+          ms-python.python
+          ms-python.vscode-pylance
+          ms-vscode.cmake-tools
+          ms-vscode.cpptools
+          ms-vscode.makefile-tools
+          twxs.cmake
+          valentjn.vscode-ltex
+          yzhang.markdown-all-in-one
+         ] ++ (with extensions.vscode-marketplace; [
+            jeff-hykin.better-cpp-syntax
+            luquedaniel.language-renpy
+            cschlosser.doxdocgen
+            tecsaur.latex-utilities
+         ]);
+         
+         userSettings = {
+            "files.autoSave" = "afterDelay";
+            "terminal.integrated.fontFamily" = "MesloLGS Nerd Font";
+            "editor.wordWrap" = "on";
+         };
       };
       
       firefox.enable = true;
