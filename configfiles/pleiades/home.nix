@@ -1,6 +1,13 @@
-{ config, pkgs, unstable, ... }:
-
-{
+{ config, pkgs, unstable, system, ... }: let
+  extensions =
+    (import (builtins.fetchGit {
+      url = "https://github.com/nix-community/nix-vscode-extensions";
+      ref = "refs/heads/master";
+      rev = "c43d9089df96cf8aca157762ed0e2ddca9fcd71e";
+    }))
+    .extensions
+    .${system};
+in {
   home.username = "pleiades";
   home.homeDirectory = "/home/pleiades";
 
@@ -82,7 +89,7 @@
     neovim
     zellij
     keepass
-    unstable.thunderbird
+    thunderbird
     ktorrent
     skypeforlinux
     unstable.zotero
@@ -196,10 +203,13 @@
         # enableUpdateCheck = false;
         # enableExtensionUpdateCheck = false;
 
-        extensions = with pkgs.vscode-extensions; [
+        extensions = (with extensions.vscode-marketplace; [
           bbenoist.nix
+          cschlosser.doxdocgen
           james-yu.latex-workshop
+          jeff-hykin.better-cpp-syntax
           jnoortheen.nix-ide
+          luquedaniel.languague-renpy
           mechatroner.rainbow-csv
           ms-python.isort
           ms-python.python
@@ -212,36 +222,12 @@
           ms-vscode.cmake-tools
           ms-vscode.cpptools
           ms-vscode.makefile-tools
+          tecosaur.latex-utilities
           twxs.cmake
           valentjn.vscode-ltex
           # visualstudioexptteam.vscodeintellicode
           yzhang.markdown-all-in-one
-         ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-            {
-                 name = "better-cpp-syntax";
-                 publisher = "jeff-hykin";
-                 version = "1.17.2";
-                 sha256 = "p3SKu9FbtuP6in2dSsr5a0aB5W+YNQ0kMgMJoDYrhcU=";
-            }
-            {
-                 name = "languague-renpy";
-                 publisher = "luquedaniel";
-                 version = "2.3.6";
-                 sha256 = "ubMtLCIs3C8UBrXr1vr3Kqm2K3B8wNlm/THftVyIDug=";
-            }
-            {
-                 name = "doxdocgen";
-                 publisher = "cschlosser";
-                 version = "1.4.0";
-                 sha256 = "InEfF1X7AgtsV47h8WWq5DZh6k/wxYhl2r/pLZz9JbU=";
-            } 
-            {
-                 name = "latex-utilities";
-                 publisher = "tecosaur";
-                 version = "0.4.14";
-                 sha256 = "GsbHzFcN56UbcaqFN9s+6u/KjUBn8tmks2ihK0pg3Ds=";
-            }       
-         ];
+         ]);
          
          userSettings = {
             "files.autoSave" = "afterDelay";
