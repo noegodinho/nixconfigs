@@ -111,38 +111,6 @@ in {
         enableZshIntegration = true;
       };
 
-      vscode = {
-        enable = true;
-        package = unstable.vscodium;
-
-        extensions = with pkgs.vscode-extensions; [
-          bbenoist.nix
-          james-yu.latex-workshop
-          jnoortheen.nix-ide
-          mechatroner.rainbow-csv
-          ms-python.isort
-          ms-python.python
-          ms-python.vscode-pylance
-          ms-vscode.cmake-tools
-          ms-vscode.cpptools
-          ms-vscode.makefile-tools
-          twxs.cmake
-          valentjn.vscode-ltex
-          yzhang.markdown-all-in-one
-         ] ++ (with extensions.vscode-marketplace; [
-            jeff-hykin.better-cpp-syntax
-            luquedaniel.language-renpy
-            cschlosser.doxdocgen
-            tecsaur.latex-utilities
-         ]);
-         
-         userSettings = {
-            "files.autoSave" = "afterDelay";
-            "terminal.integrated.fontFamily" = "MesloLGS Nerd Font";
-            "editor.wordWrap" = "on";
-         };
-      };
-      
       firefox.enable = true;
       java.enable = true;
       home-manager.enable = true;
