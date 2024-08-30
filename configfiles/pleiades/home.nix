@@ -240,7 +240,6 @@ in {
       firefox.enable = false;
       # hyprland.enable = false; # change later to true if decide to try it
       java.enable = true;
-      # solaar.enable = true;
       # adb.enable = true; # check if needed in pc after installing
       home-manager.enable = true;
   };
@@ -252,18 +251,7 @@ in {
     };
   };
 
-  #services.fprintd = {
-  #  enable = true;
-  #  package = pkgs.fprintd-tod;
-  #  tod = {
-  #    enable = true;
-      #driver = pkgs.libfprint-2-tod1-vfs0090;                                                                                                                                            │
-      #driver = pkgs.libfprint-2-tod1-goodix; # (On my device it only worked with this driver)                                                                                            │
-  #    driver = unstable.libfprint-2-tod1-vfs0090;
-  #  };
-  #}; 
-
-  #Nicely reload system units when changing configs
+  # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
   # This value determines the home Manager release that your
