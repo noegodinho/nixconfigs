@@ -305,16 +305,16 @@
   # };
 
   # fingerprint
-  services.fprintd = {
-    enable = true;
-    package = pkgs.fprintd-tod;
-    tod = {
-      enable = true;
-      driver = pkgs.libfprint-2-tod1-vfs0090;
+  # services.fprintd = {
+  #   enable = true;
+  #   package = pkgs.fprintd-tod;
+  #   tod = {
+  #     enable = true;
+  #     driver = pkgs.libfprint-2-tod1-vfs0090;
       # driver = pkgs.libfprint-2-tod1-goodix; # (On my device it only worked with this driver)
       # driver = unstable.libfprint-2-tod1-vfs0090;
-    };
-  };
+  #   };
+  # };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
