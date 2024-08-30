@@ -238,9 +238,8 @@ in {
       };
 
       firefox.enable = false;
-      # hyprland.enable = false; # change later to true if decide to try it
       java.enable = true;
-      # adb.enable = true; # check if needed in pc after installing
+      # hyprland.enable = false; # change later to true if decide to try it
       home-manager.enable = true;
   };
 
