@@ -14,13 +14,9 @@
       #url = "github:Svenum/Solaar-Flake/main; # Uncomment line for latest unstable version
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
-    nix-flatpak = {
-      url = "github:gmodena/nix-flatpak"; # unstable branch. Use github:gmodena/nix-flatpak/?ref=<tag> to pin releases.
-    };
   };
 
-  outputs = {self, nixpkgs, nixpkgs-unstable, home-manager, solaar, nix-flatpak, ...} @ inputs: let
+  outputs = {self, nixpkgs, nixpkgs-unstable, home-manager, solaar, ...} @ inputs: let
     system = "x86_64-linux";
     unstable = import nixpkgs-unstable {
       system = "x86_64-linux";
@@ -32,7 +28,7 @@
     
     in {
       nixosConfigurations.milkyway = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs user outputs;};
+      specialArgs = {inherit inputs user outputs nixpkgs-unstable;};
       modules = [
           # make home-manager as a module of nixos
           # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
@@ -46,7 +42,6 @@
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
           }
           solaar.nixosModules.default
-          nix-flatpak.nixosModules.nix-flatpak
           ./configuration.nix
       ];
     };

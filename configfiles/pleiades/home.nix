@@ -66,8 +66,7 @@ in {
     fzf
     htop
     btop
-    nvtopPackages.nvidia
-    nvtopPackages.intel
+    nvtopPackages.full
     undervolt
     lm_sensors
     psensor
@@ -75,6 +74,7 @@ in {
     linuxKernel.packages.linux_zen.cpupower
     linuxKernel.packages.linux_zen.turbostat
     smartmontools
+    neofetch
     testdisk-qt
     fusuma
     lshw
@@ -91,6 +91,8 @@ in {
     keepass
     thunderbird
     ktorrent
+    unstable.brave
+    unstable.telegram-desktop
     skypeforlinux
     unstable.zotero
     slack
@@ -110,9 +112,9 @@ in {
     ardour
     lmms
     musescore
-    youtube-dl
+    yt-dlp
     qalculate-qt
-    kdePackages.kamoso
+    # unstable.kdePackages.kamoso
 
     (nerdfonts.override { fonts = [ "Meslo" ]; })
 
@@ -237,7 +239,7 @@ in {
       };
 
       firefox.enable = false;
-      hyprland.enable = false; # change later to true if decide to try it
+      # hyprland.enable = false; # change later to true if decide to try it
       java.enable = true;
       # solaar.enable = true;
       # adb.enable = true; # check if needed in pc after installing
@@ -250,6 +252,17 @@ in {
       frequency = "daily";
     };
   };
+
+  #services.fprintd = {
+  #  enable = true;
+  #  package = pkgs.fprintd-tod;
+  #  tod = {
+  #    enable = true;
+      #driver = pkgs.libfprint-2-tod1-vfs0090;                                                                                                                                            │
+      #driver = pkgs.libfprint-2-tod1-goodix; # (On my device it only worked with this driver)                                                                                            │
+  #    driver = unstable.libfprint-2-tod1-vfs0090;
+  #  };
+  #}; 
 
   #Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
