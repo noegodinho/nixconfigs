@@ -162,7 +162,7 @@ in {
           rebuild="sudo nixos-rebuild switch";
           upgrade_all="sudo nixos-rebuild switch --upgrade-all";
           mmamba="micromamba";
-          mmamba_update="micromamba activate general && micromamba update --all python=3.12.5 -y && micromamba activate solver && micromamba update --all -y && micromamba activate space && micromamba update --all -y && micromamba activate tudat-space && micromamba update --all -y && micromamba activate yafs && micromamba update --all -y";
+          mmamba_update="micromamba activate general && micromamba update --all -y python=3.12.5 -c conda-forge && micromamba activate solver && micromamba update --all -y -c conda-forge && micromamba activate space && micromamba update --all -y -c conda-forge && micromamba activate tudat-space && micromamba update --all -y -c conda-forge && micromamba activate yafs && micromamba update --all -y -c conda-forge";
         };
 
         initExtra=''
