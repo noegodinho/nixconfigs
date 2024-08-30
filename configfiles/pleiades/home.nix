@@ -96,9 +96,10 @@ in {
     skypeforlinux
     unstable.zotero
     slack
-    discord # discordo # may try later
-    pympress
-    dropbox # maestral # decide which one to use
+    discord 
+    # discordo # may try later
+    pympress 
+    unstable.maestral
     veracrypt
     duplicati # http://localhost:8200/
     gphoto2
@@ -167,22 +168,20 @@ in {
         initExtra=''
           source ~/.p10k.zsh
 
-          # >>> conda initialize >>>
-          # !! Contents within this block are managed by 'conda init' !!
-          # __conda_setup="$('/home/pleiades/.conda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-          # if [ $? -eq 0 ]; then
-          #     eval "$__conda_setup"
-          # else
-          #     if [ -f "/home/pleiades/.conda/etc/profile.d/conda.sh" ]; then
-          #         . "/home/pleiades/.conda/etc/profile.d/conda.sh"
-          #     else
-          #         export PATH="/home/pleiades/.conda/bin:$PATH"
-          #     fi
-          # fi
-          # unset __conda_setup
-          # <<< conda initialize <<<
-
           eval "$(micromamba shell hook --shell zsh)"
+          # >>> mamba initialize >>>
+          # !! Contents within this block are managed by 'mamba init' !!
+          export MAMBA_EXE='/nix/store/r1m1ii09z82wv07ivb00jz2iz2pxmbc9-micromamba-1.5.8/bin/micromamba';
+          export MAMBA_ROOT_PREFIX='/home/pleiades/micromamba';
+          __mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+          if [ $? -eq 0 ]; then
+              eval "$__mamba_setup"
+          else
+              alias micromamba="$MAMBA_EXE"  # Fallback on help from mamba activate
+          fi
+          unset __mamba_setup
+          # <<< mamba initialize <<<
+
           micromamba activate general
         '';
       };

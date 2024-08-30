@@ -319,7 +319,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-	nixpkgs-unstable.legacyPackages."${pkgs.system}".mcontrolcenter
+    nixpkgs-unstable.legacyPackages."${pkgs.system}".mcontrolcenter
   ];
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
