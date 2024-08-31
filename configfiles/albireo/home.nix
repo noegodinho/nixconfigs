@@ -39,7 +39,6 @@ in {
       gdb
       gnumake
       cmake
-      valgrind
       wget
       usbutils
       fh
@@ -63,12 +62,8 @@ in {
       fzf
       htop
       btop
-      undervolt
-      lm_sensors
-      fusuma
       lshw
       ffmpeg
-      neovim
       zellij
 
       (nerdfonts.override { fonts = [ "Meslo" ]; })

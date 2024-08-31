@@ -7,10 +7,6 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
-    nix-flatpak = {
-      url = "github:gmodena/nix-flatpak"; # unstable branch. Use github:gmodena/nix-flatpak/?ref=<tag> to pin releases.
-    };
   };
 
   outputs = {self, nixpkgs, nixpkgs-unstable, home-manager, nix-flatpak, ...} @ inputs: let
@@ -38,7 +34,6 @@
 
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
           }
-          nix-flatpak.nixosModules.nix-flatpak
           ./configuration.nix
       ];
     };
