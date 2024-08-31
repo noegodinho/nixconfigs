@@ -73,6 +73,7 @@ in {
     stress
     linuxKernel.packages.linux_zen.cpupower
     linuxKernel.packages.linux_zen.turbostat
+    powertop
     smartmontools
     neofetch
     testdisk-qt
