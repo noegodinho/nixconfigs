@@ -103,11 +103,9 @@ in {
     unstable.maestral
     veracrypt
     duplicati # http://localhost:8200/
-    gphoto2
     vlc
     pcsxr
     unstable.itch
-    rare
     renpy
     texliveFull
     todo-txt-cli
@@ -116,6 +114,8 @@ in {
     musescore
     yt-dlp
     qalculate-qt
+    unstable.flatpak
+    konsave
     # unstable.kdePackages.kamoso
 
     (nerdfonts.override { fonts = [ "Meslo" ]; })
@@ -236,6 +236,15 @@ in {
             "terminal.integrated.fontFamily" = "MesloLGS Nerd Font";
             "editor.wordWrap" = "on";
          };
+      };
+
+      obs-studio = {
+        enable = true;
+        plugins = with pkgs.obs-studio-plugins; [
+          wlrobs
+          obs-backgroundremoval
+          obs-pipewire-audio-capture
+        ];
       };
 
       firefox.enable = false;
