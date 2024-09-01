@@ -91,7 +91,7 @@ in {
     zellij
     keepass
     thunderbird
-    ktorrent
+    unstable.kdePackages.ktorrent
     unstable.brave
     unstable.telegram-desktop
     skypeforlinux
@@ -140,7 +140,7 @@ in {
       git = {
         enable = true;
         userName = "noegodinho";
-        userEmail = "noe.godinho.92@gmail.com";
+        userEmail = "noe.godinho@protonmail.com";
       };
 
       zsh = {
