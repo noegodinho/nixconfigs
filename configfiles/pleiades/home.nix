@@ -78,11 +78,12 @@ in {
     fusuma
     lshw
     hwinfo
+    clinfo
     glxinfo
     micromamba
     konsave
     
-    libreoffice-qt6-fresh
+    libreoffice-qt
     hunspell
     hunspellDicts.pt_PT
     hunspellDicts.en_GB-ise
@@ -124,6 +125,7 @@ in {
     yabridge
     protonup-qt
 
+    vulkan-tools
     (lutris.override {
         extraPkgs = pkgs: [
           # List package dependencies here
