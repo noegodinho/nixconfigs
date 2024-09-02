@@ -4,9 +4,7 @@
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
       rev = "c43d9089df96cf8aca157762ed0e2ddca9fcd71e";
-    }))
-    .extensions
-    .${system};
+    })).extensions.${system};
 in {
   home.username = "pleiades";
   home.homeDirectory = "/home/pleiades";
@@ -205,7 +203,10 @@ in {
         # enableUpdateCheck = false;
         # enableExtensionUpdateCheck = false;
 
-        extensions = (with extensions.vscode-marketplace; [
+        extensions = with extensions.open-vsx; [
+          # detachhead.basedpyright
+        ] ++ (with extensions.vscode-marketplace; [
+          # arrterian.nix-env-selector
           bbenoist.nix
           cschlosser.doxdocgen
           james-yu.latex-workshop
@@ -213,22 +214,20 @@ in {
           jnoortheen.nix-ide
           luquedaniel.languague-renpy
           mechatroner.rainbow-csv
-          ms-python.isort
           ms-python.python
-          ms-python.vscode-pylance
-          # ms-toolsai.jupyter
-          # ms-toolsai.jupyter-keymap
-          # ms-toolsai.jupyter-renderers
-          # ms-toolsai.vscode-jupyter-cell-tags
-          # ms-toolsai.vscode-jupyter-slideshow
+          # ms-python.vscode-pylance
           ms-vscode.cmake-tools
           ms-vscode.cpptools
+          ms-vscode.cpptools-themes
           ms-vscode.makefile-tools
+          pinage404.nix-extension-pack
           tecosaur.latex-utilities
           twxs.cmake
           valentjn.vscode-ltex
           # visualstudioexptteam.vscodeintellicode
           yzhang.markdown-all-in-one
+         ]) ++ (with unstable.vscode-extensions; [
+          github.copilot
          ]);
          
          userSettings = {
