@@ -321,6 +321,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     nixpkgs-unstable.legacyPackages."${pkgs.system}".mcontrolcenter
+    pkgs.pcsclite
   ];
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
@@ -346,6 +347,8 @@
       flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     '';
   };
+
+  services.pcscd.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

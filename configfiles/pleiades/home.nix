@@ -61,6 +61,8 @@ in {
     ffmpeg
     bat
     atuin
+    neovim
+    zellij
     fzf
     htop
     btop
@@ -88,8 +90,6 @@ in {
     hunspellDicts.pt_PT
     hunspellDicts.en_GB-ise
 
-    neovim
-    zellij
     keepass
     thunderbird
     kdePackages.ktorrent
@@ -237,6 +237,11 @@ in {
             "files.autoSave" = "afterDelay";
             "terminal.integrated.fontFamily" = "MesloLGS Nerd Font";
             "editor.wordWrap" = "on";
+            "C_Cpp.default.compilerPath" = "/etc/profiles/per-user/pleiades/bin/gcc";
+            "C_Cpp.default.intelliSenseMode" = "linux-gcc-x64";
+            "C_Cpp.autocompleteAddParentheses" = true;
+            "C_Cpp.default.cppStandard" = "c++11";
+            "C_Cpp.default.systemIncludePath" = ["/nix/store/skkw2fidr9h2ikq8gzgfm6rysj1mal0r-gcc-13.2.0/lib/gcc/x86_64-unknown-linux-gnu/13.2.0/include"];
          };
       };
 
