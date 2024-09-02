@@ -89,7 +89,7 @@ in {
     zellij
     keepass
     thunderbird
-    unstable.kdePackages.ktorrent
+    kdePackages.ktorrent
     unstable.brave
     unstable.telegram-desktop
     skypeforlinux
@@ -112,7 +112,6 @@ in {
     musescore
     yt-dlp
     qalculate-qt
-    unstable.flatpak
     konsave
     # unstable.kdePackages.kamoso
 
