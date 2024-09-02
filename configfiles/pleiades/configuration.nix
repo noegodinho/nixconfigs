@@ -171,6 +171,7 @@
   #   };
   # };
 
+  # Nix settings
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nixpkgs.config = {
@@ -188,12 +189,14 @@
     # };
   };
 
+  # Nix garbage collector
   nix.gc = {
     automatic = true;
     dates = "weekly";
     options = "--delete-older-than 7d";
   };
 
+  # Autoupgrade system
   system.autoUpgrade.enable = true;
   system.autoUpgrade.dates = "daily";
   system.autoUpgrade.allowReboot = false; # decide later
@@ -257,6 +260,7 @@
     #media-session.enable = true;
   };
 
+  # Man docs
   documentation = {
     enable = true;
     man = {
@@ -282,16 +286,18 @@
     ];
   };
 
+  # Enable zsh
   programs.zsh.enable = true;
 
-  # allows dynamically linked executables to be run on nixos
-  # only possible to use x86_64 executables
+  # Allows dynamically linked executables to be run on nixos
+  # Only possible to use x86_64 executables
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
-    # avoid using conda-shell and having direct access to conda -> useful for vscodium
+    # Avoid using conda-shell and having direct access to conda -> useful for vscodium
     # python312Packages.conda
   ];
 
+  # Steam settings (installed in lutris)
   # programs.steam = {
   #   enable = true;
   #   remotePlay.openFirewall = false; # Open ports in the firewall for Steam Remote Play
@@ -305,7 +311,7 @@
   #    extraPkgs = pkgs: [ bumblebee glxinfo ];
   # };
 
-  # fingerprint
+  # fingerprint drivers
   # services.fprintd = {
   #   enable = true;
   #   package = pkgs.fprintd-tod;
@@ -324,12 +330,14 @@
     pkgs.pcsclite
   ];
 
+  # Exclude KDE & system packages
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     khelpcenter
   ];
 
   services.xserver.excludePackages = [ pkgs.xterm ];
 
+  # "Driver" for MX Master 3S
   services.solaar = {
     enable = true; # Enable the service
     package = pkgs.solaar; # The package to use
@@ -338,6 +346,7 @@
     extraArgs = ""; # Extra arguments to pass to solaar on startup
   };
 
+  # Enable flatpak for sandboxed applications
   services.flatpak.enable = true;
 
   systemd.services.flatpak-repo = {
@@ -348,6 +357,7 @@
     '';
   };
 
+  # Smart card reader driver
   services.pcscd.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
