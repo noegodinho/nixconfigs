@@ -77,8 +77,10 @@ in {
     testdisk-qt
     fusuma
     lshw
+    hwinfo
     glxinfo
     micromamba
+    konsave
     
     libreoffice-qt6-fresh
     hunspell
@@ -101,6 +103,7 @@ in {
     unstable.maestral
     veracrypt
     duplicati # http://localhost:8200/
+    zoom-us
     vlc
     pcsxr
     unstable.itch
@@ -112,7 +115,6 @@ in {
     musescore
     yt-dlp
     qalculate-qt
-    konsave
     # unstable.kdePackages.kamoso
 
     (nerdfonts.override { fonts = [ "Meslo" ]; })
