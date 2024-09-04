@@ -1,4 +1,4 @@
-{ config, pkgs, unstable, system, ... }: let
+{ pkgs, unstable, system, ... }: let
   extensions =
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
@@ -38,10 +38,10 @@ in {
     gnumake
     cmake
     valgrind
+
     wget
     usbutils
     pciutils
-    gparted
     fh
     unzip
     zip
@@ -58,12 +58,7 @@ in {
     gnupg
     direnv
     gnutar
-    ffmpeg
-    bat
-    atuin
-    neovim
-    zellij
-    fzf
+
     htop
     btop
     nvtopPackages.full
@@ -71,19 +66,29 @@ in {
     lm_sensors
     psensor
     stress
+    lshw
+    hwinfo
+    clinfo
+    glxinfo
     linuxKernel.packages.linux_zen.cpupower
     linuxKernel.packages.linux_zen.turbostat
     powertop
     smartmontools
     neofetch
+    gparted
     testdisk-qt
+
+    ffmpeg
+    bat
+    neovim
+    fzf
     fusuma
-    lshw
-    hwinfo
-    clinfo
-    glxinfo
     micromamba
     konsave
+
+    nix-output-monitor
+    nil
+    glow
     
     libreoffice-qt
     hunspell
@@ -188,13 +193,36 @@ in {
         '';
       };
 
+      foot = {
+        enable = true;
+        package = unstable.foot;
+
+        settings = {
+          colors = {
+            background = "000000";
+          };
+
+          main = {
+            # dpi-aware = "yes";
+            font = "MesloLGS Nerd Font:size=10";
+            term = "foot";
+          };
+
+          mouse = {
+            hide-when-typing = "yes";
+          };
+        };
+      };
+
       atuin = {
         enable = true;
+        package = unstable.atuin;
         enableZshIntegration = true;
       };
 
       zellij = {
         enable = true;
+        package = pkgs.zellij;
         enableZshIntegration = true;
       };
 
@@ -240,8 +268,14 @@ in {
             "C_Cpp.default.compilerPath" = "/etc/profiles/per-user/pleiades/bin/gcc";
             "C_Cpp.default.intelliSenseMode" = "linux-gcc-x64";
             "C_Cpp.autocompleteAddParentheses" = true;
-            "C_Cpp.default.cppStandard" = "c++11";
             "C_Cpp.default.systemIncludePath" = ["/nix/store/skkw2fidr9h2ikq8gzgfm6rysj1mal0r-gcc-13.2.0/lib/gcc/x86_64-unknown-linux-gnu/13.2.0/include"];
+            "latex-workshop.latex.autoBuild.run" = "never";
+            "ltex.additionalRules.motherTongue" = "pt-PT";
+            "ltex.language" = "en-GB";
+            "ltex.enabled" = ["bibtex" "context" "context.tex" "html" "latex" "markdown" "org" "restructuredtext" "rsweave"];
+            "python.defaultInterpreterPath" = "/home/pleiades/micromamba/envs/general/bin/python";
+            "nix.enableLanguageServer" = true;
+            "nix.serverPath" = "nil";
          };
       };
 
