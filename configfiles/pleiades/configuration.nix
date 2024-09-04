@@ -283,9 +283,9 @@
     isNormalUser = true;
     description = "Pleiades";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
+    # packages = with pkgs; [
         # kdePackages.kate
-    ];
+    # ];
   };
 
   # Enable zsh
@@ -294,10 +294,10 @@
   # Allows dynamically linked executables to be run on nixos
   # Only possible to use x86_64 executables
   programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
+  # programs.nix-ld.libraries = with pkgs; [
     # Avoid using conda-shell and having direct access to conda -> useful for vscodium
     # python312Packages.conda
-  ];
+  # ];
 
   # Steam settings (installed in lutris)
   # programs.steam = {
@@ -338,12 +338,14 @@
   # virtualisation.docker.enable = true;
 
   # Exclude KDE & system packages
-  environment.plasma6.excludePackages = with pkgs.kdePackages; [
-    khelpcenter
-    konsole
+  environment.plasma6.excludePackages = [
+    pkgs.khelpcenter
+    pkgs.konsole
   ];
 
-  services.xserver.excludePackages = [ pkgs.xterm ];
+  services.xserver.excludePackages = [ 
+    pkgs.xterm 
+  ];
 
   # "Driver" for MX Master 3S
   services.solaar = {
