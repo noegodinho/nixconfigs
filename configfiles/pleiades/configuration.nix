@@ -203,6 +203,8 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.printing.cups-pdf.enable = true;
+  services.printing.logLevel = "debug";
 
   # hardware.pulseaudio = {
   #  enable = true;
@@ -328,11 +330,17 @@
   environment.systemPackages = with pkgs; [
     nixpkgs-unstable.legacyPackages."${pkgs.system}".mcontrolcenter
     pkgs.pcsclite
+    qemu
+    quickemu
   ];
+
+  # In case I need docker
+  # virtualisation.docker.enable = true;
 
   # Exclude KDE & system packages
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     khelpcenter
+    konsole
   ];
 
   services.xserver.excludePackages = [ pkgs.xterm ];
