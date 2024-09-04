@@ -340,7 +340,6 @@
   # Exclude KDE & system packages
   environment.plasma6.excludePackages = [
     pkgs.khelpcenter
-    pkgs.konsole
   ];
 
   services.xserver.excludePackages = [ 
