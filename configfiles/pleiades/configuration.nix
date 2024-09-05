@@ -14,11 +14,14 @@
     ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  boot.initrd.luks.devices."luks-a468a0ed-2a5b-487c-aab6-c97dafd8851a".device = "/dev/disk/by-uuid/a468a0ed-2a5b-487c-aab6-c97dafd8851a";
-  boot.supportedFilesystems = [ "ntfs" ];
+  boot = {
+    initrd.luks.devices."luks-a468a0ed-2a5b-487c-aab6-c97dafd8851a".device = "/dev/disk/by-uuid/a468a0ed-2a5b-487c-aab6-c97dafd8851a";
+    supportedFilesystems = [ "ntfs" ];
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+  };
 
   networking.hostName = "milkyway"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -28,8 +31,10 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
-  networking.networkmanager.enable = true;
-  networking.networkmanager.wifi.powersave = false;
+  networking.networkmanager = {
+    enable = true;
+    wifi.powersave = false;
+  };
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -42,18 +47,19 @@
   time.timeZone = "Europe/Lisbon";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_GB.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "pt_PT.UTF-8";
-    LC_IDENTIFICATION = "pt_PT.UTF-8";
-    LC_MEASUREMENT = "pt_PT.UTF-8";
-    LC_MONETARY = "pt_PT.UTF-8";
-    LC_NAME = "pt_PT.UTF-8";
-    LC_NUMERIC = "pt_PT.UTF-8";
-    LC_PAPER = "pt_PT.UTF-8";
-    LC_TELEPHONE = "pt_PT.UTF-8";
-    LC_TIME = "pt_PT.UTF-8";
+  i18n = {
+    defaultLocale = "en_GB.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "pt_PT.UTF-8";
+      LC_IDENTIFICATION = "pt_PT.UTF-8";
+      LC_MEASUREMENT = "pt_PT.UTF-8";
+      LC_MONETARY = "pt_PT.UTF-8";
+      LC_NAME = "pt_PT.UTF-8";
+      LC_NUMERIC = "pt_PT.UTF-8";
+      LC_PAPER = "pt_PT.UTF-8";
+      LC_TELEPHONE = "pt_PT.UTF-8";
+      LC_TIME = "pt_PT.UTF-8";
+    };
   };
 
   # Enable the X11 windowing system.
@@ -61,49 +67,20 @@
   # Configure keymap in X11
   services.xserver = {
     enable = true;
-    xkb.layout = "pt";
-    xkb.variant = "";
+    xkb = {
+      layout = "pt";
+      variant = "";
+    };
   };
-
-  # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
 
   # Configure console keymap
   console.keyMap = "pt-latin1";
 
-  # Power management and CPU frequency scaling.
-  # services.power-profiles-daemon.enable = false;
-  # powerManagement.enable = true;
-  # services.thermald.enable = true;
-  # services.tlp = {
-  #     enable = true;
-  #     settings = {
-  #       CPU_SCALING_GOVERNOR_ON_AC = "balance";
-  #       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-
-  #       CPU_ENERGY_PERF_POLICY_ON_AC = "balance";
-  #       CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
-
-  #       CPU_MIN_PERF_ON_AC = 0;
-  #       CPU_MAX_PERF_ON_AC = 100;
-  #       CPU_MIN_PERF_ON_BAT = 0;
-  #       CPU_MAX_PERF_ON_BAT = 50;
-
-  #       CPU_BOOST_ON_AC = 1;
-  #       CPU_BOOST_ON_BAT = 0;
-
-  #       CPU_HWP_DYN_BOOST_ON_AC = 1;
-  #       CPU_HWP_DYN_BOOST_ON_BAT = 0;
-
-  #       # RUNTIME_PM_ON_AC = auto;
-  #       # RUNTIME_PM_ON_BAT = auto;
-
-          # Optional helps save long term battery health
-  #       START_CHARGE_THRESH_BAT0 = 80; # 40 and below it starts to charge
-  #       STOP_CHARGE_THRESH_BAT0 = 100; # 70 and above it stops charging
-  #     };
-  # };
+  # Enable the KDE Plasma Desktop Environment.
+  services.displayManager = {
+    plasma6.enable = true;
+    sddm.enable = true;
+  };
 
   hardware.opengl = {
     enable = true;
@@ -197,69 +174,39 @@
   };
 
   # Autoupgrade system
-  system.autoUpgrade.enable = true;
-  system.autoUpgrade.dates = "daily";
-  system.autoUpgrade.allowReboot = false; # decide later
+  system.autoUpgrade = {
+    enable = true;
+    dates = "daily";
+    allowReboot = false; # decide later
+  };
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
-  services.printing.cups-pdf.enable = true;
-  services.printing.logLevel = "debug";
+  services.printing = {
+    enable = true;
+    cups-pdf.enable = true;
+    logLevel = "debug";
+  };
 
-  # hardware.pulseaudio = {
-  #  enable = true;
-  #  package = pkgs.pulseaudioFull;
-  #  extraConfig = "load-module module-switch-on-connect";
-  #  configFile = pkgs.writeText "default.pa" ''
-  #     load-module module-bluetooth-policy
-  #     load-module module-bluetooth-discover
-       ## module fails to load with
-       ##   module-bluez5-device.c: Failed to get device path from module arguments
-       ##   module.c: Failed to load module "module-bluez5-device" (argument: ""): initialization failed.
-       # load-module module-bluez5-device
-       # load-module module-bluez5-discover
-  #     '';
-  # };
-
-  hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-
-  hardware.bluetooth.settings = {
-    General = {
-      Enable = "Source,Sink,Media,Socket";
-      Experimental = true;
+  # enables support for Bluetooth & powers up the default Bluetooth controller on boot
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        Enable = "Source,Sink,Media,Socket";
+        Experimental = true;
+      };
     };
   };
 
-  # hardware.pulseaudio = {
-  #  enable = true;
-  #  package = pkgs.pulseaudioFull;
-  #  extraConfig = "load-module module-switch-on-connect";
-  #  configFile = pkgs.writeText "default.pa" ''
-  #     load-module module-bluetooth-policy
-  #     load-module module-bluetooth-discover
-       ## module fails to load with
-       ##   module-bluez5-device.c: Failed to get device path from module arguments
-       ##   module.c: Failed to load module "module-bluez5-device" (argument: ""): initialization failed.
-       # load-module module-bluez5-device
-       # load-module module-bluez5-discover
-  #     '';
-  # };
-
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
     jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
   # Man docs
@@ -277,12 +224,11 @@
   # services.displayManager.autoLogin.enable = true;
   # services.displayManager.autoLogin.user = "pleiades";
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.pleiades = {
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "Pleiades";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "input" "networkmanager" "wheel" ];
     # packages = with pkgs; [
         # kdePackages.kate
     # ];
@@ -329,6 +275,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     nixpkgs-unstable.legacyPackages."${pkgs.system}".mcontrolcenter
+    nixpkgs-unstable.legacyPackages."${pkgs.system}".kdePackages.kate
     pkgs.pcsclite
     qemu
     quickemu
@@ -342,8 +289,8 @@
     pkgs.khelpcenter
   ];
 
-  services.xserver.excludePackages = [ 
-    pkgs.xterm 
+  services.xserver.excludePackages = [
+    pkgs.xterm
   ];
 
   # "Driver" for MX Master 3S
