@@ -42,6 +42,7 @@ in {
     wget
     usbutils
     pciutils
+    coreutils-full
     fh
     unzip
     zip
@@ -82,7 +83,6 @@ in {
     bat
     neovim
     fzf
-    fusuma
     micromamba
     konsave
 
@@ -298,6 +298,65 @@ in {
     home-manager.autoUpgrade = {
       enable = true;
       frequency = "daily";
+    };
+
+    fusuma = {
+      enable = true;
+      package = pkgs.fusuma;
+
+      settings = {
+        threshold = {
+          swipe = 0.1;
+          pinch = 0.1;
+        };
+        interval = {
+          swipe = 0.7;
+          pinch = 1;
+        };
+        pinch = {
+          "2" = {
+            "in" = {
+              command = "xdotool key super++";
+            };
+            "out" = {
+              command = "xdotool key super+-";
+            };
+          };
+        };
+        swipe = {
+          "3" = {
+            left = {
+              command = "xdotool key --clearmodifiers alt+Right";
+            };
+            right = {
+              command = "xdotool key --clearmodifiers alt+Left";
+            };
+          };
+          "4" = {
+            left = {
+              command = "xdotool key ctrl+alt+Right";
+            };
+            right = {
+              command = "xdotool key ctrl+alt+Left";
+            };
+          };
+        };
+        plugin = {
+          input = {
+            libinput_command_input = {
+              enable-tap = {
+                command = true;
+              };
+              enable-dwt = {
+                command = true;
+              };
+              show-keycodes = {
+                command = true;
+              };
+            };
+          };
+        };
+      };
     };
   };
 
