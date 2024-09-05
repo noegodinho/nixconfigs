@@ -77,9 +77,9 @@
   console.keyMap = "pt-latin1";
 
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager = {
-    plasma6.enable = true;
-    sddm.enable = true;
+  services = {
+    desktopManager.plasma6.enable = true;
+    displayManager.sddm.enable = true;
   };
 
   hardware.opengl = {
