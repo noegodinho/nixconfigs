@@ -121,6 +121,7 @@ in {
     musescore
     yt-dlp
     qalculate-qt
+    unstable.recoll
     # unstable.kdePackages.kamoso
 
     (nerdfonts.override { fonts = [ "Meslo" ]; })
@@ -302,7 +303,7 @@ in {
 
     fusuma = {
       enable = true;
-      package = pkgs.fusuma;
+      package = unstable.fusuma;
 
       settings = {
         threshold = {
@@ -326,10 +327,10 @@ in {
         swipe = {
           "3" = {
             left = {
-              command = "xdotool key --clearmodifiers alt+Right";
+              command = "xdotool key alt+Left";
             };
             right = {
-              command = "xdotool key --clearmodifiers alt+Left";
+              command = "xdotool key alt+Right";
             };
           };
           "4" = {
