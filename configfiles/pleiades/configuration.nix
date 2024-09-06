@@ -3,9 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, nixpkgs-unstable, ... }:
-  #let
-  #  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
-  #in {
+
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -15,6 +13,7 @@
 
   # Bootloader.
   boot = {
+    blacklistedKernelModules = [ "psmouse" ];
     initrd.luks.devices."luks-a468a0ed-2a5b-487c-aab6-c97dafd8851a".device = "/dev/disk/by-uuid/a468a0ed-2a5b-487c-aab6-c97dafd8851a";
     supportedFilesystems = [ "ntfs" ];
     loader = {
@@ -88,8 +87,10 @@
     driSupport32Bit = true;
   };
 
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
+
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
   # hardware.bumblebee.enable = true; # check if needed in pc when installing
 
   nixpkgs.config.nvidia.acceptLicense = true;
