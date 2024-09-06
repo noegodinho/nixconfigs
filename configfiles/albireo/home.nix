@@ -1,13 +1,5 @@
-{ config, pkgs, unstable, system, ... }: let
-  extensions =
-    (import (builtins.fetchGit {
-      url = "https://github.com/nix-community/nix-vscode-extensions";
-      ref = "refs/heads/master";
-      rev = "c43d9089df96cf8aca157762ed0e2ddca9fcd71e";
-    }))
-    .extensions
-    .${system};
-in {
+{ pkgs, ... }:
+{
   home.username = "albireo";
   home.homeDirectory = "/home/albireo";
 
@@ -36,35 +28,19 @@ in {
   home.packages = with pkgs; [
       git
       gcc
-      gdb
       gnumake
       cmake
       wget
       usbutils
-      fh
-      unzip
-      zip
-      gzip
-      p7zip
-      xz
-      rar
-      file
       which
-      tree
-      gnused
-      gawk
-      zstd
-      gnupg
-      direnv
-      gnutar
       bat
       atuin
-      fzf
       htop
       btop
       lshw
       ffmpeg
       zellij
+      konsave
 
       (nerdfonts.override { fonts = [ "Meslo" ]; })
   ];
@@ -79,8 +55,8 @@ in {
         zplug = {
           enable = true;
           plugins = [
-            { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
-            { name = "marlonrichert/zsh-autocomplete"; tags = [ depth:1 ]; }
+            { name = "romkatv/powerlevel10k"; tags = [ "as:theme" "depth:1" ]; }
+            { name = "marlonrichert/zsh-autocomplete"; tags = [ "depth:1" ]; }
             { name = "chisui/zsh-nix-shell"; }
           ];
         };

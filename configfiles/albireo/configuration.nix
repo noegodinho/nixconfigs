@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports =
@@ -15,30 +15,17 @@
   boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.useOSProber = true;
 
-  boot.initrd.luks.devices."luks-7d558d87-f2cb-464f-9cbd-6241bcaf7ccb".device = "/dev/disk/by-uuid/7d558d87-f2cb-464f-9cbd-6241bcaf7ccb";
-  # Setup keyfile
-  boot.initrd.secrets = {
-    "/crypto_keyfile.bin" = null;
-  };
-
-  boot.loader.grub.enableCryptodisk=true;
-
-  boot.initrd.luks.devices."luks-6f07271f-3ae4-4343-84f6-68fa027b4a13".keyFile = "/crypto_keyfile.bin";
-  boot.initrd.luks.devices."luks-7d558d87-f2cb-464f-9cbd-6241bcaf7ccb".keyFile = "/crypto_keyfile.bin";
-
   networking.hostName = "milkyway"; # Define your hostname.
 
   boot.supportedFilesystems = [ "ntfs" ];
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.libinput.enable = true;
   services.libinput.touchpad.naturalScrolling = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Lisbon";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_GB.UTF-8";
+  i18n.defaultLocale = "pt_PT.UTF-8";
 
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "pt_PT.UTF-8";
@@ -63,54 +50,22 @@
   };
 
   # Enable the KDE Plasma Desktop Environment.
+  services.displayManager.defaultSession = "plasmax11";
   services.displayManager.sddm.wayland.enable = true;
   services.desktopManager.plasma6.enable = true;
 
   # Enable networking
   networking.networkmanager.enable = true;
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # hardware.pulseaudio = {
-  #  enable = true;
-  #  package = pkgs.pulseaudioFull;
-  #  extraConfig = "load-module module-switch-on-connect";
-  #  configFile = pkgs.writeText "default.pa" ''
-  #     load-module module-bluetooth-policy
-  #     load-module module-bluetooth-discover
-       ## module fails to load with 
-       ##   module-bluez5-device.c: Failed to get device path from module arguments
-       ##   module.c: Failed to load module "module-bluez5-device" (argument: ""): initialization failed.
-       # load-module module-bluez5-device
-       # load-module module-bluez5-discover
-  #     '';
-  # };
-
-  hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-  services.blueman.enable = true;
- 
-  hardware.bluetooth.settings = {
-    General = {
-      Enable = "Source,Sink,Media,Socket";
-      Experimental = true;
-    };
-  };
-
+  hardware.bluetooth.enable = false; # enables support for Bluetooth
+  
   # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
   nixpkgs.config = {
@@ -136,11 +91,7 @@
 
   system.autoUpgrade.enable = true;
   system.autoUpgrade.dates = "daily";
-  system.autoUpgrade.allowReboot = false; # decide later
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  system.autoUpgrade.allowReboot = false;
 
   # Enable automatic login for the user.
   services.displayManager.autoLogin.enable = true;
@@ -163,7 +114,6 @@
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     plasma-browser-integration
-    ark
     khelpcenter
     print-manager
   ];
@@ -176,5 +126,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "24.05"; # Did you read the comment?
 }
