@@ -13,6 +13,7 @@
 
   # Bootloader.
   boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
     blacklistedKernelModules = [ "psmouse" ];
     initrd.luks.devices."luks-a468a0ed-2a5b-487c-aab6-c97dafd8851a".device = "/dev/disk/by-uuid/a468a0ed-2a5b-487c-aab6-c97dafd8851a";
     supportedFilesystems = [ "ntfs" ];
@@ -70,6 +71,7 @@
       layout = "pt";
       variant = "";
     };
+    videoDrivers = [ "nvidia" ];
   };
 
   # Configure console keymap
@@ -87,12 +89,7 @@
     driSupport32Bit = true;
   };
 
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = [ "nvidia" ];
-  # hardware.bumblebee.enable = true; # check if needed in pc when installing
-
   nixpkgs.config.nvidia.acceptLicense = true;
 
   hardware.nvidia = {
@@ -123,17 +120,25 @@
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
+    # package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      version = "560.35.03";
+      sha256_64bit = "sha256-8pMskvrdQ8WyNBvkU/xPc/CtcYXCa7ekP73oGuKfH+M=";
+      sha256_aarch64 = "sha256-AV7KgRXYaQGBFl7zuRcfnTGr8rS5n13nGUIe3mJTXb4=";
+      openSha256 = "sha256-mRUTEWVsbjq+psVe+kAT6MjyZuLkG2yRDxCMvDJRL1I=";
+      settingsSha256 = "sha256-FUEwXpeUMH1DYH77/t76wF1UslkcW721x9BHasaRUaM=";
+      persistencedSha256 = "sha256-11tLSY8uUIl4X/roNnxf5yS2PQvHvoNjnd2CB67e870=";
+    };
 
-  hardware.nvidia.prime = {
-    # Make sure to use the correct Bus ID values for your system!
-    intelBusId = "PCI:0:2:0";
-    nvidiaBusId = "PCI:3:0:0";
+    prime = {
+      # Make sure to use the correct Bus ID values for your system!
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:3:0:0";
 
-    offload = {
-      enable = true;
-      enableOffloadCmd = true;
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
     };
   };
 
