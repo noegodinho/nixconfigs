@@ -210,6 +210,21 @@
     jack.enable = true;
   };
 
+  security.pam.loginLimits = [
+    {
+      domain = "*";
+      type = "-";
+      item = "memlock";
+      value = "unlimited";
+    }
+    {
+      domain = "*";
+      type = "-";
+      item = "rtprio";
+      value = "99";
+    }
+  ];
+
   # Man docs
   documentation = {
     enable = true;
@@ -271,6 +286,9 @@
       # driver = unstable.libfprint-2-tod1-vfs0090;
   #   };
   # };
+
+  # services.open-fprintd.enable = true;
+  # services.python-validity.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

@@ -14,6 +14,11 @@
       #url = "github:Svenum/Solaar-Flake/main; # Uncomment line for latest unstable version
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # nixos-06cb-009a-fingerprint-sensor = {
+    #   url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs = {self, nixpkgs, nixpkgs-unstable, home-manager, solaar, ...} @ inputs: let
@@ -42,6 +47,8 @@
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
           }
           solaar.nixosModules.default
+          # nixos-06cb-009a-fingerprint-sensor.nixosModules.open-fprintd
+          # nixos-06cb-009a-fingerprint-sensor.nixosModules.python-validity
           ./configuration.nix
       ];
     };

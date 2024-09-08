@@ -78,6 +78,7 @@ in {
     neofetch
     gparted
     testdisk-qt
+    recoll
 
     ffmpeg
     bat
@@ -103,9 +104,8 @@ in {
     skypeforlinux
     unstable.zotero
     slack
-    discord 
-    # discordo # may try later
-    pympress 
+    discord
+    pympress
     unstable.maestral
     veracrypt
     duplicati # http://localhost:8200/
@@ -117,11 +117,9 @@ in {
     texliveFull
     todo-txt-cli
     ardour
-    lmms
     musescore
     yt-dlp
     qalculate-qt
-    unstable.recoll
     # unstable.kdePackages.kamoso
 
     (nerdfonts.override { fonts = [ "Meslo" ]; })
@@ -129,8 +127,8 @@ in {
     wineWowPackages.waylandFull # wineWowPackages.full
     winetricks
     yabridge
+    yabridgectl
     protonup-qt
-
     vulkan-tools
     (lutris.override {
         extraPkgs = pkgs: [
@@ -141,6 +139,10 @@ in {
           # List library dependencies here
         ];
      })
+
+     khronos
+     ns-3
+     sumo
   ];
 
   programs = {
