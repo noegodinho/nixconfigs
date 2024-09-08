@@ -120,6 +120,7 @@ in {
     musescore
     yt-dlp
     qalculate-qt
+    kdePackages.kweather
     # unstable.kdePackages.kamoso
 
     (nerdfonts.override { fonts = [ "Meslo" ]; })
