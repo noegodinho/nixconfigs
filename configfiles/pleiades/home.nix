@@ -81,7 +81,6 @@ in {
     neofetch
     gparted
     testdisk-qt
-    recoll
 
     ffmpeg
     bat
@@ -305,6 +304,16 @@ in {
     home-manager.autoUpgrade = {
       enable = true;
       frequency = "daily";
+    };
+
+    recoll = {
+      enable = true;
+      package = pkgs.recoll;
+      settings = {
+        nocjk = true;
+        loglevel = 5;
+        topdirs = [ "~/Books" "~/Downloads" "~/Documents" "~/Dropbox (Maestral)" "~/nixconfigs" "~/Zotero" ];
+      };
     };
 
     fusuma = {
