@@ -68,6 +68,9 @@ in {
     psensor
     stress
     lshw
+    aha
+    fwupd
+    wayland-utils
     hwinfo
     clinfo
     glxinfo
