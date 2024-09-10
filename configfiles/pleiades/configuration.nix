@@ -14,6 +14,8 @@
   # Bootloader.
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
+    # kernelModules = [ "ec_sys" ];
+    # extraModprobeConfig = "options ec_sys write_support=1";
     blacklistedKernelModules = [ "psmouse" ];
     initrd.luks.devices."luks-a468a0ed-2a5b-487c-aab6-c97dafd8851a".device = "/dev/disk/by-uuid/a468a0ed-2a5b-487c-aab6-c97dafd8851a";
     supportedFilesystems = [ "ntfs" ];
@@ -201,6 +203,7 @@
       General = {
         Enable = "Source,Sink,Media,Socket";
         Experimental = true;
+        JustWorksRepairing = "always";
       };
     };
   };
