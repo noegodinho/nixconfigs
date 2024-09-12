@@ -91,6 +91,7 @@ in {
 
     nix-output-monitor
     nil
+    nurl
     glow
     
     libreoffice-qt
@@ -123,7 +124,8 @@ in {
     yt-dlp
     qalculate-qt
     kdePackages.kweather
-    # unstable.kdePackages.kamoso
+    imagemagick
+    projecteur
 
     (nerdfonts.override { fonts = [ "Meslo" ]; })
 
@@ -171,11 +173,11 @@ in {
         };
 
         shellAliases = {
-          update="sudo nix-channel --update";
-          rebuild="sudo nixos-rebuild switch";
-          upgrade_all="sudo nixos-rebuild switch --upgrade-all";
+          flake_update="nix flake update ~/nixconfigs/configfiles/pleiades";
+          rebuild="sudo nixos-rebuild switch --upgrade-all --flake ~/nixconfigs/configfiles/pleiades/#milkyway -v";
           mmamba="micromamba";
-          mmamba_update="micromamba activate general && micromamba update --all -y python=3.12.5 -c conda-forge && micromamba activate solver && micromamba update --all -y -c conda-forge && micromamba activate space && micromamba update --all -y -c conda-forge && micromamba activate tudat-space && micromamba update --all -y -c conda-forge && micromamba activate yafs && micromamba update --all -y -c conda-forge";
+          mmamba_update="micromamba activate general && micromamba update --all -y -c conda-forge && micromamba activate solver && micromamba update --all -y -c conda-forge && micromamba activate space && micromamba update --all -y -c conda-forge && micromamba activate tudat-space && micromamba update --all -y -c conda-forge && micromamba activate yafs && micromamba update --all -y -c conda-forge";
+          projecteur="QT_QPA_PLATFORM=xcb projecteur -D abc8:ca08";
         };
 
         initExtra=''
