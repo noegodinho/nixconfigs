@@ -3,7 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, nixpkgs-unstable, ... }:
-
+# let msi_ec_patch = config.boot.kernelPackages.callPackage ./msi_ec_patch.nix { }; in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -14,8 +14,12 @@
   # Bootloader.
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
+    # extraModulePackages = [ msi_ec_patch ];
     # kernelModules = [ "ec_sys" ];
-    # extraModprobeConfig = "options ec_sys write_support=1";
+    # extraModprobeConfig = ''
+    #     options ec_sys write_support=1
+    #     options msi-ec debug=1
+    # '';
     blacklistedKernelModules = [ "psmouse" ];
     initrd.luks.devices."luks-a468a0ed-2a5b-487c-aab6-c97dafd8851a".device = "/dev/disk/by-uuid/a468a0ed-2a5b-487c-aab6-c97dafd8851a";
     supportedFilesystems = [ "ntfs" ];
