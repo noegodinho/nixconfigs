@@ -173,7 +173,7 @@ in {
         };
 
         shellAliases = {
-          flake_update="nix flake update ~/nixconfigs/configfiles/pleiades";
+          flake_update="sudo nix flake update ~/nixconfigs/configfiles/pleiades";
           rebuild="sudo nixos-rebuild switch --upgrade-all --flake ~/nixconfigs/configfiles/pleiades/#milkyway -v";
           mmamba="micromamba";
           mmamba_update="micromamba activate general && micromamba update --all -y -c conda-forge && micromamba activate solver && micromamba update --all -y -c conda-forge && micromamba activate space && micromamba update --all -y -c conda-forge && micromamba activate tudat-space && micromamba update --all -y -c conda-forge && micromamba activate yafs && micromamba update --all -y -c conda-forge";
@@ -314,13 +314,20 @@ in {
       settings = {
         nocjk = true;
         loglevel = 5;
+        startAt = "daily";
         topdirs = [ "~/Books" "~/Downloads" "~/Documents" "~/Dropbox (Maestral)" "~/nixconfigs" "~/Zotero" ];
       };
     };
 
     fusuma = {
       enable = true;
-      package = unstable.fusuma;
+      package = pkgs.fusuma;
+      extraPackages = with pkgs; [
+        xdotool
+        coreutils-full
+        xorg.xprop
+        playerctl
+      ];
 
       settings = {
         threshold = {
@@ -329,34 +336,45 @@ in {
         };
         interval = {
           swipe = 0.7;
-          pinch = 1;
+          pinch = 0.5;
         };
         pinch = {
           "2" = {
             "in" = {
-              command = "xdotool key super++";
+              command = "xdotool keydown ctrl click 4 keyup ctrl";
             };
             "out" = {
-              command = "xdotool key super+-";
+              command = "xdotool keydown ctrl click 5 keyup ctrl";
             };
           };
         };
         swipe = {
           "3" = {
             left = {
-              command = "xdotool key alt+Left";
+              sendkey = "LEFTALT+LEFT";
             };
             right = {
-              command = "xdotool key alt+Right";
+              sendkey = "LEFTALT+RIGHT";
+            };
+            up = {
+              sendkey = "NEXTSONG";
+            };
+            down = {
+              sendkey = "PREVIOUSSONG";
             };
           };
           "4" = {
             left = {
-              command = "xdotool key ctrl+alt+Right";
+              sendkey = "LEFTCTRL+F1";
             };
             right = {
-              command = "xdotool key ctrl+alt+Left";
+              sendkey = "LEFTCTRL+F2";
             };
+          };
+        };
+        hold = {
+          "4" = {
+            command = "playerctl play-pause";
           };
         };
         plugin = {
