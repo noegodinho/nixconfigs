@@ -196,7 +196,16 @@
   services.printing = {
     enable = true;
     cups-pdf.enable = true;
-    logLevel = "debug";
+    logLevel = "debug2";
+    # extraConf = ''
+    #   Browsing Yes
+    #   DefaultShared Yes
+    #   DefaultAuthType Basic
+    #   WebInterface Yes
+    # '';
+    # extraFilesConf = ''
+    #   RemoteRoot noe
+    # '';
   };
 
   # enables support for Bluetooth & powers up the default Bluetooth controller on boot
@@ -307,7 +316,7 @@
   environment.systemPackages = with pkgs; [
     nixpkgs-unstable.legacyPackages."${pkgs.system}".mcontrolcenter
     nixpkgs-unstable.legacyPackages."${pkgs.system}".kdePackages.kate
-    pkgs.pcsclite
+    pcsclite
     qemu
     quickemu
   ];
