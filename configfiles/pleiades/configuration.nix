@@ -288,6 +288,9 @@
     remotePlay.openFirewall = false; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = false; # Open ports in the firewall for Source Dedicated Server
     gamescopeSession.enable = true;
+    extraCompatPackages = with pkgs; [
+      proton-ge-bin
+    ];
   };
 
   # programs.steam.package = pkgs.steam.override {
@@ -317,8 +320,8 @@
     nixpkgs-unstable.legacyPackages."${pkgs.system}".mcontrolcenter
     nixpkgs-unstable.legacyPackages."${pkgs.system}".kdePackages.kate
     pcsclite
-    qemu
-    quickemu
+    # qemu # for VMs
+    # quickemu # for easy VM management
   ];
 
   # In case I need docker
