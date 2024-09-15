@@ -114,13 +114,8 @@ in {
     duplicati # http://localhost:8200/
     zoom-us
     vlc
-    pcsxr
-    unstable.itch
-    renpy
     texliveFull
     todo-txt-cli
-    ardour
-    musescore
     yt-dlp
     qalculate-qt
     kdePackages.kweather
@@ -128,12 +123,17 @@ in {
     projecteur
 
     (nerdfonts.override { fonts = [ "Meslo" ]; })
-
-    wineWowPackages.waylandFull # wineWowPackages.full
-    winetricks
+    
+    ardour
+    musescore
     yabridge
     yabridgectl
-    protonup-qt
+
+    renpy
+    pcsxr
+    rare
+    wineWowPackages.waylandFull # wineWowPackages.full
+    winetricks
     vulkan-tools
     (lutris.override {
         extraPkgs = pkgs: [
@@ -341,10 +341,12 @@ in {
         pinch = {
           "2" = {
             "in" = {
-              command = "xdotool keydown ctrl click 4 keyup ctrl";
+              # command = "xdotool keydown ctrl click 4 keyup ctrl";
+              sendkey = "LEFTCTRL+EQUAL";
             };
             "out" = {
-              command = "xdotool keydown ctrl click 5 keyup ctrl";
+              # command = "xdotool keydown ctrl click 5 keyup ctrl";
+              sendkey = "LEFTCTRL+MINUS";
             };
           };
         };
