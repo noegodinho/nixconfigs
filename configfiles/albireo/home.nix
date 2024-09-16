@@ -81,7 +81,7 @@
         enableZshIntegration = true;
       };
 
-      firefox.enable = false;
+      firefox.enable = true;
       java.enable = true;
       home-manager.enable = true;
   };
