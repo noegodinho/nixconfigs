@@ -62,9 +62,8 @@
         };
 
         shellAliases = {
-          update="sudo nix-channel --update";
-          rebuild="sudo nixos-rebuild switch";
-          upgrade_all="sudo nixos-rebuild switch --upgrade-all";
+          flake_update="sudo nix flake update ~/nixconfigs/configfiles/albireo";
+          rebuild="sudo nixos-rebuild switch --upgrade-all --flake ~/nixconfigs/configfiles/albireo/#milkyway -v";
         };
 
         initExtra=''
@@ -82,7 +81,7 @@
         enableZshIntegration = true;
       };
 
-      firefox.enable = true;
+      firefox.enable = false;
       java.enable = true;
       home-manager.enable = true;
   };
