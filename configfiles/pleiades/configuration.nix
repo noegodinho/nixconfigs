@@ -337,6 +337,7 @@
   ];
 
   # "Driver" for MX Master 3S
+  hardware.logitech.wireless.enable = true;
   services.solaar = {
     enable = true; # Enable the service
     package = pkgs.solaar; # The package to use
