@@ -121,6 +121,7 @@ in {
     kdePackages.kweather
     imagemagick
     projecteur
+    unstable.kdePackages.okular
 
     (nerdfonts.override { fonts = [ "Meslo" ]; })
     
@@ -308,17 +309,6 @@ in {
       frequency = "daily";
     };
 
-    recoll = {
-      enable = true;
-      package = pkgs.recoll;
-      settings = {
-        nocjk = true;
-        loglevel = 5;
-        startAt = "daily";
-        topdirs = [ "~/Books" "~/Downloads" "~/Documents" "~/Dropbox (Maestral)" "~/nixconfigs" "~/Zotero" ];
-      };
-    };
-
     fusuma = {
       enable = true;
       package = pkgs.fusuma;
@@ -342,11 +332,11 @@ in {
           "2" = {
             "in" = {
               # command = "xdotool keydown ctrl click 4 keyup ctrl";
-              sendkey = "LEFTCTRL+EQUAL";
+              sendkey = "LEFTMETA+EQUAL";
             };
             "out" = {
               # command = "xdotool keydown ctrl click 5 keyup ctrl";
-              sendkey = "LEFTCTRL+MINUS";
+              sendkey = "LEFTMETA+MINUS";
             };
           };
         };
