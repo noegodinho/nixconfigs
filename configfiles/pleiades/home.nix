@@ -122,6 +122,7 @@ in {
     imagemagick
     projecteur
     unstable.kdePackages.okular
+    joplin-desktop
 
     (nerdfonts.override { fonts = [ "Meslo" ]; })
     
