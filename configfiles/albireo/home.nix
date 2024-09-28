@@ -41,6 +41,8 @@
       ffmpeg
       zellij
       konsave
+      lm_sensors
+      psensor
 
       (nerdfonts.override { fonts = [ "Meslo" ]; })
   ];
