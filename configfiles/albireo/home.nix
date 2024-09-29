@@ -48,6 +48,12 @@
   ];
 
   programs = {
+      git = {
+        enable = true;
+        userName = "noegodinho";
+        userEmail = "noe.godinho@protonmail.com";
+      };
+      
       zsh = {
         enable = true;
         autosuggestion.enable = true;
