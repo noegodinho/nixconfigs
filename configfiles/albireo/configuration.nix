@@ -82,7 +82,6 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    jack.enable = true;
   };
 
   nixpkgs.config = {
@@ -124,7 +123,7 @@
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "Albireo";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "audio" ];
   };
 
   programs.zsh.enable = true;
