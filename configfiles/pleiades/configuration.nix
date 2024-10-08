@@ -93,7 +93,15 @@
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
+
+    extraPackages = with pkgs; [
+      intel-media-driver # LIBVA_DRIVER_NAME=iHD
+      intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      libvdpau-va-gl
+    ];
   };
+
+  environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; }; # Force intel-media-driver
 
   # Load nvidia driver for Xorg and Wayland
   nixpkgs.config.nvidia.acceptLicense = true;
@@ -166,6 +174,10 @@
   nixpkgs.config = {
     # allow proprietary packages
     allowUnfree = true;
+
+    packageOverrides = pkgs: {
+      intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
+    };
 
     # packageOverrides = super: let self = super.pkgs; in {
     #   subtitleeditor = super.subtitleeditor.overrideAttrs (attrs: {
