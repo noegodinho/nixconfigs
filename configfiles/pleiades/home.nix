@@ -114,7 +114,7 @@ in {
     veracrypt
     duplicati # http://localhost:8200/
     zoom-us
-    vlc
+    mpv
     texliveFull
     todo-txt-cli
     yt-dlp
