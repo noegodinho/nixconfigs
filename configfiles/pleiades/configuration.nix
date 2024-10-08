@@ -320,6 +320,7 @@
     nixpkgs-unstable.legacyPackages."${pkgs.system}".mcontrolcenter
     nixpkgs-unstable.legacyPackages."${pkgs.system}".kdePackages.kate
     pcsclite
+    bcc
     # qemu # for VMs
     # quickemu # for easy VM management
   ];

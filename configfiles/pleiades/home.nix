@@ -59,6 +59,7 @@ in {
     gnupg
     direnv
     gnutar
+    lsof
 
     htop
     btop
