@@ -180,6 +180,7 @@ in {
           rebuild="sudo nixos-rebuild switch --upgrade-all --flake ~/nixconfigs/configfiles/pleiades/#milkyway -v";
           mmamba="micromamba";
           mmamba_update="micromamba activate general && micromamba update --all -y -c conda-forge && micromamba activate solver && micromamba update --all -y -c conda-forge && micromamba activate space && micromamba update --all -y -c conda-forge && micromamba activate tudat-space && micromamba update --all -y -c conda-forge && micromamba activate yafs && micromamba update --all -y -c conda-forge";
+          update_all="flake_update && rebuild && mmamba_update && nix-collect-garbage -d";
           projecteur="QT_QPA_PLATFORM=xcb projecteur -D abc8:ca08";
         };
 
