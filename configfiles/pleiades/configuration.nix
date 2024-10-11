@@ -305,6 +305,9 @@
     ];
   };
 
+  # BPF-based Linux IO analysis, networking, monitoring, and more
+  programs.bcc.enable = true;
+
   # programs.steam.package = pkgs.steam.override {
   #    withPrimus = true;  # invalid?
   #    withJava = true;    # invalid?
@@ -332,7 +335,6 @@
     nixpkgs-unstable.legacyPackages."${pkgs.system}".mcontrolcenter
     nixpkgs-unstable.legacyPackages."${pkgs.system}".kdePackages.kate
     pcsclite
-    bcc
     # qemu # for VMs
     # quickemu # for easy VM management
   ];
