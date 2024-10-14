@@ -190,7 +190,7 @@ in {
           eval "$(micromamba shell hook --shell zsh)"
           # >>> mamba initialize >>>
           # !! Contents within this block are managed by 'mamba init' !!
-          export MAMBA_EXE='/nix/store/nf1jd8czw9kspasnpck8aqq8kmc2x0pz-micromamba-1.5.8/bin/micromamba';
+          export MAMBA_EXE='/etc/profiles/per-user/pleiades/bin/micromamba';
           export MAMBA_ROOT_PREFIX='/home/pleiades/micromamba';
           __mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
           if [ $? -eq 0 ]; then
