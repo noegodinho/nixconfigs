@@ -72,6 +72,7 @@
         shellAliases = {
           flake_update="sudo nix flake update ~/nixconfigs/configfiles/albireo";
           rebuild="sudo nixos-rebuild switch --upgrade-all --flake ~/nixconfigs/configfiles/albireo/#milkyway -v";
+          update_all="flake_update && rebuild && nix-collect-garbage -d";
         };
 
         initExtra=''
