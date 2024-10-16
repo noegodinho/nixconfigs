@@ -333,7 +333,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     nixpkgs-unstable.legacyPackages."${pkgs.system}".mcontrolcenter
-    nixpkgs-unstable.legacyPackages."${pkgs.system}".kdePackages.kate
     pcsclite
     # qemu # for VMs
     # quickemu # for easy VM management
@@ -345,6 +344,7 @@
   # Exclude KDE & system packages
   environment.plasma6.excludePackages = [
     pkgs.khelpcenter
+    pkgs.kdePackages.kate
   ];
 
   services.xserver.excludePackages = [
