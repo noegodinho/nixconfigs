@@ -287,6 +287,7 @@ in {
             "python.defaultInterpreterPath" = "/home/pleiades/micromamba/envs/general/bin/python";
             "nix.enableLanguageServer" = true;
             "nix.serverPath" = "nil";
+            "git.openRepositoryInParentFolders" = "always";
          };
       };
 
