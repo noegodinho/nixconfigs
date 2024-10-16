@@ -342,9 +342,9 @@
   # virtualisation.docker.enable = true;
 
   # Exclude KDE & system packages
-  environment.plasma6.excludePackages = [
-    pkgs.khelpcenter
-    pkgs.kdePackages.kate
+  environment.plasma6.excludePackages = with pkgs; [
+    khelpcenter
+    kdePackages.kate
   ];
 
   services.xserver.excludePackages = [
