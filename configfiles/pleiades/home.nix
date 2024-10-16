@@ -85,7 +85,6 @@ in {
 
     ffmpeg
     bat
-    neovim
     fzf
     micromamba
     konsave
