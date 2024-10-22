@@ -88,7 +88,7 @@
     desktopManager.plasma6.enable = true;
     displayManager.sddm = {
       enable = true;
-      wayland.enable = true;
+      # wayland.enable = true;
     };
   };
 
@@ -226,6 +226,7 @@
   # enables support for Bluetooth & powers up the default Bluetooth controller on boot
   hardware.bluetooth = {
     enable = true;
+    package = nixpkgs-unstable.legacyPackages."${pkgs.system}".bluez;
     powerOnBoot = true;
     settings = {
       General = {
