@@ -338,8 +338,8 @@
   environment.systemPackages = with pkgs; [
     nixpkgs-unstable.legacyPackages."${pkgs.system}".mcontrolcenter
     pcsclite
-    # qemu # for VMs
-    # quickemu # for easy VM management
+    qemu # for VMs
+    quickemu # for easy VM management
   ];
 
   # In case I need docker
