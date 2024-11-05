@@ -212,6 +212,11 @@
     enable = true;
     cups-pdf.enable = true;
     logLevel = "debug2";
+
+    # drivers = [
+    #   (pkgs.writeTextDir "share/cups/model/KMbeu750iux.ppd" (builtins.readFile /home/pleiades/printer_drivers/KMbeu750iux.ppd))
+    # ];
+
     # extraConf = ''
     #   Browsing Yes
     #   DefaultShared Yes
@@ -222,6 +227,27 @@
     #   RemoteRoot noe
     # '';
   };
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
+  # hardware.printers = {
+  #   ensurePrinters = [
+  #     {
+  #       name = "printer-hall-2";
+  #       location = "DEI Main Hall";
+  #       deviceUri = "http://ipp.dei.uc.pt/printers/printer-hall-2";
+  #       model = "drv:///home/pleiades/printer_drivers/KMbeu750iux.ppd";
+  #       ppdOptions = {
+  #         PageSize = "A4";
+  #       };
+  #     }
+  #   ];
+  #   ensureDefaultPrinter = "printer-hall-2";
+  # };
 
   # enables support for Bluetooth & powers up the default Bluetooth controller on boot
   hardware.bluetooth = {
@@ -344,6 +370,7 @@
 
   # In case I need docker
   # virtualisation.docker.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
 
   # Exclude KDE & system packages
   environment.plasma6.excludePackages = with pkgs; [
