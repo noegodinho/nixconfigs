@@ -66,7 +66,7 @@ in {
     nvtopPackages.full
     undervolt
     lm_sensors
-    psensor
+    # psensor
     stress
     lshw
     aha
@@ -132,7 +132,7 @@ in {
     yabridgectl
 
     renpy
-    pcsxr
+    # pcsxr
     rare
     wineWowPackages.waylandFull # wineWowPackages.full
     winetricks
@@ -175,7 +175,7 @@ in {
         };
 
         shellAliases = {
-          flake_update="sudo nix flake update ~/nixconfigs/configfiles/pleiades";
+          flake_update="sudo nix flake update --flake ~/nixconfigs/configfiles/pleiades";
           rebuild="sudo nixos-rebuild switch --upgrade-all --flake ~/nixconfigs/configfiles/pleiades/#milkyway -v";
           mmamba="micromamba";
           mmamba_update="micromamba activate general && micromamba update --all -y -c conda-forge && micromamba activate solver && micromamba update --all -y -c conda-forge && micromamba activate space && micromamba update --all -y -c conda-forge && micromamba activate tudat-space && micromamba update --all -y -c conda-forge && micromamba activate yafs && micromamba update --all -y -c conda-forge";
