@@ -77,7 +77,7 @@
       layout = "pt";
       variant = "";
     };
-    # videoDrivers = [ "nvidia" ];
+    videoDrivers = [ "intel" "nvidia" ];
   };
 
   # Configure console keymap
@@ -88,7 +88,7 @@
     desktopManager.plasma6.enable = true;
     displayManager.sddm = {
       enable = true;
-      # wayland.enable = true;
+      wayland.enable = true;
     };
   };
 
