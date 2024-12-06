@@ -42,7 +42,6 @@
       zellij
       konsave
       lm_sensors
-      psensor
 
       (nerdfonts.override { fonts = [ "Meslo" ]; })
   ];
@@ -70,7 +69,7 @@
         };
 
         shellAliases = {
-          flake_update="sudo nix flake update ~/nixconfigs/configfiles/albireo";
+          flake_update="sudo nix flake update --flake ~/nixconfigs/configfiles/albireo";
           rebuild="sudo nixos-rebuild switch --upgrade-all --flake ~/nixconfigs/configfiles/albireo/#milkyway -v";
           update_all="flake_update && rebuild && nix-collect-garbage -d";
         };
