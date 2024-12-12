@@ -291,15 +291,6 @@ in {
          };
       };
 
-      obs-studio = {
-        enable = true;
-        plugins = with pkgs.obs-studio-plugins; [
-          wlrobs
-          obs-backgroundremoval
-          obs-pipewire-audio-capture
-        ];
-      };
-
       firefox.enable = false;
       java.enable = true;
       # hyprland.enable = false; # change later to true if decide to try it
