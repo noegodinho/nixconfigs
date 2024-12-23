@@ -13,7 +13,6 @@
   # Bootloader.
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
-    blacklistedKernelModules = [ "psmouse" ];
     initrd.luks.devices."luks-4330ca1e-a192-4c36-be45-3a5dc91b02a4".device = "/dev/disk/by-uuid/4330ca1e-a192-4c36-be45-3a5dc91b02a4";
     supportedFilesystems = [ "ntfs" ];
     loader = {
