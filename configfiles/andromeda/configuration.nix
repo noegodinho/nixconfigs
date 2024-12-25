@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, nixpkgs-unstable, ... }:
+{ pkgs, nixpkgs-unstable, ... }:
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -13,6 +13,7 @@
   # Bootloader.
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
+    # initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" "thinkpad_acpi" ];
     initrd.luks.devices."luks-4330ca1e-a192-4c36-be45-3a5dc91b02a4".device = "/dev/disk/by-uuid/4330ca1e-a192-4c36-be45-3a5dc91b02a4";
     supportedFilesystems = [ "ntfs" ];
     loader = {
@@ -87,6 +88,8 @@
     extraPackages = with pkgs; [
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
       intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      intel-compute-runtime
+      vpl-gpu-rt
     ];
   };
 
@@ -266,6 +269,22 @@
       driver = pkgs.libfprint-2-tod1-vfs0090;
     };
   };
+
+  # services.thinkfan = {
+  #   enable = true;
+    # levels = [
+    #   [0    0      4]
+    #   [1    35     4]
+    #   [2    38     4]
+    #   [3    42     5]
+    #   [4    45     5]
+    #   [5    48     6]
+    #   [6    51     6]
+    #   [7    54     6]
+    #   [8    56     7]
+    #   [9    58    99]
+    # ];
+  # };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
