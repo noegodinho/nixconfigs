@@ -1,10 +1,10 @@
 { pkgs, unstable, system, ... }: let
-  # extensions =
-  #   (import (builtins.fetchGit {
-  #     url = "https://github.com/nix-community/nix-vscode-extensions";
-  #     ref = "refs/heads/master";
-  #     rev = "c43d9089df96cf8aca157762ed0e2ddca9fcd71e";
-  #   })).extensions.${system};
+  extensions =
+    (import (builtins.fetchGit {
+      url = "https://github.com/nix-community/nix-vscode-extensions";
+      ref = "refs/heads/master";
+      rev = "c43d9089df96cf8aca157762ed0e2ddca9fcd71e";
+    })).extensions.${system};
 in {
   home.username = "andromeda";
   home.homeDirectory = "/home/andromeda";
@@ -63,10 +63,10 @@ in {
 
     htop
     btop
-    nvtopPackages.full
+    nvtopPackages.intel
     undervolt
     lm_sensors
-    # psensor
+    mission-center
     stress
     lshw
     aha
@@ -131,7 +131,7 @@ in {
     yabridgectl
 
     renpy
-    # pcsxr
+    duckstation
     rare
     wineWowPackages.waylandFull # wineWowPackages.full
     winetricks
@@ -238,56 +238,56 @@ in {
 
       vscode = {
         enable = true;
-        package = pkgs.vscodium;
+        package = unstable.vscodium;
 
         # mutableExtensionsDir = false;
         # enableUpdateCheck = false;
         # enableExtensionUpdateCheck = false;
 
-        # extensions = with extensions.open-vsx; [
-        #   # detachhead.basedpyright
-        # ] ++ (with extensions.vscode-marketplace; [
-        #   # arrterian.nix-env-selector
-        #   bbenoist.nix
-        #   cschlosser.doxdocgen
-        #   james-yu.latex-workshop
-        #   jeff-hykin.better-cpp-syntax
-        #   jnoortheen.nix-ide
-        #   luquedaniel.languague-renpy
-        #   mechatroner.rainbow-csv
-        #   ms-python.python
-        #   # ms-python.vscode-pylance
-        #   ms-vscode.cmake-tools
-        #   ms-vscode.cpptools
-        #   ms-vscode.cpptools-themes
-        #   ms-vscode.makefile-tools
-        #   pinage404.nix-extension-pack
-        #   tecosaur.latex-utilities
-        #   twxs.cmake
-        #   valentjn.vscode-ltex
-        #   # visualstudioexptteam.vscodeintellicode
-        #   yzhang.markdown-all-in-one
-        #  ]) ++ (with unstable.vscode-extensions; [
-        #   github.copilot
-        #  ]);
+        extensions = with extensions.open-vsx; [
+          # detachhead.basedpyright
+        ] ++ (with extensions.vscode-marketplace; [
+          # arrterian.nix-env-selector
+          bbenoist.nix
+          cschlosser.doxdocgen
+          james-yu.latex-workshop
+          jeff-hykin.better-cpp-syntax
+          jnoortheen.nix-ide
+          luquedaniel.languague-renpy
+          mechatroner.rainbow-csv
+          ms-python.python
+          # ms-python.vscode-pylance
+          ms-vscode.cmake-tools
+          ms-vscode.cpptools
+          ms-vscode.cpptools-themes
+          ms-vscode.makefile-tools
+          pinage404.nix-extension-pack
+          tecosaur.latex-utilities
+          twxs.cmake
+          valentjn.vscode-ltex
+          # visualstudioexptteam.vscodeintellicode
+          yzhang.markdown-all-in-one
+         ]) ++ (with unstable.vscode-extensions; [
+          github.copilot
+        ]);
          
-         userSettings = {
-            "files.autoSave" = "afterDelay";
-            "terminal.integrated.fontFamily" = "MesloLGS Nerd Font";
-            "editor.wordWrap" = "on";
-            "C_Cpp.default.compilerPath" = "/etc/profiles/per-user/andromeda/bin/gcc";
-            "C_Cpp.default.intelliSenseMode" = "linux-gcc-x64";
-            "C_Cpp.autocompleteAddParentheses" = true;
-            "C_Cpp.default.systemIncludePath" = ["/nix/store/skkw2fidr9h2ikq8gzgfm6rysj1mal0r-gcc-13.2.0/lib/gcc/x86_64-unknown-linux-gnu/13.2.0/include"];
-            "latex-workshop.latex.autoBuild.run" = "never";
-            "ltex.additionalRules.motherTongue" = "pt-PT";
-            "ltex.language" = "en-GB";
-            "ltex.enabled" = ["bibtex" "context" "context.tex" "html" "latex" "markdown" "org" "restructuredtext" "rsweave"];
-            "python.defaultInterpreterPath" = "/home/andromeda/micromamba/envs/general/bin/python";
-            "nix.enableLanguageServer" = true;
-            "nix.serverPath" = "nil";
-            "git.openRepositoryInParentFolders" = "always";
-         };
+        userSettings = {
+           "files.autoSave" = "afterDelay";
+           "terminal.integrated.fontFamily" = "MesloLGS Nerd Font";
+           "editor.wordWrap" = "on";
+           "C_Cpp.default.compilerPath" = "/etc/profiles/per-user/andromeda/bin/gcc";
+           "C_Cpp.default.intelliSenseMode" = "linux-gcc-x64";
+           "C_Cpp.autocompleteAddParentheses" = true;
+           "C_Cpp.default.systemIncludePath" = ["/nix/store/skkw2fidr9h2ikq8gzgfm6rysj1mal0r-gcc-13.2.0/lib/gcc/x86_64-unknown-linux-gnu/13.2.0/include"];
+           "latex-workshop.latex.autoBuild.run" = "never";
+           "ltex.additionalRules.motherTongue" = "pt-PT";
+           "ltex.language" = "en-GB";
+           "ltex.enabled" = ["bibtex" "context" "context.tex" "html" "latex" "markdown" "org" "restructuredtext" "rsweave"];
+           "python.defaultInterpreterPath" = "/home/andromeda/micromamba/envs/general/bin/python";
+           "nix.enableLanguageServer" = true;
+           "nix.serverPath" = "nil";
+           "git.openRepositoryInParentFolders" = "always";
+        };
       };
 
       firefox.enable = false;
