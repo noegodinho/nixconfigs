@@ -186,6 +186,7 @@
   };
 
   # Enable sound with pipewire.
+  hardware.pulseaudio.enable = false; # Use Pipewire, the modern sound subsystem
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -252,6 +253,8 @@
     remotePlay.openFirewall = false; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = false; # Open ports in the firewall for Source Dedicated Server
     gamescopeSession.enable = true;
+    extest.enable = true;
+    protontricks.enable = true;
     extraCompatPackages = with pkgs; [
       proton-ge-bin
     ];
@@ -311,8 +314,8 @@
   # "Driver" for MX Master 3S
   hardware.logitech.wireless.enable = true;
   services.solaar = {
-    enable = true; # Enable the service
-    package = pkgs.solaar; # The package to use
+    enable = true;
+    package = pkgs.solaar;
     window = "hide"; # Show the window on startup (show, *hide*, only [window only])
     batteryIcons = "regular"; # Which battery icons to use (*regular*, symbolic, solaar)
     extraArgs = ""; # Extra arguments to pass to solaar on startup
