@@ -67,6 +67,7 @@ in {
     undervolt
     lm_sensors
     mission-center
+    dmidecode
     stress
     lshw
     aha
