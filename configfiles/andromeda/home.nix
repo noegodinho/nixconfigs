@@ -60,6 +60,7 @@ in {
     direnv
     gnutar
     lsof
+    kdePackages.filelight
 
     htop
     btop
@@ -118,10 +119,8 @@ in {
     todo-txt-cli
     yt-dlp
     qalculate-qt
-    kdePackages.kweather
     imagemagick
     projecteur
-    unstable.kdePackages.okular
     joplin-desktop
 
     (nerdfonts.override { fonts = [ "Meslo" ]; })
@@ -139,17 +138,13 @@ in {
     vulkan-tools
     (lutris.override {
         extraPkgs = pkgs: [
-          # List package dependencies here
+          mangohud
         ];
 
         extraLibraries =  pkgs: [
           # List library dependencies here
         ];
      })
-
-     khronos
-     # ns-3
-     # sumo
   ];
 
   programs = {
