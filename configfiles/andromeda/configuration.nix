@@ -7,12 +7,7 @@
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./vpn.nix
-    ./newpcscd.nix
   ];
-
-  # nixpkgs.overlays = [ 
-  #   (import ./pcsclite_overlay.nix) 
-  # ];
 
   # Bootloader.
   boot = {
@@ -293,6 +288,22 @@
     # ];
   # };
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      pcscliteWithPolkit = prev.pcscliteWithPolkit.overrideAttrs(oldAttrs: {
+        version = "2.1.0";
+        
+        src = pkgs.fetchFromGitLab {
+          domain = "salsa.debian.org";
+          owner = "rousseau";
+          repo = "PCSC";
+          rev = "refs/tags/${oldAttrs.version}";
+          hash = "sha256-hKyxXqZaqg8KGFoBWhRHV1/50uoxqiG0RsYtgw2BuQ4=";
+        };
+      });
+    })
+  ];
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -336,8 +347,7 @@
   };
 
   # Smart card reader driver
-  # services.pcscd.enable = true;
-  services.newpcscd.enable = true;
+  services.pcscd.enable = true;
 
   # Firmware and BIOS updates
   services.fwupd = {
