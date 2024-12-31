@@ -1,22 +1,42 @@
 { config, lib, pkgs, ... }:
 
 let
-  nixpkgs.overlays = [ (import ./pcsclite_overlay.nix) ];
-  cfg = config.services.pcscd;
-  cfgFile = pkgs.writeText "reader.conf" config.services.pcscd.readerConfig;
+  cfg = config.services.newpcscd;
+  cfgFile = pkgs.writeText "reader.conf" config.services.newpcscd.readerConfig;
 
   package = if config.security.polkit.enable
-              then pkgs.pcscliteWithPolkit
-              else pkgs.pcsclite;
+              then pkgs.pcscliteWithPolkit.overrideAttrs(oldAttrs: {
+                version = "2.1.0";
+                
+                src = pkgs.fetchFromGitLab {
+                  domain = "salsa.debian.org";
+                  owner = "rousseau";
+                  repo = "PCSC";
+                  rev = "refs/tags/${oldAttrs.version}";
+                  hash = "sha256-hKyxXqZaqg8KGFoBWhRHV1/50uoxqiG0RsYtgw2BuQ4=";
+                };
+              })
+  
+              else pkgs.pcsclite.overrideAttrs (oldAttrs: {
+                version = "2.1.0";
+                
+                src = pkgs.fetchFromGitLab {
+                  domain = "salsa.debian.org";
+                  owner = "rousseau";
+                  repo = "PCSC";
+                  rev = "refs/tags/${oldAttrs.version}";
+                  hash = "sha256-hKyxXqZaqg8KGFoBWhRHV1/50uoxqiG0RsYtgw2BuQ4=";
+                };
+              });
 
   pluginEnv = pkgs.buildEnv {
     name = "pcscd-plugins";
-    paths = map (p: "${p}/pcsc/drivers") config.services.pcscd.plugins;
+    paths = map (p: "${p}/pcsc/drivers") config.services.newpcscd.plugins;
   };
 
 in
 {
-  options.services.pcscd = {
+  options.services.newpcscd = {
     enable = lib.mkEnableOption "PCSC-Lite daemon, to access smart cards using SCard API (PC/SC)";
 
     plugins = lib.mkOption {
@@ -49,17 +69,17 @@ in
     };
   };
 
-  config = lib.mkIf config.services.pcscd.enable {
+  config = lib.mkIf config.services.newpcscd.enable {
     environment.etc."reader.conf".source = cfgFile;
 
     environment.systemPackages = [ package ];
     systemd.packages = [ package ];
 
-    services.pcscd.plugins = [ pkgs.ccid ];
+    services.newpcscd.plugins = [ pkgs.ccid ];
 
-    systemd.sockets.pcscd.wantedBy = [ "sockets.target" ];
+    systemd.sockets.newpcscd.wantedBy = [ "sockets.target" ];
 
-    systemd.services.pcscd = {
+    systemd.services.newpcscd = {
       environment.PCSCLITE_HP_DROPDIR = pluginEnv;
 
       # If the cfgFile is empty and not specified (in which case the default
