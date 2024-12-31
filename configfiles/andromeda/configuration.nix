@@ -4,11 +4,15 @@
 
 { pkgs, nixpkgs-unstable, ... }:
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./vpn.nix
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./vpn.nix
+    ./newpcscd.nix
+  ];
+
+  # nixpkgs.overlays = [ 
+  #   (import ./pcsclite_overlay.nix) 
+  # ];
 
   # Bootloader.
   boot = {
@@ -332,7 +336,8 @@
   };
 
   # Smart card reader driver
-  services.pcscd.enable = true;
+  # services.pcscd.enable = true;
+  services.newpcscd.enable = true;
 
   # Firmware and BIOS updates
   services.fwupd = {
