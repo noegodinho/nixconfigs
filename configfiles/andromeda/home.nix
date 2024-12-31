@@ -83,6 +83,7 @@ in {
     neofetch
     gparted
     testdisk-qt
+    dig
 
     ffmpeg
     bat
