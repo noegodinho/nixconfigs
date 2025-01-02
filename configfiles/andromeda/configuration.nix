@@ -86,7 +86,6 @@
 
     extraPackages = with pkgs; [
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       intel-compute-runtime
       vpl-gpu-rt
     ];
@@ -98,10 +97,6 @@
   nixpkgs.config = {
     # allow proprietary packages
     allowUnfree = true;
-
-    packageOverrides = pkgs: {
-      intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
-    };
 
     # packageOverrides = super: let self = super.pkgs; in {
     #   subtitleeditor = super.subtitleeditor.overrideAttrs (attrs: {
