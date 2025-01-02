@@ -16,6 +16,8 @@
   boot.loader.grub.useOSProber = true;
   boot.supportedFilesystems = [ "ntfs" ];
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   boot.extraModprobeConfig = ''
     blacklist nouveau
     options nouveau modeset=0
