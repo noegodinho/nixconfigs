@@ -140,14 +140,15 @@ in {
     winetricks
     vulkan-tools
     (lutris.override {
-        extraPkgs = pkgs: [
-          mangohud
-        ];
+      extraPkgs = pkgs: [
+        mangohud
+      ];
 
-        extraLibraries =  pkgs: [
-          # List library dependencies here
-        ];
+      extraLibraries = pkgs: [
+        # List library dependencies here
+      ];
      })
+     stellarium
   ];
 
   programs = {
