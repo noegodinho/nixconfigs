@@ -224,7 +224,7 @@
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "Andromeda";
-    extraGroups = [ "input" "networkmanager" "wheel" ];
+    extraGroups = [ "input" "networkmanager" "video" "wheel" ];
     # packages = with pkgs; [
         # kdePackages.kate
     # ];
