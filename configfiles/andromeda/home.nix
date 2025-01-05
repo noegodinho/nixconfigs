@@ -202,46 +202,19 @@ in {
         '';
       };
 
-      foot = {
-        enable = true;
-        package = unstable.foot;
-
-        settings = {
-          colors = {
-            background = "000000";
-          };
-
-          main = {
-            # dpi-aware = "yes";
-            font = "MesloLGS Nerd Font:size=10";
-            term = "foot";
-          };
-
-          mouse = {
-            hide-when-typing = "yes";
-          };
-        };
-      };
-
       ghostty = {
         enable = true;
         package = pkgs.ghostty;
         enableZshIntegration = true;
         settings = {
-          theme = "catppuccin-mocha";
           font-size = 10;
+          theme = "Adventure";
         };
       };
 
       atuin = {
         enable = true;
         package = unstable.atuin;
-        enableZshIntegration = true;
-      };
-
-      zellij = {
-        enable = true;
-        package = pkgs.zellij;
         enableZshIntegration = true;
       };
 
