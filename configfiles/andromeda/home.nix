@@ -208,6 +208,8 @@ in {
         package = pkgs.ghostty;
         enableZshIntegration = true;
         settings = {
+          cursor-style = "block";
+          shell-integration-features = "no-cursor";
           font-size = 10;
           theme = "Adventure";
           keybind = [
