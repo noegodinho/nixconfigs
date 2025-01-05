@@ -6,9 +6,6 @@
       rev = "c43d9089df96cf8aca157762ed0e2ddca9fcd71e";
     })).extensions.${system};
 in {
-  home.username = "andromeda";
-  home.homeDirectory = "/home/andromeda";
-
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
 
@@ -23,6 +20,11 @@ in {
   # home.file.".xxx".text = ''
   #     xxx
   # '';
+
+  home.enableNixpkgsReleaseCheck = false;
+
+  home.username = "andromeda";
+  home.homeDirectory = "/home/andromeda";
 
   # enable configuration of fonts
   fonts.fontconfig.enable = true;
@@ -64,7 +66,6 @@ in {
 
     htop
     btop
-    nvtopPackages.intel
     undervolt
     lm_sensors
     mission-center
@@ -80,17 +81,15 @@ in {
     linuxKernel.packages.linux_zen.turbostat
     powertop
     smartmontools
-    neofetch
+    fastfetch
     gparted
     testdisk-qt
     dig
-
     ffmpeg
     bat
     fzf
     micromamba
     konsave
-
     nix-output-monitor
     nil
     nurl
@@ -148,7 +147,7 @@ in {
         # List library dependencies here
       ];
      })
-     stellarium
+    stellarium
   ];
 
   programs = {
@@ -224,6 +223,16 @@ in {
         };
       };
 
+      ghostty = {
+        enable = true;
+        package = pkgs.ghostty;
+        enableZshIntegration = true;
+        settings = {
+          theme = "catppuccin-mocha";
+          font-size = 10;
+        };
+      };
+
       atuin = {
         enable = true;
         package = unstable.atuin;
@@ -234,6 +243,11 @@ in {
         enable = true;
         package = pkgs.zellij;
         enableZshIntegration = true;
+      };
+
+      neovim = {
+        enable = true;
+        package = pkgs.neovim-unwrapped;
       };
 
       vscode = {
