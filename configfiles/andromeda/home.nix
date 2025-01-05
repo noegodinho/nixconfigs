@@ -214,7 +214,7 @@ in {
                       "alt+b=new_split:left"
                       "alt+n=new_split:right"
                       "alt+v=new_split:down"
-                      "alt+m=new_split:up"
+                      "alt+m=new_split:up"  
                       "ctrl+up=goto_split:top"
                       "ctrl+down=goto_split:bottom"
                       "ctrl+left=goto_split:left"
@@ -227,6 +227,10 @@ in {
                       "ctrl+n=new_window"                      
                       "ctrl+t=new_tab"
                       "ctrl+w=close_surface"
+                      "ctrl+page_up=scroll_page_lines:-15"
+                      "ctrl+page_down=scroll_page_lines:15"
+                      "ctrl+home=scroll_to_top"
+                      "ctrl+end=scroll_to_bottom"
                     ];
         };
       };
