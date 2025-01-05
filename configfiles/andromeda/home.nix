@@ -210,6 +210,24 @@ in {
         settings = {
           font-size = 10;
           theme = "Adventure";
+          keybind = [
+                      "alt+b=new_split:left"
+                      "alt+n=new_split:right"
+                      "alt+v=new_split:down"
+                      "alt+m=new_split:up"
+                      "ctrl+up=goto_split:top"
+                      "ctrl+down=goto_split:bottom"
+                      "ctrl+left=goto_split:left"
+                      "ctrl+right=goto_split:right"
+                      "ctrl+alt+left=resize_split:left,10"
+                      "ctrl+alt+right=resize_split:right,10"
+                      "ctrl+alt+up=resize_split:up,10"
+                      "ctrl+alt+down=resize_split:down,10"
+                      "ctrl+shift+alt+plus=toggle_split_zoom"
+                      "ctrl+n=new_window"                      
+                      "ctrl+t=new_tab"
+                      "ctrl+w=close_surface"
+                    ];
         };
       };
 
