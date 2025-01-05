@@ -66,6 +66,7 @@ in {
 
     htop
     btop
+    intel-gpu-tools
     undervolt
     lm_sensors
     mission-center
