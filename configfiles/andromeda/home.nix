@@ -123,8 +123,6 @@ in {
     imagemagick
     projecteur
     joplin-desktop
-    kdePackages.korganizer
-    kdePackages.kdepim-addons
 
     (nerdfonts.override { fonts = [ "Meslo" ]; })
     

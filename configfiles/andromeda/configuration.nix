@@ -243,6 +243,9 @@
     # python312Packages.conda
   # ];
 
+  # enable kontact KDE PIM suite
+  programs.kde-pim.kontact = true;
+
   # Steam settings (installed in lutris)
   programs.steam = {
     enable = true;
