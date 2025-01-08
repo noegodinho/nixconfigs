@@ -358,7 +358,7 @@
   # Firmware and BIOS updates
   services.fwupd = {
     enable = true;
-    # package = nixpkgs-unstable.legacyPackages."${pkgs.system}".fwupd;
+    package = nixpkgs-unstable.legacyPackages."${pkgs.system}".fwupd;
   };
 
   # Some programs need SUID wrappers, can be configured further or are
