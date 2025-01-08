@@ -123,6 +123,8 @@ in {
     imagemagick
     projecteur
     joplin-desktop
+    khronos
+    kdePackages.kdepim-addons
 
     (nerdfonts.override { fonts = [ "Meslo" ]; })
     
@@ -299,6 +301,12 @@ in {
            "git.openRepositoryInParentFolders" = "always";
         };
       };
+
+      # thunderbird = {
+      #   enable = true;
+      #   package = pkgs.thunderbird;
+      #   profiles = ?;
+      # };
 
       firefox.enable = false;
       java.enable = true;
