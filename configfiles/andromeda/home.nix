@@ -59,7 +59,6 @@ in {
     gawk
     zstd
     gnupg
-    direnv
     gnutar
     lsof
     kdePackages.filelight
@@ -87,10 +86,7 @@ in {
     testdisk-qt
     dig
     ffmpeg
-    bat
-    fzf
     micromamba
-    konsave
     nix-output-monitor
     nil
     nurl
@@ -125,6 +121,7 @@ in {
     joplin-desktop
     khronos
     kdePackages.kdepim-addons
+    stellarium
 
     (nerdfonts.override { fonts = [ "Meslo" ]; })
     
@@ -148,7 +145,6 @@ in {
         # List library dependencies here
       ];
      })
-    stellarium
   ];
 
   programs = {
@@ -237,10 +233,27 @@ in {
         };
       };
 
+      fzf = {
+        enable = true;
+        package = pkgs.fzf;
+        enableZshIntegration = true;
+      };
+
+      direnv = {
+        enable = true;
+        package = pkgs.direnv;
+        enableZshIntegration = true;
+      };
+
       atuin = {
         enable = true;
         package = unstable.atuin;
         enableZshIntegration = true;
+      };
+
+      bat = {
+        enable = true;
+        package = pkgs.bat;
       };
 
       neovim = {
