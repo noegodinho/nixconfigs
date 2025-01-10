@@ -45,7 +45,6 @@ in {
     usbutils
     pciutils
     coreutils-full
-    fh
     unzip
     zip
     gzip
@@ -66,13 +65,11 @@ in {
     htop
     btop
     intel-gpu-tools
-    undervolt
     lm_sensors
     mission-center
     dmidecode
     stress
     lshw
-    aha
     wayland-utils
     hwinfo
     clinfo
