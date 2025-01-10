@@ -110,7 +110,6 @@ in {
     unstable.maestral
     veracrypt
     duplicati # http://localhost:8200/
-    zoom-us
     mpv
     texliveFull
     todo-txt-cli
