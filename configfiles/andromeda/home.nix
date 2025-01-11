@@ -34,7 +34,6 @@ in {
     linux-manual
     man-pages
     man-pages-posix
-    git
     gcc
     gdb
     gnumake
@@ -107,14 +106,11 @@ in {
     unstable.maestral
     veracrypt
     duplicati # http://localhost:8200/
-    mpv
     texliveFull
     todo-txt-cli
-    yt-dlp
     qalculate-qt
     imagemagick
     projecteur
-    joplin-desktop
     khronos
     kdePackages.kdepim-addons
     stellarium
@@ -146,6 +142,7 @@ in {
   programs = {
       git = {
         enable = true;
+        package = pkgs.git;
         userName = "noegodinho";
         userEmail = "noe.godinho@protonmail.com";
       };
@@ -309,6 +306,25 @@ in {
            "nix.serverPath" = "nil";
            "git.openRepositoryInParentFolders" = "always";
         };
+      };
+
+      joplin-desktop = {
+        enable = true;
+        package = pkgs.joplin-desktop;
+        sync = {
+          interval = "5m";
+          target = "dropbox";
+        };
+      };
+
+      mpv = {
+        enable = true;
+        package = pkgs.mpv;
+      };
+
+      yt-dlp = {
+        enable = true;
+        package = pkgs.yt-dlp;
       };
 
       # thunderbird = {
