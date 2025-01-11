@@ -20,7 +20,9 @@
     system = "x86_64-linux";
     unstable = import nixpkgs-unstable {
       system = "x86_64-linux";
-      config = {allowUnfree = true;};
+      config = {
+        allowUnfree = true;
+      };
     };
     
     user = "andromeda";
@@ -28,7 +30,9 @@
     
   in {
     nixosConfigurations.laniakea = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs user outputs nixpkgs-unstable;};
+      specialArgs = {
+        inherit inputs user outputs nixpkgs-unstable;
+      };
       modules = [
         # make home-manager as a module of nixos
         # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
@@ -36,7 +40,9 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = {inherit unstable user system inputs outputs;};
+          home-manager.extraSpecialArgs = {
+            inherit unstable user system inputs outputs;
+          };
           home-manager.users.${user} = import ./home.nix;
         }
         solaar.nixosModules.default
