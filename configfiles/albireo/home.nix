@@ -34,13 +34,10 @@
       usbutils
       which
       bat
-      atuin
       htop
       btop
       lshw
       ffmpeg
-      zellij
-      konsave
       lm_sensors
 
       (nerdfonts.override { fonts = [ "Meslo" ]; })
@@ -79,12 +76,47 @@
         '';
       };
 
-      atuin = {
+      ghostty = {
         enable = true;
+        package = pkgs.ghostty;
+        enableZshIntegration = true;
+        settings = {
+          cursor-style = "block";
+          shell-integration-features = "no-cursor";
+          font-size = 10;
+          theme = "Adventure";
+          keybind = [
+            "alt+b=new_split:left"
+            "alt+n=new_split:right"
+            "alt+v=new_split:down"
+            "alt+m=new_split:up"  
+            "ctrl+up=goto_split:top"
+            "ctrl+down=goto_split:bottom"
+            "ctrl+left=goto_split:left"
+            "ctrl+right=goto_split:right"
+            "ctrl+alt+left=resize_split:left,10"
+            "ctrl+alt+right=resize_split:right,10"
+            "ctrl+alt+up=resize_split:up,10"
+            "ctrl+alt+down=resize_split:down,10"
+            "ctrl+shift+alt+plus=toggle_split_zoom"
+            "ctrl+n=new_window"                      
+            "ctrl+t=new_tab"
+            "ctrl+w=close_surface"
+            "ctrl+page_up=scroll_page_lines:-15"
+            "ctrl+page_down=scroll_page_lines:15"
+            "ctrl+home=scroll_to_top"
+            "ctrl+end=scroll_to_bottom"
+          ];
+        };
+      };
+
+      fzf = {
+        enable = true;
+        package = pkgs.fzf;
         enableZshIntegration = true;
       };
 
-      zellij = {
+      atuin = {
         enable = true;
         enableZshIntegration = true;
       };

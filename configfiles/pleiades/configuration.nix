@@ -77,7 +77,6 @@
       layout = "pt";
       variant = "";
     };
-    videoDrivers = [ "intel" "nvidia" ];
   };
 
   # Configure console keymap
@@ -405,6 +404,8 @@
 
   # Smart card reader driver
   services.pcscd.enable = true;
+
+  services.fwupd.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
