@@ -335,7 +335,7 @@
   hardware.logitech.wireless.enable = true;
   services.solaar = {
     enable = true;
-    package = pkgs.solaar;
+    package = nixpkgs-unstable.legacyPackages."${pkgs.system}".solaar;
     window = "hide"; # Show the window on startup (show, *hide*, only [window only])
     batteryIcons = "regular"; # Which battery icons to use (*regular*, symbolic, solaar)
     extraArgs = ""; # Extra arguments to pass to solaar on startup
