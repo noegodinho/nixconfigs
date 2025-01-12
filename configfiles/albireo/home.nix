@@ -39,6 +39,7 @@
       lshw
       ffmpeg
       lm_sensors
+      mission-center
 
       (nerdfonts.override { fonts = [ "Meslo" ]; })
   ];
