@@ -21,322 +21,323 @@ in {
   #     xxx
   # '';
 
-  home.enableNixpkgsReleaseCheck = false;
-
-  home.username = "andromeda";
-  home.homeDirectory = "/home/andromeda";
-
-  # enable configuration of fonts
+  # Enable configuration of fonts
   fonts.fontconfig.enable = true;
 
-  # Packages that should be installed to the user profile.
-  home.packages = with pkgs; [
-    linux-manual
-    man-pages
-    man-pages-posix
-    gcc
-    gdb
-    gnumake
-    cmake
-    valgrind
+  home = {
+    username = "andromeda";
+    homeDirectory = "/home/andromeda";
 
-    wget
-    usbutils
-    pciutils
-    coreutils-full
-    unzip
-    zip
-    gzip
-    p7zip
-    xz
-    rar
-    file
-    which
-    tree
-    gnused
-    gawk
-    zstd
-    gnupg
-    gnutar
-    lsof
-    kdePackages.filelight
+    # Packages that should be installed to the user profile.
+    packages = with pkgs; [
+      linux-manual
+      man-pages
+      man-pages-posix
+      gcc
+      gdb
+      gnumake
+      cmake
+      valgrind
 
-    htop
-    btop
-    intel-gpu-tools
-    lm_sensors
-    mission-center
-    dmidecode
-    stress
-    lshw
-    wayland-utils
-    hwinfo
-    clinfo
-    glxinfo
-    linuxKernel.packages.linux_zen.cpupower
-    linuxKernel.packages.linux_zen.turbostat
-    powertop
-    smartmontools
-    fastfetch
-    gparted
-    testdisk-qt
-    dig
-    ffmpeg
-    micromamba
-    nix-output-monitor
-    nil
-    nurl
-    glow
-    
-    libreoffice-qt
-    hunspell
-    hunspellDicts.pt_PT
-    hunspellDicts.en_GB-ise
+      wget
+      usbutils
+      pciutils
+      coreutils-full
+      unzip
+      zip
+      gzip
+      p7zip
+      xz
+      rar
+      file
+      which
+      tree
+      gnused
+      gawk
+      zstd
+      gnupg
+      gnutar
+      lsof
+      kdePackages.filelight
 
-    keepass
-    thunderbird
-    kdePackages.ktorrent
-    unstable.brave
-    unstable.telegram-desktop
-    skypeforlinux
-    unstable.zotero
-    slack
-    discord
-    pympress
-    unstable.maestral
-    veracrypt
-    duplicati # http://localhost:8200/
-    texliveFull
-    todo-txt-cli
-    qalculate-qt
-    imagemagick
-    projecteur
-    khronos
-    kdePackages.kdepim-addons
-    stellarium
+      htop
+      btop
+      intel-gpu-tools
+      lm_sensors
+      mission-center
+      dmidecode
+      stress
+      lshw
+      wayland-utils
+      hwinfo
+      clinfo
+      glxinfo
+      linuxKernel.packages.linux_zen.cpupower
+      linuxKernel.packages.linux_zen.turbostat
+      powertop
+      smartmontools
+      fastfetch
+      gparted
+      testdisk-qt
+      dig
+      ffmpeg
+      micromamba
+      nix-output-monitor
+      nil
+      nurl
+      glow
+      
+      libreoffice-qt
+      hunspell
+      hunspellDicts.pt_PT
+      hunspellDicts.en_GB-ise
 
-    (nerdfonts.override { fonts = [ "Meslo" ]; })
-    
-    ardour
-    musescore
-    yabridge
-    yabridgectl
+      keepass
+      thunderbird
+      kdePackages.ktorrent
+      unstable.brave
+      unstable.telegram-desktop
+      skypeforlinux
+      unstable.zotero
+      slack
+      discord
+      pympress
+      unstable.maestral
+      veracrypt
+      duplicati # http://localhost:8200/
+      texliveFull
+      todo-txt-cli
+      qalculate-qt
+      imagemagick
+      projecteur
+      khronos
+      kdePackages.kdepim-addons
+      stellarium
 
-    renpy
-    duckstation
-    rare
-    wineWowPackages.waylandFull # wineWowPackages.full
-    winetricks
-    vulkan-tools
-    (lutris.override {
-      extraPkgs = pkgs: [
-        mangohud
-      ];
+      (nerdfonts.override { fonts = [ "Meslo" ]; })
+      
+      ardour
+      musescore
+      yabridge
+      yabridgectl
 
-      extraLibraries = pkgs: [
-        # List library dependencies here
-      ];
-     })
-  ];
+      renpy
+      duckstation
+      rare
+      # wineWowPackages.full
+      wineWowPackages.waylandFull
+      winetricks
+      vulkan-tools
+      (lutris.override {
+        extraPkgs = pkgs: [
+          mangohud
+        ];
+
+        extraLibraries = pkgs: [
+          # List library dependencies here
+        ];
+      })
+    ];
+  };
 
   programs = {
-      git = {
+    git = {
+      enable = true;
+      package = pkgs.git;
+      userName = "noegodinho";
+      userEmail = "noe.godinho@protonmail.com";
+    };
+
+    zsh = {
+      enable = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
+      enableCompletion = false;
+
+      zplug = {
         enable = true;
-        package = pkgs.git;
-        userName = "noegodinho";
-        userEmail = "noe.godinho@protonmail.com";
+        plugins = [
+          { name = "romkatv/powerlevel10k"; tags = [ "as:theme" "depth:1" ]; }
+          { name = "marlonrichert/zsh-autocomplete"; tags = [ "depth:1" ]; }
+          { name = "chisui/zsh-nix-shell"; }
+        ];
       };
 
-      zsh = {
-        enable = true;
-        autosuggestion.enable = true;
-        syntaxHighlighting.enable = true;
-        enableCompletion = false;
-
-        zplug = {
-          enable = true;
-          plugins = [
-            { name = "romkatv/powerlevel10k"; tags = [ "as:theme" "depth:1" ]; }
-            { name = "marlonrichert/zsh-autocomplete"; tags = [ "depth:1" ]; }
-            { name = "chisui/zsh-nix-shell"; }
-          ];
-        };
-
-        shellAliases = {
-          flake_update="sudo nix flake update --flake ~/nixconfigs/configfiles/andromeda";
-          rebuild="sudo nixos-rebuild switch --upgrade-all --flake ~/nixconfigs/configfiles/andromeda/#laniakea -v";
-          mmamba="micromamba";
-          mmamba_update="micromamba activate general && micromamba update --all -y -c conda-forge && micromamba activate solver && micromamba update --all -y -c conda-forge && micromamba activate space && micromamba update --all -y -c conda-forge && micromamba activate tudat-space && micromamba update --all -y -c conda-forge && micromamba activate yafs && micromamba update --all -y -c conda-forge";
-          update_all="flake_update && rebuild && mmamba_update && nix-collect-garbage -d";
-          projecteur="QT_QPA_PLATFORM=xcb projecteur -D abc8:ca08";
-        };
-
-        initExtra=''
-          source ~/.p10k.zsh
-
-          eval "$(micromamba shell hook --shell zsh)"
-          # >>> mamba initialize >>>
-          # !! Contents within this block are managed by 'mamba init' !!
-          export MAMBA_EXE='/etc/profiles/per-user/andromeda/bin/micromamba';
-          export MAMBA_ROOT_PREFIX='/home/andromeda/micromamba';
-          __mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
-          if [ $? -eq 0 ]; then
-              eval "$__mamba_setup"
-          else
-              alias micromamba="$MAMBA_EXE"  # Fallback on help from mamba activate
-          fi
-          unset __mamba_setup
-          # <<< mamba initialize <<<
-
-          micromamba activate general
-        '';
+      shellAliases = {
+        flake_update="sudo nix flake update --flake ~/nixconfigs/configfiles/andromeda";
+        rebuild="sudo nixos-rebuild switch --upgrade-all --flake ~/nixconfigs/configfiles/andromeda/#laniakea -v";
+        mmamba="micromamba";
+        mmamba_update="micromamba activate general && micromamba update --all -y -c conda-forge && micromamba activate solver && micromamba update --all -y -c conda-forge && micromamba activate space && micromamba update --all -y -c conda-forge && micromamba activate tudat-space && micromamba update --all -y -c conda-forge && micromamba activate yafs && micromamba update --all -y -c conda-forge";
+        update_all="flake_update && rebuild && mmamba_update && nix-collect-garbage -d";
+        projecteur="QT_QPA_PLATFORM=xcb projecteur -D abc8:ca08";
       };
 
-      ghostty = {
-        enable = true;
-        package = pkgs.ghostty;
-        enableZshIntegration = true;
-        settings = {
-          cursor-style = "block";
-          shell-integration-features = "no-cursor";
-          font-size = 10;
-          theme = "Adventure";
-          keybind = [
-            "alt+b=new_split:left"
-            "alt+n=new_split:right"
-            "alt+v=new_split:down"
-            "alt+m=new_split:up"  
-            "ctrl+up=goto_split:top"
-            "ctrl+down=goto_split:bottom"
-            "ctrl+left=goto_split:left"
-            "ctrl+right=goto_split:right"
-            "ctrl+alt+left=resize_split:left,10"
-            "ctrl+alt+right=resize_split:right,10"
-            "ctrl+alt+up=resize_split:up,10"
-            "ctrl+alt+down=resize_split:down,10"
-            "ctrl+shift+alt+plus=toggle_split_zoom"
-            "ctrl+n=new_window"                      
-            "ctrl+t=new_tab"
-            "ctrl+w=close_surface"
-            "ctrl+page_up=scroll_page_lines:-15"
-            "ctrl+page_down=scroll_page_lines:15"
-            "ctrl+home=scroll_to_top"
-            "ctrl+end=scroll_to_bottom"
-          ];
-        };
+      initExtra=''
+        source ~/.p10k.zsh
+
+        eval "$(micromamba shell hook --shell zsh)"
+        # >>> mamba initialize >>>
+        # !! Contents within this block are managed by 'mamba init' !!
+        export MAMBA_EXE='/etc/profiles/per-user/andromeda/bin/micromamba';
+        export MAMBA_ROOT_PREFIX='/home/andromeda/micromamba';
+        __mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+        if [ $? -eq 0 ]; then
+            eval "$__mamba_setup"
+        else
+            alias micromamba="$MAMBA_EXE"  # Fallback on help from mamba activate
+        fi
+        unset __mamba_setup
+        # <<< mamba initialize <<<
+
+        micromamba activate general
+      '';
+    };
+
+    ghostty = {
+      enable = true;
+      package = pkgs.ghostty;
+      enableZshIntegration = true;
+      settings = {
+        cursor-style = "block";
+        shell-integration-features = "no-cursor";
+        font-size = 10;
+        theme = "Adventure";
+        keybind = [
+          "alt+b=new_split:left"
+          "alt+n=new_split:right"
+          "alt+v=new_split:down"
+          "alt+m=new_split:up"  
+          "ctrl+up=goto_split:top"
+          "ctrl+down=goto_split:bottom"
+          "ctrl+left=goto_split:left"
+          "ctrl+right=goto_split:right"
+          "ctrl+alt+left=resize_split:left,10"
+          "ctrl+alt+right=resize_split:right,10"
+          "ctrl+alt+up=resize_split:up,10"
+          "ctrl+alt+down=resize_split:down,10"
+          "ctrl+shift+alt+plus=toggle_split_zoom"
+          "ctrl+n=new_window"                      
+          "ctrl+t=new_tab"
+          "ctrl+w=close_surface"
+          "ctrl+page_up=scroll_page_lines:-15"
+          "ctrl+page_down=scroll_page_lines:15"
+          "ctrl+home=scroll_to_top"
+          "ctrl+end=scroll_to_bottom"
+        ];
       };
+    };
 
-      fzf = {
-        enable = true;
-        package = pkgs.fzf;
-        enableZshIntegration = true;
+    fzf = {
+      enable = true;
+      package = pkgs.fzf;
+      enableZshIntegration = true;
+    };
+
+    direnv = {
+      enable = true;
+      package = pkgs.direnv;
+      enableZshIntegration = true;
+    };
+
+    atuin = {
+      enable = true;
+      package = unstable.atuin;
+      enableZshIntegration = true;
+    };
+
+    bat = {
+      enable = true;
+      package = pkgs.bat;
+    };
+
+    neovim = {
+      enable = true;
+      package = pkgs.neovim-unwrapped;
+    };
+
+    vscode = {
+      enable = true;
+      package = unstable.vscodium;
+
+      # mutableExtensionsDir = false;
+      # enableUpdateCheck = false;
+      # enableExtensionUpdateCheck = false;
+
+      extensions = with extensions.open-vsx; [
+        # detachhead.basedpyright
+      ] ++ (with extensions.vscode-marketplace; [
+        # arrterian.nix-env-selector
+        bbenoist.nix
+        cschlosser.doxdocgen
+        james-yu.latex-workshop
+        jeff-hykin.better-cpp-syntax
+        jnoortheen.nix-ide
+        luquedaniel.languague-renpy
+        mechatroner.rainbow-csv
+        ms-python.python
+        # ms-python.vscode-pylance
+        ms-vscode.cmake-tools
+        ms-vscode.cpptools
+        ms-vscode.cpptools-themes
+        ms-vscode.makefile-tools
+        pinage404.nix-extension-pack
+        tecosaur.latex-utilities
+        twxs.cmake
+        valentjn.vscode-ltex
+        # visualstudioexptteam.vscodeintellicode
+        yzhang.markdown-all-in-one
+        ]) ++ (with unstable.vscode-extensions; [
+        github.copilot
+      ]);
+        
+      userSettings = {
+          "files.autoSave" = "afterDelay";
+          "terminal.integrated.fontFamily" = "MesloLGS Nerd Font";
+          "editor.wordWrap" = "on";
+          "C_Cpp.default.compilerPath" = "/etc/profiles/per-user/andromeda/bin/gcc";
+          "C_Cpp.default.intelliSenseMode" = "linux-gcc-x64";
+          "C_Cpp.autocompleteAddParentheses" = true;
+          "C_Cpp.default.systemIncludePath" = ["/nix/store/skkw2fidr9h2ikq8gzgfm6rysj1mal0r-gcc-13.2.0/lib/gcc/x86_64-unknown-linux-gnu/13.2.0/include"];
+          "latex-workshop.latex.autoBuild.run" = "never";
+          "ltex.additionalRules.motherTongue" = "pt-PT";
+          "ltex.language" = "en-GB";
+          "ltex.enabled" = ["bibtex" "context" "context.tex" "html" "latex" "markdown" "org" "restructuredtext" "rsweave"];
+          "python.defaultInterpreterPath" = "/home/andromeda/micromamba/envs/general/bin/python";
+          "nix.enableLanguageServer" = true;
+          "nix.serverPath" = "nil";
+          "git.openRepositoryInParentFolders" = "always";
       };
+    };
 
-      direnv = {
-        enable = true;
-        package = pkgs.direnv;
-        enableZshIntegration = true;
+    joplin-desktop = {
+      enable = true;
+      package = pkgs.joplin-desktop;
+      sync = {
+        interval = "5m";
+        target = "dropbox";
       };
+    };
 
-      atuin = {
-        enable = true;
-        package = unstable.atuin;
-        enableZshIntegration = true;
-      };
+    mpv = {
+      enable = true;
+      package = pkgs.mpv;
+    };
 
-      bat = {
-        enable = true;
-        package = pkgs.bat;
-      };
+    yt-dlp = {
+      enable = true;
+      package = pkgs.yt-dlp;
+    };
 
-      neovim = {
-        enable = true;
-        package = pkgs.neovim-unwrapped;
-      };
+    # thunderbird = {
+    #   enable = true;
+    #   package = pkgs.thunderbird;
+    #   profiles = [ ... ''];
+    # };
 
-      vscode = {
-        enable = true;
-        package = unstable.vscodium;
-
-        # mutableExtensionsDir = false;
-        # enableUpdateCheck = false;
-        # enableExtensionUpdateCheck = false;
-
-        extensions = with extensions.open-vsx; [
-          # detachhead.basedpyright
-        ] ++ (with extensions.vscode-marketplace; [
-          # arrterian.nix-env-selector
-          bbenoist.nix
-          cschlosser.doxdocgen
-          james-yu.latex-workshop
-          jeff-hykin.better-cpp-syntax
-          jnoortheen.nix-ide
-          luquedaniel.languague-renpy
-          mechatroner.rainbow-csv
-          ms-python.python
-          # ms-python.vscode-pylance
-          ms-vscode.cmake-tools
-          ms-vscode.cpptools
-          ms-vscode.cpptools-themes
-          ms-vscode.makefile-tools
-          pinage404.nix-extension-pack
-          tecosaur.latex-utilities
-          twxs.cmake
-          valentjn.vscode-ltex
-          # visualstudioexptteam.vscodeintellicode
-          yzhang.markdown-all-in-one
-         ]) ++ (with unstable.vscode-extensions; [
-          github.copilot
-        ]);
-         
-        userSettings = {
-           "files.autoSave" = "afterDelay";
-           "terminal.integrated.fontFamily" = "MesloLGS Nerd Font";
-           "editor.wordWrap" = "on";
-           "C_Cpp.default.compilerPath" = "/etc/profiles/per-user/andromeda/bin/gcc";
-           "C_Cpp.default.intelliSenseMode" = "linux-gcc-x64";
-           "C_Cpp.autocompleteAddParentheses" = true;
-           "C_Cpp.default.systemIncludePath" = ["/nix/store/skkw2fidr9h2ikq8gzgfm6rysj1mal0r-gcc-13.2.0/lib/gcc/x86_64-unknown-linux-gnu/13.2.0/include"];
-           "latex-workshop.latex.autoBuild.run" = "never";
-           "ltex.additionalRules.motherTongue" = "pt-PT";
-           "ltex.language" = "en-GB";
-           "ltex.enabled" = ["bibtex" "context" "context.tex" "html" "latex" "markdown" "org" "restructuredtext" "rsweave"];
-           "python.defaultInterpreterPath" = "/home/andromeda/micromamba/envs/general/bin/python";
-           "nix.enableLanguageServer" = true;
-           "nix.serverPath" = "nil";
-           "git.openRepositoryInParentFolders" = "always";
-        };
-      };
-
-      joplin-desktop = {
-        enable = true;
-        package = pkgs.joplin-desktop;
-        sync = {
-          interval = "5m";
-          target = "dropbox";
-        };
-      };
-
-      mpv = {
-        enable = true;
-        package = pkgs.mpv;
-      };
-
-      yt-dlp = {
-        enable = true;
-        package = pkgs.yt-dlp;
-      };
-
-      # thunderbird = {
-      #   enable = true;
-      #   package = pkgs.thunderbird;
-      #   profiles = ?;
-      # };
-
-      firefox.enable = false;
-      java.enable = true;
-      # hyprland.enable = false; # change later to true if decide to try it
-      home-manager.enable = true;
+    firefox.enable = false;
+    java.enable = true;
+    # hyprland.enable = false; # change later to true if decide to try it
+    home-manager.enable = true;
   };
 
   services = {
