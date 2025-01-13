@@ -14,7 +14,7 @@
         layout = "pt";
         variant = "";
       };
-      # Packages to exclude from KDE
+      # Packages to exclude from xserver
       excludePackages = with pkgs; [
         xterm
       ];
@@ -117,6 +117,9 @@
       #   [9    58    99]
       # ];
     # };
+
+    # Enable the OpenSSH daemon.
+    # openssh.enable = true;
   };
 
   systemd.services.flatpak-repo = {

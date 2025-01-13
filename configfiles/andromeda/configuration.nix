@@ -6,11 +6,12 @@
 {
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./programs-configuration.nix
     ./services-configuration.nix
     ./vpn.nix
   ];
 
-  # Bootloader.
+  # Bootloader
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     # initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" "thinkpad_acpi" ];
@@ -26,17 +27,24 @@
     # Define your hostname.
     hostName = "laniakea";
 
-    # Configure network proxy if necessary
-    # proxy.default = "http://user:password@proxy:port/";
-    # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-    # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
     # Enable networking
     networkmanager = {
       enable = true;
       wifi.powersave = false;
     };
+
+    # Enables wireless support via wpa_supplicant.
+    # wireless.enable = true;
+
+    # Configure network proxy if necessary
+    # proxy.default = "http://user:password@proxy:port/";
+    # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+    # Open ports in the firewall.
+    # firewall.allowedTCPPorts = [ ... ];
+    # firewall.allowedUDPPorts = [ ... ];
+    # Or disable the firewall altogether.
+    # firewall.enable = false;
   };
 
   # Set your time zone.
@@ -61,6 +69,16 @@
   # Configure console keymap
   console.keyMap = "pt-latin1";
 
+  users.users.andromeda = {
+    shell = pkgs.zsh;
+    isNormalUser = true;
+    description = "Andromeda";
+    extraGroups = [ "input" "networkmanager" "video" "wheel" ];
+    # packages = with pkgs; [
+    #   kdePackages.kate
+    # ];
+  };
+
   hardware = { 
     # Update the Intel microcode on boot.
     cpu.intel.updateMicrocode = true;
@@ -79,7 +97,7 @@
       ];
     };
 
-    # enables support for Bluetooth & powers up the default Bluetooth controller on boot
+    # Enables support for Bluetooth & powers up the default Bluetooth controller on boot
     bluetooth = {
       enable = true;
       package = nixpkgs-unstable.legacyPackages."${pkgs.system}".bluez;
@@ -129,26 +147,38 @@
     };
   };
 
-  nixpkgs.config = {
-    # allow proprietary packages
-    allowUnfree = true;
+  nixpkgs = { 
+    config = {
+      # Allow proprietary packages
+      allowUnfree = true;
 
-    # packageOverrides = super: let self = super.pkgs; in {
-    #   subtitleeditor = super.subtitleeditor.overrideAttrs (attrs: {
-    #     buildInputs = attrs.buildInputs ++ [
-    #       self.gst_all_1.gst-plugins-bad
-    #       self.gst_all_1.gst-plugins-ugly
-    #       self.gst_all_1.gst-libav
-    #     ];
-    #   });
-    # };
-  };
+      # packageOverrides = super: let self = super.pkgs; in {
+      #   subtitleeditor = super.subtitleeditor.overrideAttrs (attrs: {
+      #     buildInputs = attrs.buildInputs ++ [
+      #       self.gst_all_1.gst-plugins-bad
+      #       self.gst_all_1.gst-plugins-ugly
+      #       self.gst_all_1.gst-libav
+      #     ];
+      #   });
+      # };
+    };
 
-  # Autoupgrade system
-  system.autoUpgrade = {
-    enable = true;
-    dates = "daily";
-    allowReboot = false; # decide later
+    # Override version of pscslite
+    overlays = [
+      (final: prev: {
+        pcscliteWithPolkit = prev.pcscliteWithPolkit.overrideAttrs(oldAttrs: {
+          version = "2.1.0";
+          
+          src = pkgs.fetchFromGitLab {
+            domain = "salsa.debian.org";
+            owner = "rousseau";
+            repo = "PCSC";
+            rev = "refs/tags/${oldAttrs.version}";
+            hash = "sha256-hKyxXqZaqg8KGFoBWhRHV1/50uoxqiG0RsYtgw2BuQ4=";
+          };
+        });
+      })
+    ];
   };
 
   security = {
@@ -172,111 +202,12 @@
     ];
   };
 
-  # Man docs
-  documentation = {
+  # Autoupgrade system
+  system.autoUpgrade = {
     enable = true;
-    man = {
-      enable = true;
-      man-db.enable = false;
-      mandoc.enable = true;
-      generateCaches = true;
-    };
+    dates = "daily";
+    allowReboot = false;
   };
-
-  users.users.andromeda = {
-    shell = pkgs.zsh;
-    isNormalUser = true;
-    description = "Andromeda";
-    extraGroups = [ "input" "networkmanager" "video" "wheel" ];
-    # packages = with pkgs; [
-        # kdePackages.kate
-    # ];
-  };
-
-  # Enable zsh
-  programs.zsh.enable = true;
-
-  # Allows dynamically linked executables to be run on nixos
-  # Only possible to use x86_64 executables
-  programs.nix-ld.enable = true;
-  # programs.nix-ld.libraries = with pkgs; [
-    # Avoid using conda-shell and having direct access to conda -> useful for vscodium
-    # python312Packages.conda
-  # ];
-
-  # enable KDE PIM suite
-  programs.kde-pim = {
-    enable = true;
-    merkuro = true;
-  };
-
-  # Steam settings (installed in lutris)
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = false; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = false; # Open ports in the firewall for Source Dedicated Server
-    gamescopeSession.enable = true;
-    extest.enable = true;
-    protontricks.enable = true;
-    extraCompatPackages = with pkgs; [
-      proton-ge-bin
-    ];
-  };
-
-  # BPF-based Linux IO analysis, networking, monitoring, and more
-  programs.bcc.enable = true;
-
-  nixpkgs.overlays = [
-    (final: prev: {
-      pcscliteWithPolkit = prev.pcscliteWithPolkit.overrideAttrs(oldAttrs: {
-        version = "2.1.0";
-        
-        src = pkgs.fetchFromGitLab {
-          domain = "salsa.debian.org";
-          owner = "rousseau";
-          repo = "PCSC";
-          rev = "refs/tags/${oldAttrs.version}";
-          hash = "sha256-hKyxXqZaqg8KGFoBWhRHV1/50uoxqiG0RsYtgw2BuQ4=";
-        };
-      });
-    })
-  ];
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    qemu # for VMs
-    quickemu # for easy VM management
-  ];
-
-  # In case I need docker
-  # virtualisation.docker.enable = true;
-  virtualisation.spiceUSBRedirection.enable = true;
-
-  # Exclude KDE & system packages
-  environment.plasma6.excludePackages = with pkgs; [
-    khelpcenter
-    kdePackages.kate
-  ];  
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
