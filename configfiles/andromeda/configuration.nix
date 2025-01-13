@@ -4,7 +4,8 @@
 
 { pkgs, nixpkgs-unstable, ... }:
 {
-  imports = [ # Include the results of the hardware scan.
+  imports = [ 
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./programs-configuration.nix
     ./services-configuration.nix
@@ -16,35 +17,13 @@
     kernelPackages = pkgs.linuxPackages_latest;
     # initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" "thinkpad_acpi" ];
     initrd.luks.devices."luks-4330ca1e-a192-4c36-be45-3a5dc91b02a4".device = "/dev/disk/by-uuid/4330ca1e-a192-4c36-be45-3a5dc91b02a4";
-    supportedFilesystems = [ "ntfs" ];
+    supportedFilesystems = [ 
+      "ntfs"
+    ];
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-  };
-
-  networking = {
-    # Define your hostname.
-    hostName = "laniakea";
-
-    # Enable networking
-    networkmanager = {
-      enable = true;
-      wifi.powersave = false;
-    };
-
-    # Enables wireless support via wpa_supplicant.
-    # wireless.enable = true;
-
-    # Configure network proxy if necessary
-    # proxy.default = "http://user:password@proxy:port/";
-    # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-    # Open ports in the firewall.
-    # firewall.allowedTCPPorts = [ ... ];
-    # firewall.allowedUDPPorts = [ ... ];
-    # Or disable the firewall altogether.
-    # firewall.enable = false;
   };
 
   # Set your time zone.
@@ -79,6 +58,34 @@
     # ];
   };
 
+  networking = {
+    # Define your hostname.
+    hostName = "laniakea";
+
+    # Enable networking
+    networkmanager = {
+      enable = true;
+      wifi.powersave = false;
+    };
+
+    # Enables wireless support via wpa_supplicant.
+    # wireless.enable = true;
+
+    # proxy = {
+      # Configure network proxy if necessary
+    #   default = "http://user:password@proxy:port/";
+    #   noProxy = "127.0.0.1,localhost,internal.domain";
+    # };
+
+    # firewall = {
+      # Open ports in the firewall.
+    #   allowedTCPPorts = [ ... ];
+    #   allowedUDPPorts = [ ... ];
+      # Or disable the firewall altogether.
+    #   enable = false;
+    # };
+  };
+
   hardware = { 
     # Update the Intel microcode on boot.
     cpu.intel.updateMicrocode = true;
@@ -89,8 +96,10 @@
       enable32Bit = true;
 
       extraPackages = with pkgs; [
-        intel-media-driver # LIBVA_DRIVER_NAME=iHD
-        intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+        # LIBVA_DRIVER_NAME=iHD
+        intel-media-driver
+        # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+        intel-vaapi-driver
         libvdpau-va-gl
         intel-compute-runtime
         vpl-gpu-rt

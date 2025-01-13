@@ -1,15 +1,15 @@
 { pkgs, nixpkgs-unstable, ... }:
 {
   services = {
-    # Enable touchpad support (enabled default in most desktopManager).
+    # Enable touchpad support (enabled default in most desktopManager)
     # ibinput.enable = true;
     libinput.touchpad.naturalScrolling = true;
 
-    # Enable the X11 windowing system.
-    # You can disable this if you're only using the Wayland session.
-    # Configure keymap in X11
     xserver = {
+      # Enable the X11 windowing system
+      # You can disable this if you're only using the Wayland session
       enable = true;
+      # Configure keymap in X11
       xkb = {
         layout = "pt";
         variant = "";
@@ -84,9 +84,12 @@
     solaar = {
       enable = true;
       package = nixpkgs-unstable.legacyPackages."${pkgs.system}".solaar;
-      window = "hide"; # Show the window on startup (show, *hide*, only [window only])
-      batteryIcons = "regular"; # Which battery icons to use (*regular*, symbolic, solaar)
-      extraArgs = ""; # Extra arguments to pass to solaar on startup
+      # Show the window on startup (show, *hide*, only [window only])
+      window = "hide";
+      # Which battery icons to use (*regular*, symbolic, solaar)
+      batteryIcons = "regular";
+      # Extra arguments to pass to solaar on startup
+      extraArgs = "";
     };
 
     # Enable flatpak for sandboxed applications
@@ -103,19 +106,19 @@
 
     # Detailed fan control
     # thinkfan = {
-      # enable = true;
-      # levels = [
-      #   [0    0      4]
-      #   [1    35     4]
-      #   [2    38     4]
-      #   [3    42     5]
-      #   [4    45     5]
-      #   [5    48     6]
-      #   [6    51     6]
-      #   [7    54     6]
-      #   [8    56     7]
-      #   [9    58    99]
-      # ];
+    #   enable = true;
+    #   levels = [
+    #     [0    0      4]
+    #     [1    35     4]
+    #     [2    38     4]
+    #     [3    42     5]
+    #     [4    45     5]
+    #     [5    48     6]
+    #     [6    51     6]
+    #     [7    54     6]
+    #     [8    56     7]
+    #     [9    58    99]
+    #   ];
     # };
 
     # Enable the OpenSSH daemon.

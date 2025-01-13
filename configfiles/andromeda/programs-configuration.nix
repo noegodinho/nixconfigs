@@ -32,8 +32,10 @@
     # Steam settings (installed in lutris)
     steam = {
       enable = true;
-      remotePlay.openFirewall = false; # Open ports in the firewall for Steam Remote Play
-      dedicatedServer.openFirewall = false; # Open ports in the firewall for Source Dedicated Server
+      # Open ports in the firewall for Steam Remote Play
+      remotePlay.openFirewall = false;
+      # Open ports in the firewall for Source Dedicated Server
+      dedicatedServer.openFirewall = false;
       gamescopeSession.enable = true;
       extest.enable = true;
       protontricks.enable = true;
@@ -57,8 +59,10 @@
   # $ nix search wget
   environment = {
     systemPackages = with pkgs; [
-      qemu # for VMs
-      quickemu # for easy VM management
+      # For VMs
+      qemu
+      # For easy VM management
+      quickemu
     ];
 
     # Exclude KDE & system packages
@@ -68,7 +72,10 @@
     ];
   };
 
-  # In case I need docker
-  # virtualisation.docker.enable = true;
-  virtualisation.spiceUSBRedirection.enable = true;
+  virtualisation = {
+    # In case I need docker
+    # docker.enable = true;
+    # Redirect USB devices to VM
+    spiceUSBRedirection.enable = true;
+  };
 }
