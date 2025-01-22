@@ -24,6 +24,43 @@ in {
   # Enable configuration of fonts
   fonts.fontconfig.enable = true;
 
+  wayland.windowManager.hyprland = {
+    # Whether to enable Hyprland wayland compositor
+    enable = true;
+    # The hyprland package to use
+    package = pkgs.hyprland;
+    # Whether to enable XWayland
+    xwayland = {
+      enable = true;
+    };
+  
+    # Optional
+    # Whether to enable hyprland-session.target on hyprland startup
+    systemd.enable = true;
+
+    systemd.variables = ["--all"];
+
+    settings = {
+      "$mod" = "SUPER";
+      bind =
+        [
+          "$mod, F, exec, ghostty"
+          ", Print, exec, grimblast copy area"
+        ]
+        ++ (
+          # workspaces
+          # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
+          builtins.concatLists (builtins.genList (i:
+            let ws = i + 1;
+            in [
+              "$mod, code:1${toString i}, workspace, ${toString ws}"
+              "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
+            ]
+          )9)
+        );
+    };
+  };
+
   home = {
     username = "andromeda";
     homeDirectory = "/home/andromeda";
@@ -38,6 +75,7 @@ in {
       gnumake
       cmake
       valgrind
+      ccls
 
       wget
       usbutils
@@ -245,6 +283,13 @@ in {
       enableZshIntegration = true;
     };
 
+    # eww = {
+    #   enable = true;
+    #   package = pkgs.eww;
+    #   enableZshIntegration = true;
+    #   configDir = /. + builtins.getEnv("HOME");
+    # };
+
     bat = {
       enable = true;
       package = pkgs.bat;
@@ -265,10 +310,12 @@ in {
 
       extensions = with extensions.open-vsx; [
         # detachhead.basedpyright
-      ] ++ (with extensions.vscode-marketplace; [
+      ] ++ (with import <unstable> {}; (with extensions.vscode-marketplace; [
         # arrterian.nix-env-selector
         bbenoist.nix
+        ccls-project.ccls
         cschlosser.doxdocgen
+        equinusocio.vsc-material-theme
         james-yu.latex-workshop
         jeff-hykin.better-cpp-syntax
         jnoortheen.nix-ide
@@ -277,7 +324,7 @@ in {
         ms-python.python
         # ms-python.vscode-pylance
         ms-vscode.cmake-tools
-        ms-vscode.cpptools
+        # ms-vscode.cpptools
         ms-vscode.cpptools-themes
         ms-vscode.makefile-tools
         pinage404.nix-extension-pack
@@ -286,26 +333,29 @@ in {
         valentjn.vscode-ltex
         # visualstudioexptteam.vscodeintellicode
         yzhang.markdown-all-in-one
-        ]) ++ (with unstable.vscode-extensions; [
+      ]) ++ (with unstable.vscode-extensions; [
         github.copilot
-      ]);
+      ]));
         
       userSettings = {
-          "files.autoSave" = "afterDelay";
-          "terminal.integrated.fontFamily" = "MesloLGS Nerd Font";
-          "editor.wordWrap" = "on";
-          "C_Cpp.default.compilerPath" = "/etc/profiles/per-user/andromeda/bin/gcc";
-          "C_Cpp.default.intelliSenseMode" = "linux-gcc-x64";
-          "C_Cpp.autocompleteAddParentheses" = true;
-          "C_Cpp.default.systemIncludePath" = ["/nix/store/skkw2fidr9h2ikq8gzgfm6rysj1mal0r-gcc-13.2.0/lib/gcc/x86_64-unknown-linux-gnu/13.2.0/include"];
-          "latex-workshop.latex.autoBuild.run" = "never";
-          "ltex.additionalRules.motherTongue" = "pt-PT";
-          "ltex.language" = "en-GB";
-          "ltex.enabled" = ["bibtex" "context" "context.tex" "html" "latex" "markdown" "org" "restructuredtext" "rsweave"];
-          "python.defaultInterpreterPath" = "/home/andromeda/micromamba/envs/general/bin/python";
-          "nix.enableLanguageServer" = true;
-          "nix.serverPath" = "nil";
-          "git.openRepositoryInParentFolders" = "always";
+        "files.autoSave" = "afterDelay";
+        "terminal.integrated.fontFamily" = "MesloLGS Nerd Font";
+        "editor.wordWrap" = "on";
+        "latex-workshop.latex.autoBuild.run" = "never";
+        "ltex.additionalRules.motherTongue" = "pt-PT";
+        "ltex.language" = "en-GB";
+        "ltex.enabled" = ["bibtex" "context" "context.tex" "html" "latex" "markdown" "org" "restructuredtext" "rsweave"];
+        "python.defaultInterpreterPath" = "/home/andromeda/micromamba/envs/general/bin/python";
+        "nix.enableLanguageServer" = true;
+        "nix.serverPath" = "nil";
+        "git.openRepositoryInParentFolders" = "always";
+        "cmake.pinnedCommands" = ["workbench.action.tasks.configureTaskRunner" "workbench.action.tasks.runTask"];
+        "ccls.launch.command" = "/etc/profiles/per-user/andromeda/bin/ccls";
+        "ccls.highlight.function.face" = ["enabled"];
+        "ccls.highlight.type.face" = ["enabled"];
+        "ccls.highlight.variable.face" = ["enabled"];
+        "ccls.misc.compilationDatabaseDirectory" = "build";
+        "workbench.colorTheme" = "Material Theme Darker High Contrast";
       };
     };
 
@@ -331,12 +381,11 @@ in {
     # thunderbird = {
     #   enable = true;
     #   package = pkgs.thunderbird;
-    #   profiles = [ ... ''];
+    #   profiles = [ ... ];
     # };
 
     firefox.enable = false;
     java.enable = true;
-    # hyprland.enable = false; # change later to true if decide to try it
     home-manager.enable = true;
   };
 
