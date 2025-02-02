@@ -149,7 +149,6 @@ in {
       imagemagick
       projecteur
       khronos
-      kdePackages.kdepim-addons
       stellarium
 
       (nerdfonts.override { fonts = [ "Meslo" ]; })
