@@ -370,6 +370,9 @@ in {
     mpv = {
       enable = true;
       package = pkgs.mpv;
+      config = {
+        keep-open = true;
+      };
     };
 
     yt-dlp = {
