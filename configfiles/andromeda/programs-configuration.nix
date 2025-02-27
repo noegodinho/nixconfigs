@@ -57,6 +57,7 @@
       qemu
       # For easy VM management
       quickemu
+      matlab
     ];
 
     # Exclude KDE & system packages
