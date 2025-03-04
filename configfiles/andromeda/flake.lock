@@ -114,11 +114,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1741014109,
-        "narHash": "sha256-XxFAsFh8g9MqNPDxSdcJDJzR6lzv6atlisTXASyQKkI=",
+        "lastModified": 1741100509,
+        "narHash": "sha256-YM8LQmzhNwKY2zTtynemfMJCgIDqXhD2r4ii9+RL5x0=",
         "owner": "doronbehar",
         "repo": "nix-matlab",
-        "rev": "39c66ea932f2413ed81d8c2feed7e678a1cac5e3",
+        "rev": "85792fd2e60739866c7b8739f26a513515f762d7",
         "type": "gitlab"
       },
       "original": {
