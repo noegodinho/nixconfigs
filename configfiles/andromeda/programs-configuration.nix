@@ -58,6 +58,9 @@
       # For easy VM management
       quickemu
       matlab
+      mesa
+      mesa.drivers
+      xorg.libX11
     ];
 
     # Exclude KDE & system packages
