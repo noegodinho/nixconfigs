@@ -92,6 +92,10 @@ flake-overlays:
     # Update the Intel microcode on boot.
     cpu.intel.updateMicrocode = true;
 
+    # Enable the Intel NPU firmware.
+    # firmware = [ pkgs.intel-npu-firmware ];
+    # cpu.intel.enableNpuFirmware = true;
+
     # Graphic drivers
     graphics = {
       enable = true;
@@ -105,7 +109,6 @@ flake-overlays:
         libvdpau-va-gl
         intel-compute-runtime
         vpl-gpu-rt
-        mesa
       ];
     };
 
