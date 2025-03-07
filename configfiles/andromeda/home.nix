@@ -309,28 +309,23 @@ in {
 
       extensions = with extensions.open-vsx; [
         # detachhead.basedpyright
+        # jeff-hykin.better-m-syntax
       ] ++ (with import <unstable> {}; (with extensions.vscode-marketplace; [
-        # arrterian.nix-env-selector
         bbenoist.nix
         ccls-project.ccls
-        cschlosser.doxdocgen
         equinusocio.vsc-material-theme
         james-yu.latex-workshop
+        jeff-hykin.better-c-syntax
         jeff-hykin.better-cpp-syntax
         jnoortheen.nix-ide
         luquedaniel.languague-renpy
         mechatroner.rainbow-csv
         ms-python.python
-        # ms-python.vscode-pylance
-        ms-vscode.cmake-tools
-        # ms-vscode.cpptools
         ms-vscode.cpptools-themes
-        ms-vscode.makefile-tools
         pinage404.nix-extension-pack
         tecosaur.latex-utilities
-        twxs.cmake
+        usernamehw.errorlens
         valentjn.vscode-ltex
-        # visualstudioexptteam.vscodeintellicode
         yzhang.markdown-all-in-one
       ]) ++ (with unstable.vscode-extensions; [
         github.copilot
