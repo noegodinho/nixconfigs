@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "c43d9089df96cf8aca157762ed0e2ddca9fcd71e";
+      rev = "b745699e15781fd84d125408f0a5712d7873c0a8";
     })).extensions.${system};
 in {
   # link the configuration file in current directory to the specified location in home directory
@@ -308,12 +308,12 @@ in {
       # enableExtensionUpdateCheck = false;
 
       extensions = with extensions.open-vsx; [
-        # detachhead.basedpyright
-        # jeff-hykin.better-m-syntax
+        detachhead.basedpyright
+        jeff-hykin.better-m-syntax
       ] ++ (with import <unstable> {}; (with extensions.vscode-marketplace; [
         bbenoist.nix
         ccls-project.ccls
-        equinusocio.vsc-material-theme
+        # equinusocio.vsc-material-theme
         james-yu.latex-workshop
         jeff-hykin.better-c-syntax
         jeff-hykin.better-cpp-syntax
