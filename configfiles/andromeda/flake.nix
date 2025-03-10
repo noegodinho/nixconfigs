@@ -15,14 +15,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+    };
+
     nix-matlab = {
       url = "gitlab:doronbehar/nix-matlab";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
 
-  outputs = {self, nixpkgs, nixpkgs-unstable, home-manager, solaar, nix-matlab, ...} @ inputs: let
+  outputs = {self, nixpkgs, nixpkgs-unstable, home-manager, solaar, nix-vscode-extensions, nix-matlab, ...} @ inputs: let
     system = "x86_64-linux";
+    
     unstable = import nixpkgs-unstable {
       system = "x86_64-linux";
       config = {
@@ -42,6 +47,7 @@
       specialArgs = {
         inherit inputs user outputs nixpkgs-unstable;
       };
+
       modules = [
         # make home-manager as a module of nixos
         # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
