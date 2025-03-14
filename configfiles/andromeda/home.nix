@@ -150,6 +150,7 @@ in {
       projecteur
       khronos
       stellarium
+      xournalpp
 
       (nerdfonts.override { fonts = [ "Meslo" ]; })
       
