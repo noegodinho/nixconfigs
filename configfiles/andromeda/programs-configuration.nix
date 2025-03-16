@@ -59,7 +59,6 @@
       quickemu
       matlab
       mesa
-      mesa.drivers
       xorg.libX11
     ];
 
