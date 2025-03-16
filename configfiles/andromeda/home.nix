@@ -321,7 +321,6 @@ in {
         luquedaniel.languague-renpy
         mechatroner.rainbow-csv
         ms-python.python
-        ms-vscode.cpptools-themes
         pinage404.nix-extension-pack
         tecosaur.latex-utilities
         usernamehw.errorlens
