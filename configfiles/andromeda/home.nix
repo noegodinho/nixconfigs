@@ -313,8 +313,7 @@ in {
         jeff-hykin.better-m-syntax
       ] ++ (with import <unstable> {}; (with extensions.vscode-marketplace; [
         bbenoist.nix
-        ccls-project.ccls
-        # equinusocio.vsc-material-theme
+        ccls-project.ccls        
         james-yu.latex-workshop
         jeff-hykin.better-c-syntax
         jeff-hykin.better-cpp-syntax
@@ -350,7 +349,7 @@ in {
         "ccls.highlight.type.face" = ["enabled"];
         "ccls.highlight.variable.face" = ["enabled"];
         "ccls.misc.compilationDatabaseDirectory" = "build";
-        "workbench.colorTheme" = "Material Theme Darker High Contrast";
+        "workbench.colorTheme" = "Abyss";
       };
     };
 
