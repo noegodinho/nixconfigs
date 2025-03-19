@@ -283,13 +283,6 @@ in {
       enableZshIntegration = true;
     };
 
-    # eww = {
-    #   enable = true;
-    #   package = pkgs.eww;
-    #   enableZshIntegration = true;
-    #   configDir = /. + builtins.getEnv("HOME");
-    # };
-
     bat = {
       enable = true;
       package = pkgs.bat;
@@ -374,10 +367,27 @@ in {
       package = pkgs.yt-dlp;
     };
 
+    obs-studio = {
+      enable = true;
+      package = pkgs.obs-studio;
+      plugins = with pkgs.obs-studio-plugins; [
+        wlrobs
+        obs-backgroundremoval
+        obs-pipewire-audio-capture
+      ];
+    };
+
     # thunderbird = {
     #   enable = true;
     #   package = pkgs.thunderbird;
     #   profiles = [ ... ];
+    # };
+
+    # eww = {
+    #   enable = true;
+    #   package = pkgs.eww;
+    #   enableZshIntegration = true;
+    #   configDir = /. + builtins.getEnv("HOME");
     # };
 
     firefox.enable = false;
