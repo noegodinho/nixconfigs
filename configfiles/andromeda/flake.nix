@@ -10,22 +10,22 @@
     
     solaar = {
       url = "https://flakehub.com/f/Svenum/Solaar-Flake/*.tar.gz"; # For latest stable version
-      #url = "github:Svenum/Solaar-Flake/1.1.13"; # uncomment line for version 1.1.13
-      #url = "github:Svenum/Solaar-Flake/main; # Uncomment line for latest unstable version
+      # url = "github:Svenum/Solaar-Flake/1.1.13"; # uncomment line for version 1.1.13
+      # url = "github:Svenum/Solaar-Flake/main; # Uncomment line for latest unstable version
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-vscode-extensions = {
-      url = "github:nix-community/nix-vscode-extensions";
-    };
+    # nix-vscode-extensions = {
+    #   url = "github:nix-community/nix-vscode-extensions";
+    # };
 
-    nix-matlab = {
-      url = "gitlab:doronbehar/nix-matlab";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    # nix-matlab = {
+    #   url = "gitlab:doronbehar/nix-matlab";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
-  outputs = {self, nixpkgs, nixpkgs-unstable, home-manager, solaar, nix-vscode-extensions, nix-matlab, ...} @ inputs: let
+  outputs = {self, nixpkgs, nixpkgs-unstable, home-manager, solaar, ...} @ inputs: let #, nix-vscode-extensions, nix-matlab, ...} @ inputs: let
     system = "x86_64-linux";
     
     unstable = import nixpkgs-unstable {
@@ -35,9 +35,10 @@
       };
     };
 
-    flake-overlays = [
-      nix-matlab.overlay
-    ];
+    # flake-overlays = [
+    #   nix-matlab.overlay
+    # ];
+
     
     user = "andromeda";
     inherit (self) outputs;
@@ -61,7 +62,8 @@
           home-manager.users.${user} = import ./home.nix;
         }
         solaar.nixosModules.default
-        (import ./configuration.nix flake-overlays)
+        ./configuration.nix
+        # (import ./configuration flake-overlays)
       ];
     };
   };

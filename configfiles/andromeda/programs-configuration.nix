@@ -57,7 +57,7 @@
       qemu
       # For easy VM management
       quickemu
-      matlab
+      # matlab
       mesa
       xorg.libX11
     ];
