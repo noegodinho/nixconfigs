@@ -206,8 +206,7 @@ in {
         rebuild="sudo nixos-rebuild switch --upgrade-all --flake ~/nixconfigs/configfiles/andromeda/#laniakea -v";
         mmamba="micromamba";
         mmamba_update="mmamba activate general && mmamba update --all -y -c conda-forge && mmamba activate solver && mmamba update --all -y -c conda-forge && mmamba activate space && mmamba update --all -y -c conda-forge && mmamba activate tudat-space && mmamba update --all -y -c conda-forge && mmamba activate yafs && mmamba update --all -y -c conda-forge";
-        update_firmware = "sudo fwupdmgr get-updates && sudo fwupdmgr refresh --force && sudo fwupdmgr update";
-        update_all="flake_update && rebuild && mmamba_update && nix-collect-garbage -d && update_firmware && sudo bootctl update && zplug update";
+        update_all="flake_update && rebuild && mmamba_update && nix-collect-garbage -d && zplug update";
         projecteur="QT_QPA_PLATFORM=xcb projecteur -D abc8:ca08";
       };
 
