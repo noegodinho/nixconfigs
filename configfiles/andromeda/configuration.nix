@@ -109,7 +109,8 @@
         libvdpau-va-gl
         intel-compute-runtime
         vpl-gpu-rt
-        mesa
+        #mesa
+        nixpkgs-unstable.legacyPackages."${pkgs.system}".libgbm
       ];
     };
 
