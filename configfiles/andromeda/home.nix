@@ -142,7 +142,7 @@ in {
       pympress
       unstable.maestral
       veracrypt
-      duplicati # http://localhost:8200/
+      unstable.duplicati # http://localhost:8200/
       texliveFull
       todo-txt-cli
       qalculate-qt
