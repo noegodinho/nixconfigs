@@ -101,7 +101,7 @@
     # Firmware and BIOS updates
     fwupd = {
       enable = true;
-      package = nixpkgs-unstable.legacyPackages."${pkgs.system}".fwupd;
+      package = pkgs.fwupd;
     };
 
     # Detailed fan control
