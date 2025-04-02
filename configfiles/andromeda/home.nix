@@ -136,6 +136,7 @@ in {
       unstable.brave
       unstable.telegram-desktop
       skypeforlinux
+      teams-for-linux
       zotero
       slack
       discord
