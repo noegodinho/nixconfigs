@@ -57,9 +57,9 @@
       qemu
       # For easy VM management
       quickemu
-      # matlab
+      matlab
       mesa
-      xorg.libX11
+      distrobox
     ];
 
     # Exclude KDE & system packages
@@ -74,5 +74,10 @@
     # docker.enable = true;
     # Redirect USB devices to VM
     spiceUSBRedirection.enable = true;
+
+    podman = {
+      enable = true;
+      dockerCompat = true;
+    };
   };
 }
