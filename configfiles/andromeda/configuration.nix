@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-flake-overlays:
+# flake-overlays:
 
 { pkgs, nixpkgs-unstable, ... }:
 {
@@ -194,7 +194,7 @@ flake-overlays:
           };
         });
       })
-    ] ++ flake-overlays;
+    ]; # ++ flake-overlays;
   };
 
   security = {
