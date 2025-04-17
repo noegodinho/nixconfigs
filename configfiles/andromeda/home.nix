@@ -343,6 +343,7 @@ in {
         "ccls.highlight.variable.face" = ["enabled"];
         "ccls.misc.compilationDatabaseDirectory" = "build";
         "workbench.colorTheme" = "Abyss";
+        "git.autofetch" = true;
       };
     };
 
