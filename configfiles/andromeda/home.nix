@@ -152,6 +152,7 @@ in {
       khronos
       stellarium
       xournalpp
+      unstable.gurobi
 
       (nerdfonts.override { fonts = [ "Meslo" ]; })
       
@@ -213,6 +214,8 @@ in {
 
       initExtra=''
         source ~/.p10k.zsh
+
+        export GRB_LICENSE_FILE=~/gurobi.lic
 
         eval "$(micromamba shell hook --shell zsh)"
         # >>> mamba initialize >>>
