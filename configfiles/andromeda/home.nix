@@ -125,7 +125,7 @@ in {
       nurl
       glow
       
-      libreoffice-qt
+      libreoffice-qt6-fresh
       hunspell
       hunspellDicts.pt_PT
       hunspellDicts.en_GB-ise
