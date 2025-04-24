@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "f0555ec37883d2bddca658cad7bfe995bc195217";
+      rev = "e4d64dfea41b1aae1f9506dbf11545d008053cd6";
     })).extensions.${system};
 in {
   # link the configuration file in current directory to the specified location in home directory
@@ -305,10 +305,9 @@ in {
       # enableUpdateCheck = false;
       # enableExtensionUpdateCheck = false;
 
-      extensions = with extensions.open-vsx; [
+      extensions = with extensions.vscode-marketplace; [
         detachhead.basedpyright
         jeff-hykin.better-m-syntax
-      ] ++ (with import <unstable> {}; (with extensions.vscode-marketplace; [
         bbenoist.nix
         ccls-project.ccls        
         james-yu.latex-workshop
@@ -323,7 +322,7 @@ in {
         usernamehw.errorlens
         valentjn.vscode-ltex
         yzhang.markdown-all-in-one
-      ]) ++ (with unstable.vscode-extensions; [
+      ] ++ (with import <unstable> {}; (with unstable.vscode-extensions; [
         github.copilot
       ]));
         
