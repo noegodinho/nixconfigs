@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "31e24801a4d8eabd8c500237af732ca2ab305326";
+      rev = "4b970efde8416021d954c3ad5d0470c6f5eced67";
     })).extensions.${system};
 in {
   # link the configuration file in current directory to the specified location in home directory
@@ -143,7 +143,7 @@ in {
       pympress
       unstable.maestral
       veracrypt
-      unstable.duplicati # http://localhost:8200/
+      duplicati # http://localhost:8200/
       texliveFull
       todo-txt-cli
       qalculate-qt
