@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "4b970efde8416021d954c3ad5d0470c6f5eced67";
+      rev = "2e10ad11395ac09a73ad38f0cbe975e410065ca5";
     })).extensions.${system};
 in {
   # link the configuration file in current directory to the specified location in home directory
@@ -135,8 +135,7 @@ in {
       kdePackages.ktorrent
       unstable.brave
       unstable.telegram-desktop
-      skypeforlinux
-      teams-for-linux
+      unstable.teams-for-linux
       zotero
       slack
       discord
