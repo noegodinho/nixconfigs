@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "2e10ad11395ac09a73ad38f0cbe975e410065ca5";
+      rev = "6e320439558ef494b83d6407b0c6f2218e47522a";
     })).extensions.${system};
 in {
   # link the configuration file in current directory to the specified location in home directory
@@ -197,7 +197,7 @@ in {
         enable = true;
         plugins = [
           { name = "romkatv/powerlevel10k"; tags = [ "as:theme" "depth:1" ]; }
-          { name = "marlonrichert/zsh-autocomplete"; tags = [ "depth:1" ]; }
+          { name = "marlonrichert/zsh-autocomplete"; }
           { name = "chisui/zsh-nix-shell"; }
         ];
       };
