@@ -76,7 +76,7 @@
 
     # Exclude KDE & system packages
     plasma6.excludePackages = with pkgs; [
-      khelpcenter
+      kdePackages.khelpcenter
       kdePackages.kate
     ];
   };
