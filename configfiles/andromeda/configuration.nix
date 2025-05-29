@@ -127,9 +127,6 @@
       };
     };
 
-    # Enable sound with pipewire.
-    pulseaudio.enable = false; # Use Pipewire, the modern sound subsystem
-
     # Enable logitech wireless mouse
     logitech.wireless.enable = true;
 
