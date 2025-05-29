@@ -153,7 +153,7 @@ in {
       xournalpp
       unstable.gurobi
 
-      (nerdfonts.override { fonts = [ "Meslo" ]; })
+      nerd-fonts.meslo-lg
       
       ardour
       musescore
@@ -211,7 +211,7 @@ in {
         projecteur="QT_QPA_PLATFORM=xcb projecteur -D abc8:ca08";
       };
 
-      initExtra=''
+      initContent=''
         source ~/.p10k.zsh
 
         export GRB_LICENSE_FILE=~/gurobi.lic
@@ -304,47 +304,49 @@ in {
       # enableUpdateCheck = false;
       # enableExtensionUpdateCheck = false;
 
-      extensions = with extensions.vscode-marketplace; [
-        detachhead.basedpyright
-        jeff-hykin.better-m-syntax
-        bbenoist.nix
-        ccls-project.ccls        
-        james-yu.latex-workshop
-        jeff-hykin.better-c-syntax
-        jeff-hykin.better-cpp-syntax
-        jnoortheen.nix-ide
-        luquedaniel.languague-renpy
-        mechatroner.rainbow-csv
-        ms-python.python
-        pinage404.nix-extension-pack
-        tecosaur.latex-utilities
-        usernamehw.errorlens
-        valentjn.vscode-ltex
-        yzhang.markdown-all-in-one
-      ] ++ (with import <unstable> {}; (with unstable.vscode-extensions; [
-        github.copilot
-      ]));
-        
-      userSettings = {
-        "files.autoSave" = "afterDelay";
-        "terminal.integrated.fontFamily" = "MesloLGS Nerd Font";
-        "editor.wordWrap" = "on";
-        "latex-workshop.latex.autoBuild.run" = "never";
-        "ltex.additionalRules.motherTongue" = "pt-PT";
-        "ltex.language" = "en-GB";
-        "ltex.enabled" = ["bibtex" "context" "context.tex" "html" "latex" "markdown" "org" "restructuredtext" "rsweave"];
-        "python.defaultInterpreterPath" = "/home/andromeda/micromamba/envs/general/bin/python";
-        "nix.enableLanguageServer" = true;
-        "nix.serverPath" = "nil";
-        "git.openRepositoryInParentFolders" = "always";
-        "cmake.pinnedCommands" = ["workbench.action.tasks.configureTaskRunner" "workbench.action.tasks.runTask"];
-        "ccls.launch.command" = "/etc/profiles/per-user/andromeda/bin/ccls";
-        "ccls.highlight.function.face" = ["enabled"];
-        "ccls.highlight.type.face" = ["enabled"];
-        "ccls.highlight.variable.face" = ["enabled"];
-        "ccls.misc.compilationDatabaseDirectory" = "build";
-        "workbench.colorTheme" = "Abyss";
-        "git.autofetch" = true;
+      profiles.default = { 
+        extensions = with extensions.vscode-marketplace; [
+          detachhead.basedpyright
+          jeff-hykin.better-m-syntax
+          bbenoist.nix
+          ccls-project.ccls        
+          james-yu.latex-workshop
+          jeff-hykin.better-c-syntax
+          jeff-hykin.better-cpp-syntax
+          jnoortheen.nix-ide
+          luquedaniel.languague-renpy
+          mechatroner.rainbow-csv
+          ms-python.python
+          pinage404.nix-extension-pack
+          tecosaur.latex-utilities
+          usernamehw.errorlens
+          valentjn.vscode-ltex
+          yzhang.markdown-all-in-one
+        ] ++ (with import <unstable> {}; (with unstable.vscode-extensions; [
+          github.copilot
+        ]));
+          
+        userSettings = {
+          "files.autoSave" = "afterDelay";
+          "terminal.integrated.fontFamily" = "MesloLGS Nerd Font";
+          "editor.wordWrap" = "on";
+          "latex-workshop.latex.autoBuild.run" = "never";
+          "ltex.additionalRules.motherTongue" = "pt-PT";
+          "ltex.language" = "en-GB";
+          "ltex.enabled" = ["bibtex" "context" "context.tex" "html" "latex" "markdown" "org" "restructuredtext" "rsweave"];
+          "python.defaultInterpreterPath" = "/home/andromeda/micromamba/envs/general/bin/python";
+          "nix.enableLanguageServer" = true;
+          "nix.serverPath" = "nil";
+          "git.openRepositoryInParentFolders" = "always";
+          "cmake.pinnedCommands" = ["workbench.action.tasks.configureTaskRunner" "workbench.action.tasks.runTask"];
+          "ccls.launch.command" = "/etc/profiles/per-user/andromeda/bin/ccls";
+          "ccls.highlight.function.face" = ["enabled"];
+          "ccls.highlight.type.face" = ["enabled"];
+          "ccls.highlight.variable.face" = ["enabled"];
+          "ccls.misc.compilationDatabaseDirectory" = "build";
+          "workbench.colorTheme" = "Abyss";
+          "git.autofetch" = true;
+        };
       };
     };
 
