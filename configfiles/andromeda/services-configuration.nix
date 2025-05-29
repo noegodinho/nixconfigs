@@ -61,6 +61,9 @@
       openFirewall = true;
     };
 
+    # Enable sound with pipewire.
+    pulseaudio.enable = false; # Use Pipewire, the modern sound subsystem
+
     # Sound service
     pipewire = {
       enable = true;
@@ -74,10 +77,6 @@
     fprintd = {
       enable = true;
       package = pkgs.fprintd-tod;
-      tod = {
-        enable = true;
-        driver = pkgs.libfprint-2-tod1-vfs0090;
-      };
     };
 
     # "Driver" for MX Master 3S
