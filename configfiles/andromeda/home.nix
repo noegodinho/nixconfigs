@@ -130,7 +130,7 @@ in {
       hunspellDicts.pt_PT
       hunspellDicts.en_GB-ise
 
-      keepass
+      keepassxc
       thunderbird
       kdePackages.ktorrent
       unstable.brave
@@ -180,6 +180,10 @@ in {
   };
 
   programs = {
+    brave.nativeMessagingHosts = [ 
+      pkgs.keepassxc
+    ];
+
     git = {
       enable = true;
       package = pkgs.git;
