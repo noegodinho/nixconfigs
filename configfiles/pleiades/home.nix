@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "c43d9089df96cf8aca157762ed0e2ddca9fcd71e";
+      rev = "c008ed9dd78efdeda5e9d5bb835c785e600791f6";
     })).extensions.${system};
 in {
   home.username = "pleiades";
@@ -32,12 +32,12 @@ in {
     linux-manual
     man-pages
     man-pages-posix
-    git
     gcc
     gdb
     gnumake
     cmake
     valgrind
+    ccls
 
     wget
     usbutils
@@ -91,12 +91,12 @@ in {
     hunspellDicts.pt_PT
     hunspellDicts.en_GB-ise
 
-    keepass
+    keepassxc
     thunderbird
     kdePackages.ktorrent
     unstable.brave
     unstable.telegram-desktop
-    skypeforlinux
+    teams-for-linux
     unstable.zotero
     slack
     discord
@@ -113,7 +113,7 @@ in {
     projecteur
     joplin-desktop
 
-    (nerdfonts.override { fonts = [ "Meslo" ]; })
+    nerd-fonts.meslo-lg
     
     rare
     wineWowPackages.waylandFull # wineWowPackages.full
@@ -131,6 +131,8 @@ in {
   ];
 
   programs = {
+      brave.nativeMessagingHosts = [ pkgs.keepassxc ];
+
       git = {
         enable = true;
         userName = "noegodinho";
@@ -161,7 +163,7 @@ in {
           projecteur="QT_QPA_PLATFORM=xcb projecteur -D abc8:ca08";
         };
 
-        initExtra=''
+        initContent=''
           source ~/.p10k.zsh
 
           eval "$(micromamba shell hook --shell zsh)"
@@ -252,50 +254,50 @@ in {
         # enableUpdateCheck = false;
         # enableExtensionUpdateCheck = false;
 
-        extensions = with extensions.open-vsx; [
-          # detachhead.basedpyright
-        ] ++ (with extensions.vscode-marketplace; [
-          # arrterian.nix-env-selector
-          bbenoist.nix
-          cschlosser.doxdocgen
-          james-yu.latex-workshop
-          jeff-hykin.better-cpp-syntax
-          jnoortheen.nix-ide
-          luquedaniel.languague-renpy
-          mechatroner.rainbow-csv
-          ms-python.python
-          # ms-python.vscode-pylance
-          ms-vscode.cmake-tools
-          ms-vscode.cpptools
-          ms-vscode.cpptools-themes
-          ms-vscode.makefile-tools
-          pinage404.nix-extension-pack
-          tecosaur.latex-utilities
-          twxs.cmake
-          valentjn.vscode-ltex
-          # visualstudioexptteam.vscodeintellicode
-          yzhang.markdown-all-in-one
-         ]) ++ (with unstable.vscode-extensions; [
-          github.copilot
-         ]);
-         
-         userSettings = {
+        profiles.default = { 
+          extensions = with extensions.vscode-marketplace; [
+            detachhead.basedpyright
+            jeff-hykin.better-m-syntax
+            bbenoist.nix
+            ccls-project.ccls        
+            james-yu.latex-workshop
+            jeff-hykin.better-c-syntax
+            jeff-hykin.better-cpp-syntax
+            jnoortheen.nix-ide
+            luquedaniel.languague-renpy
+            mechatroner.rainbow-csv
+            ms-python.python
+            pinage404.nix-extension-pack
+            tecosaur.latex-utilities
+            usernamehw.errorlens
+            valentjn.vscode-ltex
+            yzhang.markdown-all-in-one
+          ] ++ (with import <unstable> {}; (with unstable.vscode-extensions; [
+            github.copilot
+          ]));
+            
+          userSettings = {
             "files.autoSave" = "afterDelay";
             "terminal.integrated.fontFamily" = "MesloLGS Nerd Font";
             "editor.wordWrap" = "on";
-            "C_Cpp.default.compilerPath" = "/etc/profiles/per-user/pleiades/bin/gcc";
-            "C_Cpp.default.intelliSenseMode" = "linux-gcc-x64";
-            "C_Cpp.autocompleteAddParentheses" = true;
-            "C_Cpp.default.systemIncludePath" = ["/nix/store/skkw2fidr9h2ikq8gzgfm6rysj1mal0r-gcc-13.2.0/lib/gcc/x86_64-unknown-linux-gnu/13.2.0/include"];
             "latex-workshop.latex.autoBuild.run" = "never";
             "ltex.additionalRules.motherTongue" = "pt-PT";
             "ltex.language" = "en-GB";
             "ltex.enabled" = ["bibtex" "context" "context.tex" "html" "latex" "markdown" "org" "restructuredtext" "rsweave"];
-            "python.defaultInterpreterPath" = "/home/pleiades/micromamba/envs/general/bin/python";
+            "python.defaultInterpreterPath" = "/home/andromeda/micromamba/envs/general/bin/python";
             "nix.enableLanguageServer" = true;
             "nix.serverPath" = "nil";
             "git.openRepositoryInParentFolders" = "always";
-         };
+            "cmake.pinnedCommands" = ["workbench.action.tasks.configureTaskRunner" "workbench.action.tasks.runTask"];
+            "ccls.launch.command" = "/etc/profiles/per-user/andromeda/bin/ccls";
+            "ccls.highlight.function.face" = ["enabled"];
+            "ccls.highlight.type.face" = ["enabled"];
+            "ccls.highlight.variable.face" = ["enabled"];
+            "ccls.misc.compilationDatabaseDirectory" = "build";
+            "workbench.colorTheme" = "Abyss";
+            "git.autofetch" = true;
+          };
+        };
       };
 
       firefox.enable = false;
