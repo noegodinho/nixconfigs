@@ -41,7 +41,7 @@
       lm_sensors
       mission-center
 
-      (nerdfonts.override { fonts = [ "Meslo" ]; })
+      nerd-fonts.meslo-lg
   ];
 
   programs = {
@@ -72,7 +72,7 @@
           update_all="flake_update && rebuild && nix-collect-garbage -d";
         };
 
-        initExtra=''
+        initContent=''
           source ~/.p10k.zsh
         '';
       };
