@@ -13,7 +13,7 @@
 
   # Bootloader.
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    # kernelPackages = pkgs.linuxPackages_latest;
     # extraModulePackages = [ msi_ec_patch ];
     # kernelModules = [ "ec_sys" ];
     # extraModprobeConfig = ''
@@ -30,11 +30,6 @@
   };
 
   networking.hostName = "milkyway"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
   networking.networkmanager = {
@@ -42,11 +37,6 @@
     wifi.powersave = false;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.libinput.enable = true;
   services.libinput.touchpad.naturalScrolling = true;
 
   # Set your time zone.
@@ -77,6 +67,7 @@
       layout = "pt";
       variant = "";
     };
+    videoDrivers = [ "modesetting" "nvidia" ];
   };
 
   # Configure console keymap
@@ -93,7 +84,6 @@
 
   hardware.graphics = {
     enable = true;
-    # driSupport = true;
     enable32Bit = true;
 
     extraPackages = with pkgs; [
@@ -103,7 +93,7 @@
     ];
   };
 
-  environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; }; # Force intel-media-driver
+  # environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; }; # Force intel-media-driver
 
   # Load nvidia driver for Xorg and Wayland
   nixpkgs.config.nvidia.acceptLicense = true;
@@ -136,15 +126,15 @@
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    # package = config.boot.kernelPackages.nvidiaPackages.stable;
-    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      version = "565.77";
-      sha256_64bit = "sha256-CnqnQsRrzzTXZpgkAtF7PbH9s7wbiTRNcM0SPByzFHw=";
-      sha256_aarch64 = "sha256-AV7KgRXYaQGBFl7zuRcfnTGr8rS5n13nGUIe3mJTXb4=";
-      openSha256 = "sha256-mRUTEWVsbjq+psVe+kAT6MjyZuLkG2yRDxCMvDJRL1I=";
-      settingsSha256 = "sha256-FUEwXpeUMH1DYH77/t76wF1UslkcW721x9BHasaRUaM=";
-      persistencedSha256 = "sha256-11tLSY8uUIl4X/roNnxf5yS2PQvHvoNjnd2CB67e870=";
-    };
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+    #   version = "570.153.02";
+    #   sha256_64bit = "sha256-FIiG5PaVdvqPpnFA5uXdblH5Cy7HSmXxp6czTfpd4bY=";
+    #   sha256_aarch64 = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
+    #   openSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
+    #   settingsSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
+    #   persistencedSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
+    # };
 
     prime = {
       # Make sure to use the correct Bus ID values for your system!
@@ -158,38 +148,12 @@
     };
   };
 
-  # Is it necessary?
-  # specialisation = {
-  #   on-the-go.configuration = {
-  #     system.nixos.tags = [ "on-the-go" ];
-  #     hardware.nvidia = {
-  #       prime.offload.enable = lib.mkForce true;
-  #       prime.offload.enableOffloadCmd = lib.mkForce true;
-  #       prime.sync.enable = lib.mkForce false;
-  #     };
-  #   };
-  # };
-
   # Nix settings
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nixpkgs.config = {
     # allow proprietary packages
     allowUnfree = true;
-
-    packageOverrides = pkgs: {
-      intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
-    };
-
-    # packageOverrides = super: let self = super.pkgs; in {
-    #   subtitleeditor = super.subtitleeditor.overrideAttrs (attrs: {
-    #     buildInputs = attrs.buildInputs ++ [
-    #       self.gst_all_1.gst-plugins-bad
-    #       self.gst_all_1.gst-plugins-ugly
-    #       self.gst_all_1.gst-libav
-    #     ];
-    #   });
-    # };
   };
 
   # Nix garbage collector
@@ -205,48 +169,6 @@
     dates = "daily";
     allowReboot = false; # decide later
   };
-
-  # Enable CUPS to print documents.
-  services.printing = {
-    enable = true;
-    cups-pdf.enable = true;
-    logLevel = "debug2";
-
-    # drivers = [
-    #   (pkgs.writeTextDir "share/cups/model/KMbeu750iux.ppd" (builtins.readFile /home/pleiades/printer_drivers/KMbeu750iux.ppd))
-    # ];
-
-    # extraConf = ''
-    #   Browsing Yes
-    #   DefaultShared Yes
-    #   DefaultAuthType Basic
-    #   WebInterface Yes
-    # '';
-    # extraFilesConf = ''
-    #   RemoteRoot noe
-    # '';
-  };
-
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
-  };
-
-  # hardware.printers = {
-  #   ensurePrinters = [
-  #     {
-  #       name = "printer-hall-2";
-  #       location = "DEI Main Hall";
-  #       deviceUri = "http://ipp.dei.uc.pt/printers/printer-hall-2";
-  #       model = "drv:///home/pleiades/printer_drivers/KMbeu750iux.ppd";
-  #       ppdOptions = {
-  #         PageSize = "A4";
-  #       };
-  #     }
-  #   ];
-  #   ensureDefaultPrinter = "printer-hall-2";
-  # };
 
   # enables support for Bluetooth & powers up the default Bluetooth controller on boot
   hardware.bluetooth = {
@@ -306,7 +228,7 @@
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "Pleiades";
-    extraGroups = [ "input" "networkmanager" "wheel" ];
+    extraGroups = [ "input" "networkmanager" "video" "wheel" ];
     # packages = with pkgs; [
         # kdePackages.kate
     # ];
@@ -334,30 +256,6 @@
     ];
   };
 
-  # BPF-based Linux IO analysis, networking, monitoring, and more
-  programs.bcc.enable = true;
-
-  # programs.steam.package = pkgs.steam.override {
-  #    withPrimus = true;  # invalid?
-  #    withJava = true;    # invalid?
-  #    extraPkgs = pkgs: [ bumblebee glxinfo ];
-  # };
-
-  # fingerprint drivers
-  # services.fprintd = {
-  #   enable = true;
-  #   package = pkgs.fprintd-tod;
-  #   tod = {
-  #     enable = true;
-  #     driver = pkgs.libfprint-2-tod1-vfs0090;
-      # driver = pkgs.libfprint-2-tod1-goodix; # (On my device it only worked with this driver)
-      # driver = unstable.libfprint-2-tod1-vfs0090;
-  #   };
-  # };
-
-  # services.open-fprintd.enable = true;
-  # services.python-validity.enable = true;
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -372,13 +270,13 @@
   virtualisation.spiceUSBRedirection.enable = true;
 
   # Exclude KDE & system packages
-  environment.plasma6.excludePackages = with pkgs; [
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
     khelpcenter
-    kdePackages.kate
+    kate
   ];
 
-  services.xserver.excludePackages = [
-    pkgs.xterm
+  services.xserver.excludePackages = with pkgs; [
+    xterm
   ];
 
   # "Driver" for MX Master 3S
@@ -404,27 +302,6 @@
 
   # Smart card reader driver
   services.pcscd.enable = true;
-
-  services.fwupd.enable = true;
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
