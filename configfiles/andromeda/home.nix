@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "c008ed9dd78efdeda5e9d5bb835c785e600791f6";
+      rev = "1599b5b404e6bbdaf088f4c8872954146f8a19bb";
     })).extensions.${system};
 in {
   # link the configuration file in current directory to the specified location in home directory
@@ -309,14 +309,15 @@ in {
       # enableExtensionUpdateCheck = false;
 
       profiles.default = { 
-        extensions = with extensions.vscode-marketplace; [
-          detachhead.basedpyright
-          jeff-hykin.better-m-syntax
+        extensions = with extensions.vscode-marketplace; [        
           bbenoist.nix
-          ccls-project.ccls        
+          ccls-project.ccls
+          coderabbit.coderabbit-vscode
+          detachhead.basedpyright
           james-yu.latex-workshop
           jeff-hykin.better-c-syntax
           jeff-hykin.better-cpp-syntax
+          jeff-hykin.better-m-syntax
           jnoortheen.nix-ide
           luquedaniel.languague-renpy
           mechatroner.rainbow-csv
