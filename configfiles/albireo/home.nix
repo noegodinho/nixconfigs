@@ -43,7 +43,6 @@
 
       nerd-fonts.meslo-lg
 
-      brave
       librewolf
   ];
 
