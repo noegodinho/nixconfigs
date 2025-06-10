@@ -42,6 +42,8 @@
       mission-center
 
       nerd-fonts.meslo-lg
+
+      brave
   ];
 
   programs = {
@@ -122,7 +124,7 @@
         enableZshIntegration = true;
       };
 
-      firefox.enable = true;
+      firefox.enable = false;
       java.enable = true;
       home-manager.enable = true;
   };
