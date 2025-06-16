@@ -377,16 +377,6 @@ in {
       package = pkgs.yt-dlp;
     };
 
-    obs-studio = {
-      enable = true;
-      package = pkgs.obs-studio;
-      plugins = with pkgs.obs-studio-plugins; [
-        wlrobs
-        obs-backgroundremoval
-        obs-pipewire-audio-capture
-      ];
-    };
-
     # thunderbird = {
     #   enable = true;
     #   package = pkgs.thunderbird;
