@@ -240,8 +240,15 @@ in {
 
     ghostty = {
       enable = true;
-      package = pkgs.ghostty;
+      package = pkgs.ghostty.overrideAttrs (_: {
+                  preBuild = ''
+                    shopt -s globstar
+                    sed -i 's/^const xev = @import("xev");$/const xev = @import("xev").Epoll;/' **/*.zig
+                    shopt -u globstar
+                  '';
+                });
       enableZshIntegration = true;
+      installBatSyntax = true;
       settings = {
         cursor-style = "block";
         shell-integration-features = "no-cursor";
