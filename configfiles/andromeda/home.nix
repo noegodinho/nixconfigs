@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "41de1aa39e479cdf2e6fd522431aa1fc3615e35a";
+      rev = "6b1fe15b18ed4170da1e24746717639f992b9cb7";
     })).extensions.${system};
 in {
   # link the configuration file in current directory to the specified location in home directory
@@ -240,13 +240,7 @@ in {
 
     ghostty = {
       enable = true;
-      package = pkgs.ghostty.overrideAttrs (_: {
-                  preBuild = ''
-                    shopt -s globstar
-                    sed -i 's/^const xev = @import("xev");$/const xev = @import("xev").Epoll;/' **/*.zig
-                    shopt -u globstar
-                  '';
-                });
+      package = pkgs.ghostty;
       enableZshIntegration = true;
       installBatSyntax = true;
       settings = {
@@ -316,10 +310,9 @@ in {
       # enableExtensionUpdateCheck = false;
 
       profiles.default = { 
-        extensions = with extensions.vscode-marketplace; [        
+        extensions = with extensions.vscode-marketplace; [
           bbenoist.nix
           ccls-project.ccls
-          coderabbit.coderabbit-vscode
           detachhead.basedpyright
           james-yu.latex-workshop
           jeff-hykin.better-c-syntax
