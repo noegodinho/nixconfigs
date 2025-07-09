@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "c008ed9dd78efdeda5e9d5bb835c785e600791f6";
+      rev = "6b1fe15b18ed4170da1e24746717639f992b9cb7";
     })).extensions.${system};
 in {
   home.username = "pleiades";
@@ -284,12 +284,12 @@ in {
             "ltex.additionalRules.motherTongue" = "pt-PT";
             "ltex.language" = "en-GB";
             "ltex.enabled" = ["bibtex" "context" "context.tex" "html" "latex" "markdown" "org" "restructuredtext" "rsweave"];
-            "python.defaultInterpreterPath" = "/home/andromeda/micromamba/envs/general/bin/python";
+            "python.defaultInterpreterPath" = "/home/pleiades/micromamba/envs/general/bin/python";
             "nix.enableLanguageServer" = true;
             "nix.serverPath" = "nil";
             "git.openRepositoryInParentFolders" = "always";
             "cmake.pinnedCommands" = ["workbench.action.tasks.configureTaskRunner" "workbench.action.tasks.runTask"];
-            "ccls.launch.command" = "/etc/profiles/per-user/andromeda/bin/ccls";
+            "ccls.launch.command" = "/etc/profiles/per-user/pleiades/bin/ccls";
             "ccls.highlight.function.face" = ["enabled"];
             "ccls.highlight.type.face" = ["enabled"];
             "ccls.highlight.variable.face" = ["enabled"];
