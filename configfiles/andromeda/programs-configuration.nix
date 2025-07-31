@@ -1,12 +1,18 @@
-{ pkgs, ... }:
+{ pkgs, nixpkgs-unstable, ... }:
 {
   # Man docs
   documentation = {
+    doc.enable = true;
+    dev.enable = true;
+    nixos.enable = true;
     enable = true;
     man = {
       enable = true;
       man-db.enable = false;
-      mandoc.enable = true;
+      mandoc = {
+        enable = true;
+        package = nixpkgs-unstable.legacyPackages."${pkgs.system}".mandoc;
+      };
       generateCaches = true;
     };
   };
