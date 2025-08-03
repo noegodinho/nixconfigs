@@ -180,6 +180,12 @@
             hash = "sha256-hKyxXqZaqg8KGFoBWhRHV1/50uoxqiG0RsYtgw2BuQ4=";
           };
         });
+
+        linux-manual = prev.linux-manual.overrideAttrs (old: {
+          installCheckPhase = ''
+            echo "Skipping kmalloc(9) check for kernel 6.16"
+          '';
+        });
       })
     ]; # ++ flake-overlays;
   };
