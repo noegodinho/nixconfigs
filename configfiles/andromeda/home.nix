@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "730c4353591b3c507a6973b75b52e367cde90d52";
+      rev = "3973067bac2718d7cb5f8c68f45f5685c918046a";
     })).extensions.${system};
 in {
   # link the configuration file in current directory to the specified location in home directory
