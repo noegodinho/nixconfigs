@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "5ae2ac105a0d3ed2230a225ef6441928286897da";
+      rev = "c221ba7ccb7182f74413f633f706496aae6066ae";
     })).extensions.${system};
 in {
   # link the configuration file in current directory to the specified location in home directory
@@ -464,12 +464,6 @@ in {
         plugin = {
           input = {
             libinput_command_input = {
-              enable-tap = {
-                command = true;
-              };
-              enable-dwt = {
-                command = true;
-              };
               show-keycodes = {
                 command = true;
               };
