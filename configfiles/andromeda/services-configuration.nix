@@ -2,8 +2,11 @@
 {
   services = {
     # Enable touchpad support (enabled default in most desktopManager)
-    # ibinput.enable = true;
-    libinput.touchpad.naturalScrolling = true;
+    libinput = {
+      enable = true;
+      touchpad.naturalScrolling = true;
+      touchpad.tapping = false;
+    };
 
     xserver = {
       # Enable the X11 windowing system
