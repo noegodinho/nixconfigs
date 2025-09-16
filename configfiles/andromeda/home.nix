@@ -3,11 +3,11 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "fd429a666936fb6374e461983c86716473af16ce";
+      rev = "e496568b0e69d9d54c8cfef96ed1370952ad9786";
     })).extensions.${system};
 in {
   # link the configuration file in current directory to the specified location in home directory
-  # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
+  # home.file.".config/'«i3/wallpaper.jpg".source = ./wallpaper.jpg;
 
   # link all files in `./scripts` to `~/.config/i3/scripts`
   # home.file.".config/i3/scripts" = {
