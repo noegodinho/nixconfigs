@@ -78,6 +78,8 @@
       gst_all_1.gst-libav
       # Support the Video Audio (Hardware) Acceleration API
       gst_all_1.gst-vaapi
+
+      nixpkgs-unstable.legacyPackages."${pkgs.system}".libinput
     ];
 
     # Exclude KDE & system packages
