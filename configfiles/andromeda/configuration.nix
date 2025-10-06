@@ -26,6 +26,7 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
+    kernelParams = [ "psmouse.synaptics_intertouch=0" ];
   };
 
   # Set your time zone.
@@ -89,12 +90,14 @@
   };
 
   hardware = { 
-    # Update the Intel microcode on boot.
-    cpu.intel.updateMicrocode = true;
-
     # Enable the Intel NPU firmware.
-    # firmware = [ pkgs.intel-npu-firmware ];
-    # cpu.intel.enableNpuFirmware = true;
+    # firmware = [ pkgs.intel-npu.firmware ];
+    
+    # Update the Intel microcode on boot and enable npu.
+    cpu.intel = {
+      updateMicrocode = true;
+      # npu.enable = true;
+    };
 
     # Graphic drivers
     graphics = {
@@ -167,21 +170,21 @@
     };
 
     # Override version of pscslite
-    overlays = [
-      (final: prev: {
-        pcscliteWithPolkit = prev.pcscliteWithPolkit.overrideAttrs(oldAttrs: {
-          version = "2.1.0";
-          
-          src = pkgs.fetchFromGitLab {
-            domain = "salsa.debian.org";
-            owner = "rousseau";
-            repo = "PCSC";
-            rev = "refs/tags/${oldAttrs.version}";
-            hash = "sha256-hKyxXqZaqg8KGFoBWhRHV1/50uoxqiG0RsYtgw2BuQ4=";
-          };
-        });
-      })
-    ]; # ++ flake-overlays;
+    # overlays = [
+    #   (final: prev: {
+    #     pcscliteWithPolkit = prev.pcscliteWithPolkit.overrideAttrs(oldAttrs: {
+    #       version = "2.1.0";
+    #       
+    #       src = pkgs.fetchFromGitLab {
+    #         domain = "salsa.debian.org";
+    #         owner = "rousseau";
+    #         repo = "PCSC";
+    #         rev = "refs/tags/${oldAttrs.version}";
+    #         hash = "sha256-hKyxXqZaqg8KGFoBWhRHV1/50uoxqiG0RsYtgw2BuQ4=";
+    #       };
+    #     });
+    #   })
+    # ]; # ++ flake-overlays;
   };
 
   security = {
