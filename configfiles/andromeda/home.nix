@@ -329,7 +329,6 @@ in {
           yzhang.markdown-all-in-one
         ] ++ (with import <unstable> {}; (with unstable.vscode-extensions; [
           github.copilot
-          github.copilot-chat
         ]));
           
         userSettings = {
