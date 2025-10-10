@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "b86c4a30e82e0871c8bde1df3ecd66465c04818a";
+      rev = "65365fe8c09b6c1b6bba1885a126723815376b1b";
     })).extensions.${system};
 in {
   # link the configuration file in current directory to the specified location in home directory
@@ -329,6 +329,7 @@ in {
           yzhang.markdown-all-in-one
         ] ++ (with import <unstable> {}; (with unstable.vscode-extensions; [
           github.copilot
+          github.copilot-chat
         ]));
           
         userSettings = {
