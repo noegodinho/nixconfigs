@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "328cedcf3eae1e3eae4f16a61196894c95783c38";
+      rev = "b227991f119ccaf404e9236d527c1d0e7412fe95";
     })).extensions.${system};
 in {
   # link the configuration file in current directory to the specified location in home directory
@@ -141,7 +141,6 @@ in {
       discord
       pympress
       unstable.maestral
-      celeste
       veracrypt
       duplicati # http://localhost:8200/
       texliveFull
