@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "0a74c6a180110ac18584780eeff31e302b0bf8a4";
+      rev = "bd4690e402591e99a091dcd49663d3d6c9bf0ada";
     })).extensions.${system};
 in {
   # link the configuration file in current directory to the specified location in home directory
@@ -27,8 +27,11 @@ in {
   wayland.windowManager.hyprland = {
     # Whether to enable Hyprland wayland compositor
     enable = true;
-    # The hyprland package to use
-    package = pkgs.hyprland;
+
+    # Disable Hyprland package, use system-provided one
+    package = null;
+    portalPackage = null;
+
     # Whether to enable XWayland
     xwayland = {
       enable = true;
@@ -41,23 +44,96 @@ in {
     systemd.variables = ["--all"];
 
     settings = {
+      # Set the Super key as the main modifier
       "$mod" = "SUPER";
-      bind =
-        [
-          "$mod, F, exec, ghostty"
-          ", Print, exec, grimblast copy area"
-        ]
-        ++ (
-          # workspaces
-          # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
-          builtins.concatLists (builtins.genList (i:
-            let ws = i + 1;
-            in [
-              "$mod, code:1${toString i}, workspace, ${toString ws}"
-              "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
-            ]
-          )9)
-        );
+
+      # Autostart applications
+      "exec-once" = [
+        "waybar"                # Launch the bar
+        "mako"                  # Launch the notification daemon
+        "hyprpaper"             # Launch the wallpaper daemon
+        "/usr/lib/polkit-kde-authentication-agent-1" # Polkit agent
+      ];
+
+      # Input settings
+      input = {
+        kb_layout = "pt";
+        kb_variant = "";
+        # kb_model = "";
+        # kb_options = "ctrl:nocaps"; # Example: Map Caps Lock to Ctrl
+        # kb_rules = "";
+
+        follow_mouse = 1;
+        
+        touchpad = {
+          natural_scroll = true;
+        };
+
+        sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
+      };
+      
+      # General settings
+      general = {
+        gaps_in = 5;
+        gaps_out = 10;
+        border_size = 2;
+        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
+        "col.inactive_border" = "rgba(595959aa)";
+        layout = "dwindle";
+      };
+
+      # Decoration (shadows, rounding)
+      decoration = {
+        rounding = 10;
+        shadow_range = 4;
+        shadow_render_power = 3;
+        "col.shadow" = "rgba(1a1a1aee)";
+      };
+
+      # Animations
+      animations = {
+        enabled = true;
+        bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
+        animation = [
+          "windows, 1, 7, myBezier"
+          "windowsOut, 1, 7, default, popin 80%"
+          "border, 1, 10, default"
+          "fade, 1, 7, default"
+          "workspaces, 1, 6, default"
+        ];
+      };
+
+      # Keybindings
+      bind = [
+        # Launch terminal
+        "$mod, RETURN, exec, ghostty"
+        # Close window
+        "$mod, Q, killactive,"
+        # Launch app launcher
+        "$mod, D, exec, wofi --show drun"
+        # Exit Hyprland
+        "$mod SHIFT, E, exit,"
+        # Screenshot
+        ", Print, exec, grim -g \"$(slurp)\" - | wl-copy"
+
+        # Move focus
+        "$mod, h, movefocus, l"
+        "$mod, l, movefocus, r"
+        "$mod, k, movefocus, u"
+        "$mod, j, movefocus, d"
+
+        # Switch workspaces
+        "$mod, 1, workspace, 1"
+        "$mod, 2, workspace, 2"
+        "$mod, 3, workspace, 3"
+        # ...and so on for 4-9
+
+        # Move active window to a workspace
+        "$mod SHIFT, 1, movetoworkspace, 1"
+        "$mod SHIFT, 2, movetoworkspace, 2"
+        "$mod SHIFT, 3, movetoworkspace, 3"
+        # ...and so on for 4-9
+      ];
     };
   };
 
@@ -176,6 +252,14 @@ in {
           # List library dependencies here
         ];
       })
+
+      # Hyprland related packages
+      waybar       # The status bar
+      wofi         # The application launcher
+      mako         # The notification daemon
+      grim         # For screenshots
+      slurp        # For selecting screen regions
+      wl-clipboard # Clipboard utilities
     ];
   };
 
@@ -199,6 +283,7 @@ in {
 
       zplug = {
         enable = true;
+        
         plugins = [
           { name = "romkatv/powerlevel10k"; tags = [ "as:theme" "depth:1" ]; }
           { name = "marlonrichert/zsh-autocomplete"; }
@@ -243,6 +328,7 @@ in {
       package = pkgs.ghostty;
       enableZshIntegration = true;
       installBatSyntax = true;
+      
       settings = {
         cursor-style = "block";
         shell-integration-features = "no-cursor";
