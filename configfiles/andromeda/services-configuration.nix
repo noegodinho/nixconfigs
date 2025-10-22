@@ -46,8 +46,21 @@
     # Enable CUPS to print documents.
     printing = {
       enable = true;
-      cups-pdf.enable = true;
       logLevel = "debug2";
+      
+      cups-pdf = {
+        enable = true;
+        
+        instances = {
+          pdf = {
+            enable = true;
+            settings = {
+              # Output directory for generated PDFs
+              Out = "\${HOME}/cups-pdf";
+            };
+          };
+        };
+      };
 
       # drivers = [
       #   (pkgs.writeTextDir "share/cups/model/KMbeu750iux.ppd" (builtins.readFile /home/andromeda/printer_drivers/KMbeu750iux.ppd))
