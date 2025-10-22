@@ -12,11 +12,13 @@
       # Enable the X11 windowing system
       # You can disable this if you're only using the Wayland session
       enable = true;
+      
       # Configure keymap in X11
       xkb = {
         layout = "pt";
         variant = "";
       };
+      
       # Packages to exclude from xserver
       excludePackages = with pkgs; [
         xterm
@@ -30,11 +32,15 @@
         enable = true;
         wayland.enable = true;
       };
+      
       # Enable automatic login for the user.
       autoLogin = {
         enable = true;
         user = "andromeda";
       };
+
+      # Set the default session for autologin
+      defaultSession = "plasma";
     };
 
     # Enable CUPS to print documents.
