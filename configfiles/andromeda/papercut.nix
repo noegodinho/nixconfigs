@@ -1,6 +1,6 @@
 { stdenv, lib, jdk, makeWrapper }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "papercut-user-client";
   version = "PaperCut NG 18.3.5 (Build 48033)"; # You can change this to your client version
 
