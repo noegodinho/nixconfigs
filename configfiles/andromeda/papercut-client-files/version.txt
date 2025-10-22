@@ -1,0 +1,8 @@
+[version]
+name-with-version=PaperCut NG 18.3.5 (Build 48033)
+name=PaperCut NG
+version-major=18
+version-minor=3
+version-patch=5
+version-suffix=
+version-build=48033
