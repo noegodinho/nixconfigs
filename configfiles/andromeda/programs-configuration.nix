@@ -2,22 +2,32 @@
 {
   # Man docs
   documentation = {
+    enable = true;
     doc.enable = true;
     dev.enable = true;
     nixos.enable = true;
-    enable = true;
+    
     man = {
       enable = true;
       man-db.enable = false;
+      
       mandoc = {
         enable = true;
         package = nixpkgs-unstable.legacyPackages."${pkgs.system}".mandoc;
       };
+      
       generateCaches = true;
     };
   };
 
+  # Enable the XDG Desktop Portal for Hyprland
+  # This is needed for screen sharing, file pickers, etc.
+  xdg.portal.enable = true;
+
   programs = {
+    # Enable Hyprland window manager
+    hyprland.enable = true;
+
     # Enable zsh
     zsh.enable = true;
 
@@ -39,6 +49,7 @@
       gamescopeSession.enable = true;
       extest.enable = true;
       protontricks.enable = true;
+      
       extraCompatPackages = with pkgs; [
         proton-ge-bin
       ];
