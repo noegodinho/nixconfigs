@@ -1,9 +1,8 @@
-# /etc/nixos/papercut-client.nix
 { stdenv, lib, jdk, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "papercut-user-client";
-  version = "1.0.0"; # You can change this to your client version
+  version = "PaperCut NG 18.3.5 (Build 48033)"; # You can change this to your client version
 
   # This tells Nix to use the files you downloaded in Part 1
   src = ./papercut-client-files;
