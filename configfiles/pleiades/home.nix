@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "5007786714b3573b37cf3b8c4a33e2ddce86960d";
+      rev = "868d9f20e2d57e78cc53598f760c547a516f6ba7";
     })).extensions.${system};
 in {
   home.username = "pleiades";
@@ -101,7 +101,7 @@ in {
     slack
     discord
     pympress
-    unstable.maestral
+    maestral
     veracrypt
     duplicati # http://localhost:8200/
     mpv
@@ -119,9 +119,10 @@ in {
     wineWowPackages.waylandFull # wineWowPackages.full
     winetricks
     vulkan-tools
-    (lutris.override {
+    (unstable.lutris.override {
         extraPkgs = pkgs: [
           # List package dependencies here
+          mangohud
         ];
 
         extraLibraries =  pkgs: [
