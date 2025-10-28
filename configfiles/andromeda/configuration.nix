@@ -55,7 +55,7 @@
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "Andromeda";
-    extraGroups = [ "input" "networkmanager" "video" "wheel" ];
+    extraGroups = [ "input" "networkmanager" "video" "wheel" "lpadmin" ];
     # packages = with pkgs; [
     #   kdePackages.kate
     # ];
@@ -147,6 +147,60 @@
     #   ];
     #   ensureDefaultPrinter = "printer-hall-2";
     # };
+
+    /*
+    printers = {
+      # 4. Declaratively define the printers
+      # This replaces the manual "Add Printer" steps [cite: 387]
+      ensurePrinters = [
+        {
+          name = "printer-hall-1"; 
+          location = "DEI Main Hall"; 
+          description = "Minolta 554e"; 
+          deviceUri = "http://ipp.dei.uc.pt/printers/printer-hall-1"; 
+          
+          # Read the PPD file you downloaded 
+          model = "${deiPPDPackage}/share/cups/model/dei/KMbeu554eux.ppd";
+
+          # Set default options from the guide [cite: 481, 482]
+          ppdOptions = {
+            "Finisher" = "FS-534";
+            "PunchUnit" = "PK-520";
+          };
+        }
+        {
+          name = "printer-hall-2";
+          location = "DEI Main Hall";
+          description = "Minolta C300i";
+          deviceUri = "http://ipp.dei.uc.pt/printers/printer-hall-2";
+
+          # Read the PPD file 
+          model = "${deiPPDPackage}/share/cups/model/dei/KMbeuC750iux.ppd";
+
+          # Set default options from the guide [cite: 497, 498]
+          ppdOptions = {
+            "Finisher" = "FS-534";
+            "PunchUnit" = "PK-520";
+          };
+        }
+        {
+          name = "printer-cisuc"; 
+          location = "CISUC BAR"; 
+          description = "Minolta C258"; 
+          deviceUri = "http://ipp.dei.uc.pt/printers/printer-cisuc"; 
+
+          # Read the PPD file 
+          model = "${deiPPDPackage}/share/cups/model/dei/KMbeuC759ux.ppd";
+          
+          # No specific options were listed for Linux [cite: 454]
+          ppdOptions = { };
+        }
+      ];
+
+      ensureDefaultPrinter = "printer-hall-1";
+    };
+
+    */
   };
 
   nix = {
