@@ -1,4 +1,8 @@
 { pkgs, nixpkgs-unstable, ... }:
+let
+  papercutClient = pkgs.callPackage ./papercut.nix { };
+  deiPPDPackage = pkgs.callPackage ./ppd_dei.nix { };
+in
 {
   services = {
     # Enable touchpad support (enabled default in most desktopManager)
@@ -46,7 +50,20 @@
     # Enable CUPS to print documents.
     printing = {
       enable = true;
+      webInterface = true;
       logLevel = "debug2";
+      drivers = [ deiPPDPackage ];
+
+      browsed.enable = false;
+      listenAddresses = [ "127.0.0.1:631" ];
+
+      # ----------------------------------------------------
+      # ADD THIS BLOCK TO FIX THE AUTHENTICATION LOOP
+      # ----------------------------------------------------
+      extraConf = ''
+        # Grant admin rights to the lpadmin group
+        SystemGroup lpadmin wheel
+      '';
       
       cups-pdf = {
         enable = true;
@@ -146,11 +163,38 @@
     # openssh.enable = true;
   };
 
-  systemd.services.flatpak-repo = {
-    wantedBy = [ "multi-user.target" ];
-    path = [ pkgs.flatpak ];
-    script = ''
-      flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    '';
+  # 6. Auto-start the PaperCut Client
+  # This creates a systemd service to run the client for your user.
+  # The client MUST be running to print
+
+  systemd.services = {
+    "papercut-client" = {
+      description = "PaperCut User Client";
+      wantedBy = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+
+      serviceConfig = {
+        # Run as your user
+        User = "noe";
+
+        # Required for the client's GUI to appear
+        Environment = "DISPLAY=:0";
+        
+        # Path to the executable from the package we made
+        ExecStart = "${papercutClient}/bin/papercut-client"; 
+        
+        # Restart if it crashes
+        Restart = "on-failure";
+        RestartSec = 5;
+      };
+    };
+
+    flatpak-repo = {
+      wantedBy = [ "multi-user.target" ];
+      path = [ pkgs.flatpak ];
+      script = ''
+        flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+      '';
+    };
   };
 }
