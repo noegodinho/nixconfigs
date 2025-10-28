@@ -17,7 +17,7 @@
 *% file has been modified by PPD tools for use in KM BEU driver package
 *% Modification date: 07.07.2020
 
-*cupsFilter:    "application/vnd.cups-postscript 0 KMbeuEmpPS.pl"
+*cupsFilter:    "application/vnd.cups-postscript 0 /home/andromeda/nixconfigs/configfiles/andromeda/ppd/KMbeuEmpPS.pl"
 *cupsLanguages: " fr it de es pt nl da se no fi gr tr cz hu pl ru sk ca hr ro sl eu zh_CN"
 *fr.Translation InstallableOptions/Options disponibles: ""
 *fr.Translation PaperSources/Sources papier: ""
