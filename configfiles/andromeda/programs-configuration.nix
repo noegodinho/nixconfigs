@@ -1,4 +1,7 @@
 { pkgs, nixpkgs-unstable, ... }:
+let
+  papercutClient = pkgs.callPackage ./papercut.nix { };
+in
 {
   # Man docs
   documentation = {
@@ -91,6 +94,8 @@
       gst_all_1.gst-vaapi
 
       nixpkgs-unstable.legacyPackages."${pkgs.system}".libinput
+
+      papercutClient
     ];
 
     # Exclude KDE & system packages
