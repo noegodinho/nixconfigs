@@ -407,11 +407,14 @@ in {
           luquedaniel.languague-renpy
           mechatroner.rainbow-csv
           ms-python.python
+          oderwat.indent-rainbow
           pinage404.nix-extension-pack
+          ryu1kn.partial-diff
           tecosaur.latex-utilities
           usernamehw.errorlens
           valentjn.vscode-ltex
           vstirbu.vscode-mermaid-preview
+          wayou.vscode-todo-highlight
           yzhang.markdown-all-in-one
         ] ++ (with import <unstable> {}; (with unstable.vscode-extensions; [
           github.copilot
@@ -437,6 +440,7 @@ in {
           "ccls.misc.compilationDatabaseDirectory" = "build";
           "workbench.colorTheme" = "Abyss";
           "git.autofetch" = true;
+          "editor.bracketPairColorization.enabled" = true;
         };
       };
     };
