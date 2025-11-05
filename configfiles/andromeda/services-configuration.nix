@@ -132,7 +132,6 @@ in
     blocky = {
       enable = true;
       settings = {
-        # --- THIS IS THE PART YOU ARE MISSING ---
         # Tell blocky where to send DNS requests
         upstream = {
           default = [
