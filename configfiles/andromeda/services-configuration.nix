@@ -78,20 +78,6 @@ in
           };
         };
       };
-
-      # drivers = [
-      #   (pkgs.writeTextDir "share/cups/model/KMbeu750iux.ppd" (builtins.readFile /home/andromeda/printer_drivers/KMbeu750iux.ppd))
-      # ];
-
-      # extraConf = ''
-      #   Browsing Yes
-      #   DefaultShared Yes
-      #   DefaultAuthType Basic
-      #   WebInterface Yes
-      # '';
-      # extraFilesConf = ''
-      #   RemoteRoot noe
-      # '';
     };
 
     avahi = {
@@ -140,6 +126,49 @@ in
     fwupd = {
       enable = true;
       package = pkgs.fwupd;
+    };
+
+    # Ad blocking system-wide
+    blocky = {
+      enable = true;
+      settings = {
+        # --- THIS IS THE PART YOU ARE MISSING ---
+        # Tell blocky where to send DNS requests
+        upstream = {
+          default = [
+            "1.1.1.1"
+            "1.0.0.1"
+          ];
+          # You could also use:
+          # default = [ "9.9.9.9" ]; # (Quad9)
+          # default = [ "8.8.8.8" ]; # (Google)
+        };
+
+        # Tell blocky what to block
+        blocking = {
+          # Define your list groups here
+          denylists = {
+            # This is a custom group name, e.g., "ads_and_trackers"
+            ads_and_trackers = [
+              "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
+              "https://mirror1.malwaredomains.com/files/justdomains"
+              "http://sysctl.org/cameleon/hosts"
+              "https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt"
+              "https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt"
+            ];
+            # You could add other groups here, for example:
+            # malware = [ "https://some-malware-list.com/list.txt" ];
+          };
+
+          # Now, tell the 'default' client which groups to use
+          clientGroupsBlock = {
+            # This "default" is the default client group
+            default = [ "ads_and_trackers" ]; # This name MUST match the group name from 'denylists'
+          };
+
+          blockType = "ZEROIP";
+        };
+      };
     };
 
     # Detailed fan control
