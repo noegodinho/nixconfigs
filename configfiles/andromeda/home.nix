@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "996a2aa1e31ed5aeaa3f4a6f201f2bc385f19041";
+      rev = "b8b0b207dc13cb7b004f9d0c1d2b76a85e9494c8";
     })).extensions.${system};
 in {
   # link the configuration file in current directory to the specified location in home directory
@@ -217,6 +217,7 @@ in {
       discord
       pympress
       maestral
+      rclone
       veracrypt
       duplicati # http://localhost:8200/
       texliveFull
