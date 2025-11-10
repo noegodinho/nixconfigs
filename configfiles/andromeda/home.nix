@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "b8b0b207dc13cb7b004f9d0c1d2b76a85e9494c8";
+      rev = "d09b10414e1a10f7f9a9c9ec01d689d9d23d3f9c";
     })).extensions.${system};
 in {
   # link the configuration file in current directory to the specified location in home directory
@@ -256,7 +256,7 @@ in {
 
       # Hyprland related packages
       waybar       # The status bar
-      wofi         # The application launcher
+      rofi-wayland # The application launcher
       mako         # The notification daemon
       grim         # For screenshots
       slurp        # For selecting screen regions
