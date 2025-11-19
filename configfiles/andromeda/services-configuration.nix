@@ -8,8 +8,13 @@ in
     # Enable touchpad support (enabled default in most desktopManager)
     libinput = {
       enable = true;
-      touchpad.naturalScrolling = true;
-      touchpad.tapping = false;
+
+      touchpad = {
+        disableWhileTyping = true;
+        naturalScrolling = true;
+        tapping = true;
+        scrollMethod = "twofinger";
+      };
     };
 
     xserver = {
