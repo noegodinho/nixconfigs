@@ -112,7 +112,7 @@ in
     # "Driver" for MX Master 3S
     solaar = {
       enable = true;
-      package = nixpkgs-unstable.legacyPackages."${pkgs.system}".solaar;
+      package = nixpkgs-unstable.legacyPackages."${pkgs.stdenv.hostPlatform.system}".solaar;
       # Show the window on startup (show, *hide*, only [window only])
       window = "hide";
       # Which battery icons to use (*regular*, symbolic, solaar)
