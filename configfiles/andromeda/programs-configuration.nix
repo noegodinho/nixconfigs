@@ -16,7 +16,7 @@ in
       
       mandoc = {
         enable = true;
-        package = nixpkgs-unstable.legacyPackages."${pkgs.system}".mandoc;
+        package = nixpkgs-unstable.legacyPackages."${pkgs.stdenv.hostPlatform.system}".mandoc;
       };
       
       generateCaches = true;
@@ -69,6 +69,13 @@ in
     # };
   };
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      # Alias the removed 'glxinfo' package to 'mesa-demos'
+      glxinfo = prev.mesa-demos;
+    })
+  ];
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment = {
@@ -93,7 +100,7 @@ in
       # Support the Video Audio (Hardware) Acceleration API
       gst_all_1.gst-vaapi
 
-      nixpkgs-unstable.legacyPackages."${pkgs.system}".libinput
+      nixpkgs-unstable.legacyPackages."${pkgs.stdenv.hostPlatform.system}".libinput
 
       papercutClient
     ];
