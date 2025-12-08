@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "868d9f20e2d57e78cc53598f760c547a516f6ba7";
+      rev = "dccd0cc3693bff67e4856b5a22445223aabc4d4b";
     })).extensions.${system};
 in {
   home.username = "pleiades";
@@ -115,7 +115,6 @@ in {
 
     nerd-fonts.meslo-lg
     
-    rare
     wineWowPackages.waylandFull # wineWowPackages.full
     winetricks
     vulkan-tools
@@ -136,8 +135,11 @@ in {
 
       git = {
         enable = true;
-        userName = "noegodinho";
-        userEmail = "noe.godinho@protonmail.com";
+
+        settings.user = {
+          name = "noegodinho";
+          email = "noe.godinho@protonmail.com";
+        };
       };
 
       zsh = {
