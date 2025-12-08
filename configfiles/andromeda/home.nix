@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "e8539a8f806b568a1075cd69f60089eba6e17ea6";
+      rev = "dccd0cc3693bff67e4856b5a22445223aabc4d4b";
     })).extensions.${system};
 in {
   # link the configuration file in current directory to the specified location in home directory
@@ -210,7 +210,7 @@ in {
       keepassxc
       thunderbird
       kdePackages.ktorrent
-      brave
+      unstable.brave
       unstable.telegram-desktop
       unstable.teams-for-linux
       zotero
