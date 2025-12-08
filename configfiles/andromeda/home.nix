@@ -173,6 +173,7 @@ in {
       gnutar
       lsof
       kdePackages.filelight
+      rare-regex
 
       htop
       btop
@@ -195,7 +196,7 @@ in {
       testdisk-qt
       dig
       ffmpeg
-      micromamba
+      unstable.micromamba
       nix-output-monitor
       nil
       nurl
@@ -238,8 +239,7 @@ in {
       yabridgectl
 
       # unstable.renpy
-      duckstation
-      rare
+      # duckstation
       # wineWowPackages.full
       wineWowPackages.waylandFull
       winetricks
@@ -256,7 +256,7 @@ in {
 
       # Hyprland related packages
       waybar       # The status bar
-      rofi-wayland # The application launcher
+      rofi         # The application launcher
       mako         # The notification daemon
       grim         # For screenshots
       slurp        # For selecting screen regions
@@ -272,8 +272,11 @@ in {
     git = {
       enable = true;
       package = pkgs.git;
-      userName = "noegodinho";
-      userEmail = "noe.godinho@protonmail.com";
+      
+      settings.user = {
+        name = "noegodinho";
+        email = "noe.godinho@protonmail.com";
+      };
     };
 
     zsh = {
