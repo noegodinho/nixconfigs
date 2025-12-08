@@ -80,7 +80,7 @@ in {
     gparted
     testdisk-qt
     ffmpeg
-    micromamba
+    unstable.micromamba
     nix-output-monitor
     nil
     nurl
