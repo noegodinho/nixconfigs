@@ -49,8 +49,11 @@
   programs = {
       git = {
         enable = true;
-        userName = "noegodinho";
-        userEmail = "noe.godinho@protonmail.com";
+
+	settings.user = {
+	        name = "noegodinho";
+        	email = "noe.godinho@protonmail.com";
+	};
       };
       
       zsh = {
