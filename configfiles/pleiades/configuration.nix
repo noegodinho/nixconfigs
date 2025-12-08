@@ -153,6 +153,13 @@
     options = "--delete-older-than 7d";
   };
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      # Alias the removed 'glxinfo' package to 'mesa-demos'
+      glxinfo = prev.mesa-demos;
+    })
+  ];
+
   # Autoupgrade system
   system.autoUpgrade = {
     enable = true;
@@ -163,7 +170,7 @@
   # enables support for Bluetooth & powers up the default Bluetooth controller on boot
   hardware.bluetooth = {
     enable = true;
-    package = nixpkgs-unstable.legacyPackages."${pkgs.system}".bluez;
+    package = nixpkgs-unstable.legacyPackages."${pkgs.stdenv.hostPlatform.system}".bluez;
     powerOnBoot = true;
     settings = {
       General = {
@@ -248,11 +255,8 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    nixpkgs-unstable.legacyPackages."${pkgs.system}".mcontrolcenter
-    pcsclite
-    qemu # for VMs
-    quickemu # for easy VM management
+  environment.systemPackages = [
+    nixpkgs-unstable.legacyPackages."${pkgs.stdenv.hostPlatform.system}".mcontrolcenter
   ];
 
   # In case I need docker
