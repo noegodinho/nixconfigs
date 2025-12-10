@@ -69,6 +69,10 @@
     networkmanager = {
       enable = true;
       wifi.powersave = false;
+
+      plugins = with pkgs; [
+        networkmanager-openvpn
+      ];
     };
 
     # Enables wireless support via wpa_supplicant.
