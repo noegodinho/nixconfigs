@@ -27,6 +27,8 @@ in
         layout = "pt";
         variant = "";
       };
+
+      videoDrivers = [ "modesetting" ];
       
       # Packages to exclude from xserver
       excludePackages = with pkgs; [

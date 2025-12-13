@@ -111,12 +111,8 @@
       extraPackages = with pkgs; [
         # LIBVA_DRIVER_NAME=iHD
         intel-media-driver
-        # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-        intel-vaapi-driver
-        libvdpau-va-gl
         intel-compute-runtime
         vpl-gpu-rt
-        mesa
       ];
     };
 

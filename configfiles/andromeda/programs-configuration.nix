@@ -79,6 +79,10 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment = {
+    sessionVariables = {
+      LIBVA_DRIVER_NAME = "iHD";
+    };
+
     systemPackages = with pkgs; [
       # For VMs
       qemu
