@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "3117a5178ba33eafea691756cca52ab250f2a5a9";
+      rev = "909232203bc0bc4c1e3311f41be190322bb04a94";
     })).extensions.${system};
 in {
   # link the configuration file in current directory to the specified location in home directory
@@ -451,7 +451,7 @@ in {
 
     joplin-desktop = {
       enable = true;
-      package = pkgs.joplin-desktop;
+      package = unstable.joplin-desktop;
       sync = {
         interval = "5m";
         target = "dropbox";
