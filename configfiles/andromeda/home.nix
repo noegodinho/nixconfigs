@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "909232203bc0bc4c1e3311f41be190322bb04a94";
+      rev = "4ee8ee764ea5cf2fcb44684d04488b8f5e2115b7";
     })).extensions.${system};
 in {
   # link the configuration file in current directory to the specified location in home directory
@@ -299,7 +299,7 @@ in {
         flake_update="sudo nix flake update --flake ~/nixconfigs/configfiles/andromeda";
         rebuild="sudo nixos-rebuild switch --upgrade-all --flake ~/nixconfigs/configfiles/andromeda/#laniakea -v";
         mmamba="micromamba";
-        mmamba_update="mmamba activate general && mmamba update --all -y -c conda-forge && mmamba activate solver && mmamba update --all -y -c conda-forge && mmamba activate space && mmamba update --all -y -c conda-forge && mmamba activate tudat-space && mmamba update --all -y -c conda-forge && mmamba activate yafs && mmamba update --all -y -c conda-forge";
+        mmamba_update="mmamba activate general && mmamba update --all -y -c conda-forge && mmamba activate solver && mmamba update --all -y -c conda-forge && mmamba activate space && mmamba update --all -y -c conda-forge && mmamba activate gurobi-solver && mmamba update --all -y -c conda-forge && mmamba activate yafs && mmamba update --all -y -c conda-forge";
         update_all="flake_update && rebuild && mmamba_update && nix-collect-garbage -d && zplug update";
         projecteur="QT_QPA_PLATFORM=xcb projecteur -D abc8:ca08";
       };
