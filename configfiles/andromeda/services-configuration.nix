@@ -132,7 +132,7 @@ in
     # Firmware and BIOS updates
     fwupd = {
       enable = true;
-      package = pkgs.fwupd;
+      package = nixpkgs-unstable.legacyPackages."${pkgs.stdenv.hostPlatform.system}".fwupd;
     };
 
     # Ad blocking system-wide
