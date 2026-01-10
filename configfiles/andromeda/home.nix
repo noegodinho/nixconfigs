@@ -329,7 +329,12 @@ in {
 
     ghostty = {
       enable = true;
-      package = pkgs.ghostty;
+      package = unstable.ghostty.overrideAttrs (oldAttrs: {
+        postFixup = (oldAttrs.postFixup or "") + ''
+          wrapProgram $out/bin/ghostty \
+            --set GTK_IM_MODULE simple
+        '';
+      });
       enableZshIntegration = true;
       installBatSyntax = true;
       
