@@ -93,13 +93,12 @@
     # };
   };
 
-  hardware = { 
-    # Enable the Intel NPU firmware.
-    # firmware = [ pkgs.intel-npu.firmware ];
-    
-    # Update the Intel microcode on boot and enable npu.
+  hardware = {     
     cpu.intel = {
+      # Update the Intel microcode on boot.
       updateMicrocode = true;
+
+      # Enable the Intel NPU firmware.
       # npu.enable = true;
     };
 
