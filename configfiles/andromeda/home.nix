@@ -21,8 +21,14 @@ in {
   #     xxx
   # '';
 
-  # Enable configuration of fonts
-  fonts.fontconfig.enable = true;
+  fonts.fontconfig = {
+    enable = true;
+    defaultFonts = {
+      serif = [ "Noto Serif CJK JP" "Liberation Serif" ];
+      sansSerif = [ "Noto Sans CJK JP" "Liberation Sans" ];
+      monospace = [ "Noto Sans Mono CJK JP" "Liberation Mono" ];
+    };
+  };
 
   wayland.windowManager.hyprland = {
     # Whether to enable Hyprland wayland compositor
@@ -232,6 +238,10 @@ in {
       unstable.gurobi
 
       nerd-fonts.meslo-lg
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+      noto-fonts-color-emoji
       
       ardour
       musescore
