@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "14c64d4e2e2c79d2cddcaf9d58dd74ae739d1aad";
+      rev = "4b49917cd4d3b31eb4e01ef3ae453f4ff9664fb3";
     })).extensions.${system};
 in {
   # link the configuration file in current directory to the specified location in home directory
@@ -23,11 +23,11 @@ in {
 
   fonts.fontconfig = {
     enable = true;
-    defaultFonts = {
-      serif = [ "Noto Serif CJK JP" "Liberation Serif" ];
-      sansSerif = [ "Noto Sans CJK JP" "Liberation Sans" ];
-      monospace = [ "Noto Sans Mono CJK JP" "Liberation Mono" ];
-    };
+    # defaultFonts = {
+    #   serif = [ "Noto Serif CJK JP" "Liberation Serif" ];
+    #   sansSerif = [ "Noto Sans CJK JP" "Liberation Sans" ];
+    #   monospace = [ "Noto Sans Mono CJK JP" "Liberation Mono" ];
+    # };
   };
 
   wayland.windowManager.hyprland = {
@@ -442,6 +442,7 @@ in {
         userSettings = {
           "files.autoSave" = "afterDelay";
           "terminal.integrated.fontFamily" = "MesloLGS Nerd Font";
+          "editor.fontFamily" = "MesloLGS Nerd Font";
           "editor.wordWrap" = "on";
           "latex-workshop.latex.autoBuild.run" = "never";
           "ltex.additionalRules.motherTongue" = "pt-PT";
