@@ -26,7 +26,7 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    kernelParams = [ "psmouse.synaptics_intertouch=0" ];
+    kernelParams = [ "psmouse.synaptics_intertouch=1" ];
   };
 
   # Set your time zone.
