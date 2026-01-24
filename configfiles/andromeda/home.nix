@@ -426,6 +426,7 @@ in {
           luquedaniel.languague-renpy
           mechatroner.rainbow-csv
           ms-python.python
+          nogic.nogic
           oderwat.indent-rainbow
           pinage404.nix-extension-pack
           ryu1kn.partial-diff
