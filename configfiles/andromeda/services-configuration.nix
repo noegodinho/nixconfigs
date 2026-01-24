@@ -178,21 +178,21 @@ in
     };
 
     # Detailed fan control
-    # thinkfan = {
-    #   enable = true;
-    #   levels = [
-    #     [0    0      4]
-    #     [1    35     4]
-    #     [2    38     4]
-    #     [3    42     5]
-    #     [4    45     5]
-    #     [5    48     6]
-    #     [6    51     6]
-    #     [7    54     6]
-    #     [8    56     7]
-    #     [9    58    99]
-    #   ];
-    # };
+    thinkfan = {
+      enable = true;
+      levels = [
+        [0    0      4]
+        [1    35     4]
+        [2    38     4]
+        [3    42     5]
+        [4    45     5]
+        [5    48     6]
+        [6    51     6]
+        [7    54     6]
+        [8    56     7]
+        [9    58    99]
+      ];
+    };
 
     # Enable the OpenSSH daemon.
     # openssh.enable = true;
