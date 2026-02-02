@@ -180,17 +180,21 @@ in
     # Detailed fan control
     thinkfan = {
       enable = true;
+      sensors = [
+        {
+          # The main EC sensor (usually sufficient for ThinkPads)
+          type = "tpacpi";
+          query = "/proc/acpi/ibm/thermal";
+        }
+        # Optional: Add CPU core sensors if the above isn't accurate
+        # { type = "hwmon"; query = "/sys/class/hwmon"; indices = [ 1 ]; } 
+      ];
       levels = [
-        [0    0      4]
-        [1    35     4]
-        [2    38     4]
-        [3    42     5]
-        [4    45     5]
-        [5    48     6]
-        [6    51     6]
-        [7    54     6]
-        [8    56     7]
-        [9    58    99]
+        [ 0  0  50 ]  # Fan OFF below 50C
+        [ 1  48 60 ]  # Low speed (silent)
+        [ 3  58 70 ]  # Medium speed
+        [ 6  68 80 ]  # High speed
+        [ 7  78 90 ]  # Max regulated speed
       ];
     };
 
