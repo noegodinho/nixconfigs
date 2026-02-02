@@ -26,7 +26,10 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    kernelParams = [ "psmouse.synaptics_intertouch=1" ];
+    kernelParams = [ "psmouse.synaptics_intertouch=1" "thinkpad_acpi" ];
+    extraModprobeConfig = ''
+      options thinkpad_acpi fan_control=1
+    '';
   };
 
   # Set your time zone.
