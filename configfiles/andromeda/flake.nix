@@ -15,18 +15,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    weathr.url = "github:Veirt/weathr";
+
     # nix-vscode-extensions = {
     #   url = "github:nix-community/nix-vscode-extensions";
-    # };
-
-    # nix-matlab = {
-    #   url = "gitlab:doronbehar/nix-matlab";
-    #   inputs.nixpkgs.follows = "nixpkgs";
     # };
   };
 
   outputs = {self, nixpkgs, nixpkgs-unstable, home-manager, solaar, ...} @ inputs: let #, nix-matlab, nix-vscode-extensions, ...} @ inputs: let
-    system = "x86_64-linux";
+    stdenv.hostPlatform.system = "x86_64-linux";
     
     unstable = import nixpkgs-unstable {
       system = "x86_64-linux";
@@ -34,10 +31,6 @@
         allowUnfree = true;
       };
     };
-
-    # flake-overlays = [
-    #   nix-matlab.overlay
-    # ];
     
     user = "andromeda";
     inherit (self) outputs;
@@ -56,13 +49,12 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = {
-            inherit unstable user system inputs outputs;
+            inherit unstable user stdenv inputs outputs;
           };
           home-manager.users.${user} = import ./home.nix;
         }
         solaar.nixosModules.default
         ./configuration.nix
-        # (import ./configuration.nix flake-overlays)
       ];
     };
   };
