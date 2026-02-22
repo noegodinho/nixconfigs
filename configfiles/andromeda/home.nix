@@ -1,11 +1,14 @@
-{ pkgs, unstable, system, ... }: let
+{ pkgs, unstable, stdenv, inputs, ... }: let
   extensions =
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
       rev = "88fc33a8a8868de1ac41362fb62341513904dc0f";
-    })).extensions.${system};
+    })).extensions.${stdenv.hostPlatform.system};
 in {
+  imports = [
+      inputs.weathr.homeModules.weathr
+  ];
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/'«i3/wallpaper.jpg".source = ./wallpaper.jpg;
 
@@ -45,9 +48,10 @@ in {
   
     # Optional
     # Whether to enable hyprland-session.target on hyprland startup
-    systemd.enable = true;
-
-    systemd.variables = ["--all"];
+    systemd = {
+      enable = true;
+      variables = ["--all"];
+    };
 
     settings = {
       # Set the Super key as the main modifier
@@ -308,7 +312,7 @@ in {
 
       shellAliases = {
         flake_update="sudo nix flake update --flake ~/nixconfigs/configfiles/andromeda";
-        rebuild="sudo nixos-rebuild switch --upgrade-all --flake ~/nixconfigs/configfiles/andromeda/#laniakea -v";
+        rebuild="sudo nixos-rebuild switch --upgrade-all --log-format bar-with-logs --flake ~/nixconfigs/configfiles/andromeda/#laniakea -v";
         mmamba="micromamba";
         mmamba_update="mmamba activate general && mmamba update --all -y -c conda-forge && mmamba activate solver && mmamba update --all -y -c conda-forge && mmamba activate space && mmamba update --all -y -c conda-forge && mmamba activate gurobi_solver && mmamba update --all -y -c conda-forge && mmamba activate yafs && mmamba update --all -y -c conda-forge";
         update_all="flake_update && rebuild && mmamba_update && nix-collect-garbage -d && zplug update";
@@ -487,6 +491,24 @@ in {
     yt-dlp = {
       enable = true;
       package = pkgs.yt-dlp;
+    };
+
+    weathr = {
+      enable = true;
+      settings = {
+        hide_hud = false;
+        silent = false;
+        temperature = "celsius";
+        wind_speed = "kmh";
+        precipitation = "mm";
+        
+        auto = false;
+        hide = false;
+        location = {
+          latitude = 39.5458;
+          longitude = 8.3741;
+        };
+      };
     };
 
     # thunderbird = {
