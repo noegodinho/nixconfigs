@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "88fc33a8a8868de1ac41362fb62341513904dc0f";
+      rev = "c22e7adea9adec98b3dc79be954ee17d56a232bd";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -344,6 +344,7 @@ in {
 
     ghostty = {
       enable = true;
+      systemd.enable = true;
       package = unstable.ghostty.overrideAttrs (oldAttrs: {
         postFixup = (oldAttrs.postFixup or "") + ''
           wrapProgram $out/bin/ghostty \
@@ -495,6 +496,7 @@ in {
 
     weathr = {
       enable = true;
+      
       settings = {
         hide_hud = false;
         silent = false;
