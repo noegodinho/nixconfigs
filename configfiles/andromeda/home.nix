@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "c22e7adea9adec98b3dc79be954ee17d56a232bd";
+      rev = "7c957808d97e3a738f420935ec4bc48ae766392d";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -432,9 +432,9 @@ in {
           luquedaniel.languague-renpy
           mechatroner.rainbow-csv
           ms-python.python
-          nogic.nogic
           oderwat.indent-rainbow
           pinage404.nix-extension-pack
+          repreng.csv
           ryu1kn.partial-diff
           tecosaur.latex-utilities
           usernamehw.errorlens
@@ -443,7 +443,7 @@ in {
           wayou.vscode-todo-highlight
           yzhang.markdown-all-in-one
         ] ++ (with import <unstable> {}; (with unstable.vscode-extensions; [
-          github.copilot
+          # github.copilot-chat
         ]));
           
         userSettings = {
