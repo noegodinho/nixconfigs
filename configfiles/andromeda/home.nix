@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "7c957808d97e3a738f420935ec4bc48ae766392d";
+      rev = "104487aa06fdff228f52fc05f12808ea69c7daab";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -314,7 +314,7 @@ in {
         flake_update="sudo nix flake update --flake ~/nixconfigs/configfiles/andromeda";
         rebuild="sudo nixos-rebuild switch --upgrade-all --log-format bar-with-logs --flake ~/nixconfigs/configfiles/andromeda/#laniakea -v";
         mmamba="micromamba";
-        mmamba_update="mmamba activate general && mmamba update --all -y -c conda-forge && mmamba activate solver && mmamba update --all -y -c conda-forge && mmamba activate space && mmamba update --all -y -c conda-forge && mmamba activate gurobi_solver && mmamba update --all -y -c conda-forge && mmamba activate yafs && mmamba update --all -y -c conda-forge";
+        mmamba_update="mmamba activate general && mmamba update --all -y -c conda-forge && mmamba activate space && mmamba update --all -y -c conda-forge && mmamba activate gurobi_solver && mmamba update --all -y -c conda-forge && mmamba activate yafs && mmamba update --all -y -c conda-forge";
         update_all="flake_update && rebuild && mmamba_update && nix-collect-garbage -d && zplug update";
         projecteur="QT_QPA_PLATFORM=xcb projecteur -D abc8:ca08";
       };
@@ -442,9 +442,9 @@ in {
           vstirbu.vscode-mermaid-preview
           wayou.vscode-todo-highlight
           yzhang.markdown-all-in-one
-        ] ++ (with import <unstable> {}; (with unstable.vscode-extensions; [
+        ]; # ]  ++ (with import <unstable> {}; (with unstable.vscode-extensions; [
           # github.copilot-chat
-        ]));
+        # ]));
           
         userSettings = {
           "files.autoSave" = "afterDelay";
