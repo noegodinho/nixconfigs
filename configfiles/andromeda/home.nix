@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "56e29b45cf55aa208eb7e67d7bff6f7ec301485c";
+      rev = "96e284c58556366535781d9a476121b2b5e839f1";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -258,7 +258,7 @@ in {
       wineWowPackages.waylandFull
       winetricks
       vulkan-tools
-      heroic
+      unstable.heroic
       (unstable.lutris.override {
         extraPkgs = pkgs: [
           mangohud
