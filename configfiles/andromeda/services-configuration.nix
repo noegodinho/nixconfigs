@@ -178,6 +178,7 @@ in
     };
 
     # Detailed fan control
+    /*
     thinkfan = {
       enable = true;
       sensors = [
@@ -197,6 +198,7 @@ in
         [ 7  78 90 ]  # Max regulated speed
       ];
     };
+    */
 
     # Enable the OpenSSH daemon.
     # openssh.enable = true;
