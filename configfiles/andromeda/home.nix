@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "1b704b075169f68bd81f6ddcb1dd1a2286069386";
+      rev = "931b0da906b0bf70162d84074c5085934e64750d";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -398,7 +398,7 @@ in {
 
     atuin = {
       enable = true;
-      package = unstable.atuin;
+      package = pkgs.atuin;
       enableZshIntegration = true;
     };
 
