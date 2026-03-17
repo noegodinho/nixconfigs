@@ -72,6 +72,7 @@
     networkmanager = {
       enable = true;
       wifi.powersave = false;
+      package = nixpkgs-unstable.legacyPackages."${pkgs.stdenv.hostPlatform.system}".networkmanager;
 
       plugins = with pkgs; [
         networkmanager-openvpn
