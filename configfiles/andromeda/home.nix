@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "70e188702ad3b4dcf5de12ff64f0d31c906d6d7a";
+      rev = "6be632a6181baaec1c5ed52a6d00eee18f076d6c";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -222,7 +222,7 @@ in {
       kdePackages.ktorrent
       unstable.brave
       unstable.telegram-desktop
-      unstable.teams-for-linux
+      teams-for-linux
       zotero
       slack
       discord
@@ -258,7 +258,7 @@ in {
       wineWowPackages.waylandFull
       winetricks
       vulkan-tools
-      unstable.heroic
+      heroic
       (unstable.lutris.override {
         extraPkgs = pkgs: [
           mangohud
@@ -298,14 +298,14 @@ in {
       enable = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
-      enableCompletion = false;
+      enableCompletion = true;
 
       zplug = {
         enable = true;
         
         plugins = [
           { name = "romkatv/powerlevel10k"; tags = [ "as:theme" "depth:1" ]; }
-          { name = "marlonrichert/zsh-autocomplete"; }
+          # { name = "marlonrichert/zsh-autocomplete"; }
           { name = "chisui/zsh-nix-shell"; }
         ];
       };
@@ -398,8 +398,15 @@ in {
 
     atuin = {
       enable = true;
-      package = pkgs.atuin;
+      package = unstable.atuin;
       enableZshIntegration = true;
+      settings = {
+        auto_sync = true;
+        sync_frequency = "5m";
+        # inline_height = 0;
+        enter_accept = true;
+        records = true;
+      };
     };
 
     bat = {
