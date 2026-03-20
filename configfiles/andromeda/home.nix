@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "af36c53062b124e097e2a545c68eacfde3fc715b";
+      rev = "5b8548f9e2cbe14146df30858bd281404957846f";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
