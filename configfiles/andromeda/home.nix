@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "5658883e82456228e65c1182bf4a35e909b3ef14";
+      rev = "46b538cd6b0b52483ea0564a46263669d5eef716";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -113,6 +113,13 @@ in {
         ];
       };
 
+      plugin = {
+          hyprscrolling = {
+              column_width = 0.7;
+              fullscreen_on_one_column = false;
+          };
+      };
+
       # Keybindings
       bind = [
         # Launch terminal
@@ -150,6 +157,11 @@ in {
   home = {
     username = "andromeda";
     homeDirectory = "/home/andromeda";
+
+    # file.".config/kwinrc".text = ''
+    #   [Plugins]
+    #   karouselEnabled=true
+    # '';
 
     # Packages that should be installed to the user profile.
     packages = with pkgs; [
@@ -315,7 +327,7 @@ in {
         rebuild="sudo nixos-rebuild switch --upgrade-all --log-format bar-with-logs --flake ~/nixconfigs/configfiles/andromeda/#laniakea -v";
         mmamba="micromamba";
         mmamba_update="mmamba activate general && mmamba update --all -y -c conda-forge && mmamba activate space && mmamba update --all -y -c conda-forge && mmamba activate gurobi_solver && mmamba update --all -y -c conda-forge && mmamba activate yafs && mmamba update --all -y -c conda-forge";
-        update_all="flake_update && rebuild && mmamba_update && nix-collect-garbage -d && zplug update";
+        update_all="flake_update && rebuild && mmamba_update && nix-collect-garbage -d && flatpak update -y && zplug update";
         projecteur="QT_QPA_PLATFORM=xcb projecteur -D abc8:ca08";
       };
 
