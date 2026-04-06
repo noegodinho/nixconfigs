@@ -54,6 +54,14 @@ in {
     };
 
     settings = {
+      monitor = [
+        "eDP-1, 3072x1920@120, 0x0, 1.6"
+      ];
+
+      # xwayland = {
+      #   force_zero_scaling = true;
+      # };
+
       # Set the Super key as the main modifier
       "$mod" = "SUPER";
 
@@ -63,6 +71,12 @@ in {
         "mako"                  # Launch the notification daemon
         "hyprpaper"             # Launch the wallpaper daemon
         "/usr/lib/polkit-kde-authentication-agent-1" # Polkit agent
+        # Crucial for KWallet/Brave communication
+        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=KDE"
+        # Start the wallet daemon if it's not already running
+        "kwalletd6"
+        "surfshark"
+        "hyprsunset -t 4000"
       ];
 
       # Input settings
@@ -79,7 +93,7 @@ in {
           natural_scroll = true;
         };
 
-        sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
+        sensitivity = 0.5; # -1.0 - 1.0, 0 means no modification.
       };
       
       # General settings
@@ -95,10 +109,12 @@ in {
       # Decoration (shadows, rounding)
       decoration = {
         rounding = 10;
-        shadow_range = 4;
-        shadow_render_power = 3;
-        "col.shadow" = "rgba(1a1a1aee)";
+        # shadow_range = 4;
+        # shadow_render_power = 3;
+        # "col.shadow" = "rgba(1a1a1aee)";
       };
+
+      misc.vfr = true;
 
       # Animations
       animations = {
@@ -122,34 +138,55 @@ in {
 
       # Keybindings
       bind = [
-        # Launch terminal
-        "$mod, RETURN, exec, ghostty"
-        # Close window
-        "$mod, Q, killactive,"
-        # Launch app launcher
-        "$mod, D, exec, wofi --show drun"
-        # Exit Hyprland
-        "$mod SHIFT, E, exit,"
-        # Screenshot
+        # Core Apps
+        "CTRL ALT, T, exec, ghostty"        # Terminal
+        "$mod, E, exec, dolphin"             # File Manager
+        "$mod, SPACE, exec, rofi -show drun" # KRunner style launcher
+        
+        # Window Management
+        "$mod, Q, killactive,"               # Close Window (KDE allows Alt+F4 too, but this is standard)
+        "ALT, F4, killactive,"                 # Traditional close
+        "$mod, F, fullscreen,"               # Fullscreen
+        "$mod, V, togglefloating,"           # Toggle Float
+        
+        # Session
+        "$mod SHIFT, E, exit,"               # Log out
+
+        # Screenshots
         ", Print, exec, grim -g \"$(slurp)\" - | wl-copy"
 
-        # Move focus
+        # Focus Movement (Vim keys)
         "$mod, h, movefocus, l"
         "$mod, l, movefocus, r"
         "$mod, k, movefocus, u"
         "$mod, j, movefocus, d"
 
-        # Switch workspaces
+        # Workspaces (1-9)
         "$mod, 1, workspace, 1"
         "$mod, 2, workspace, 2"
         "$mod, 3, workspace, 3"
-        # ...and so on for 4-9
+        "$mod, 4, workspace, 4"
 
-        # Move active window to a workspace
+        # Move to Workspaces
         "$mod SHIFT, 1, movetoworkspace, 1"
         "$mod SHIFT, 2, movetoworkspace, 2"
         "$mod SHIFT, 3, movetoworkspace, 3"
-        # ...and so on for 4-9
+        "$mod SHIFT, 4, movetoworkspace, 4"
+      ];
+
+      # -- Mouse Binds (KDE Style Window Dragging) --
+      bindm = [
+        "$mod, mouse:272, movewindow"   # Super + Left Click = Move
+        "$mod, mouse:273, resizewindow" # Super + Right Click = Resize
+      ];
+
+      # Volume / Brightness Media Keys
+      binde = [
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86MonBrightnessUp, exec, brightnessctl set +5%"
+        ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
       ];
     };
   };
@@ -157,11 +194,9 @@ in {
   home = {
     username = "andromeda";
     homeDirectory = "/home/andromeda";
-
-    # file.".config/kwinrc".text = ''
-    #   [Plugins]
-    #   karouselEnabled=true
-    # '';
+    sessionVariables = {
+      PASSWORD_STORE = "kwallet6";
+    };
 
     # Packages that should be installed to the user profile.
     packages = with pkgs; [
@@ -282,12 +317,12 @@ in {
       })
 
       # Hyprland related packages
-      waybar       # The status bar
       rofi         # The application launcher
       mako         # The notification daemon
       grim         # For screenshots
       slurp        # For selecting screen regions
       wl-clipboard # Clipboard utilities
+      hyprsunset
     ];
   };
 
@@ -532,6 +567,25 @@ in {
       };
     };
 
+    waybar = {
+      enable = true;
+      # systemd.enable = true;
+      settings.mainBar = {
+        layer = "top";
+        position = "top";
+        height = 36;
+        modules-left = [ "custom/launcher" "wlr/taskbar" ];
+        modules-center = [ "hyprland/workspaces" ];
+        modules-right = [ "tray" "pulseaudio" "network" "battery" "clock" ];
+        
+        "custom/launcher" = { format = "  "; on-click = "rofi -show drun"; };
+        "wlr/taskbar" = { format = "{icon}"; on-click = "activate"; on-click-middle = "close"; };
+        "clock" = { format = "{:%I:%M %p  %a, %b %d}"; };
+        "battery" = { format = "{capacity}% {icon}"; format-icons = ["" "" "" "" ""]; };
+        "pulseaudio" = { format = "{volume}% "; on-click = "pavucontrol"; };
+      };
+    };
+
     # thunderbird = {
     #   enable = true;
     #   package = pkgs.thunderbird;
@@ -551,11 +605,6 @@ in {
   };
 
   services = {
-    home-manager.autoUpgrade = {
-      enable = true;
-      frequency = "daily";
-    };
-
     fusuma = {
       enable = true;
       package = pkgs.fusuma;
