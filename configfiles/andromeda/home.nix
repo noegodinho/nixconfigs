@@ -3,8 +3,59 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "ed33cc3b1eabe6c04af158dd7155c4198b6679fe";
+      rev = "828735c01584dd780b32dde9c2b8c7a968bffb51";
     })).extensions.${stdenv.hostPlatform.system};
+
+  power-toggle = pkgs.writeShellScriptBin "power-toggle" ''
+    # Get the current profile from power-profiles-daemon
+    CURRENT_PROFILE=$(powerprofilesctl get)
+
+    if [ "$CURRENT_PROFILE" = "power-saver" ]; then
+        # === SWITCH TO BALANCED ===
+        powerprofilesctl set balanced
+        hyprctl keyword animations:enabled true
+        hyprctl keyword decoration:blur:enabled true
+        hyprctl keyword decoration:drop_shadow true
+        # Restore 120Hz (Update 'eDP-1' to your monitor name)
+        # hyprctl keyword monitor "eDP-1, 3072x1920@120, 0x0, 1.6"
+        
+        notify-send "Power Mode" "Balanced (Effects Enabled)" -t 2000 -i battery-full
+    elif [ "$CURRENT_PROFILE" = "performance" ]; then
+        # === SWITCH TO POWER SAVE ===
+        powerprofilesctl set power-saver
+        hyprctl keyword animations:enabled false
+        hyprctl keyword decoration:blur:enabled false
+        hyprctl keyword decoration:drop_shadow false
+        # Drop to 60Hz to save Intel Arc power
+        # hyprctl keyword monitor "eDP-1, 3072x1920@60, 0x0, 1.6"
+        
+        notify-send "Power Mode" "Power Saver (Minimalist)" -t 2000 -i battery-low
+    else
+        # === SWITCH TO PERFORMANCE ===
+        powerprofilesctl set performance
+        hyprctl keyword animations:enabled true
+        hyprctl keyword decoration:blur:enabled true
+        hyprctl keyword decoration:drop_shadow true
+        # Restore 120Hz (Update 'eDP-1' to your monitor name)
+        # hyprctl keyword monitor "eDP-1, 3072x1920@120, 0x0, 1.6"
+        
+        notify-send "Power Mode" "Performance" -t 2000 -i battery-low
+    fi    
+  '';
+
+  mic-toggle = pkgs.writeShellScriptBin "mic-toggle" ''
+    # Toggle the default microphone
+    wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+
+    # Check the new status to send the correct notification
+    STATUS=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@)
+    
+    if [[ "$STATUS" == *"[MUTED]"* ]]; then
+        notify-send "Microphone" "Muted" -t 2000 -i microphone-sensitivity-muted-symbolic -h string:x-canonical-private-synchronous:mic-notif
+    else
+        notify-send "Microphone" "On" -t 2000 -i microphone-sensitivity-high-symbolic -h string:x-canonical-private-synchronous:mic-notif
+    fi
+  '';
 in {
   imports = [
       inputs.weathr.homeModules.weathr
@@ -155,6 +206,9 @@ in {
         # Screenshots
         ", Print, exec, grim -g \"$(slurp)\" - | wl-copy"
 
+        # Toggle Power Mode with F8
+        ", F8, exec, power-toggle"
+
         # Focus Movement (Vim keys)
         "$mod, h, movefocus, l"
         "$mod, l, movefocus, r"
@@ -180,6 +234,11 @@ in {
         "$mod, mouse:273, resizewindow" # Super + Right Click = Resize
       ];
 
+      bindl = [
+        # Standard Microphone Mute key
+        ", XF86AudioMicMute, exec, mic-toggle"
+      ];
+
       # Volume / Brightness Media Keys
       binde = [
         ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
@@ -194,8 +253,12 @@ in {
   home = {
     username = "andromeda";
     homeDirectory = "/home/andromeda";
+
     sessionVariables = {
       PASSWORD_STORE = "kwallet6";
+      GTK_THEME = "Breeze-Dark";
+      # Ensures Qt apps don't accidentally fall back to light mode
+      QT_QPA_PLATFORMTHEME = "kde";
     };
 
     # Packages that should be installed to the user profile.
@@ -323,6 +386,9 @@ in {
       slurp        # For selecting screen regions
       wl-clipboard # Clipboard utilities
       hyprsunset
+      libnotify
+      power-toggle
+      mic-toggle
     ];
   };
 
