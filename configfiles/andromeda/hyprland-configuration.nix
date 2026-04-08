@@ -49,6 +49,31 @@
         notify-send "Microphone" "On" -t 2000 -i microphone-sensitivity-high-symbolic -h string:x-canonical-private-synchronous:mic-notif
     fi
   '';
+
+  # This script detects if we are mirroring and flips the state
+  display-toggle = pkgs.writeShellScriptBin "display-toggle" ''
+    # Get the names of your monitors
+    INTERNAL="eDP-1"
+    EXTERNAL=$(hyprctl monitors -j | jq -r '.[] | select(.name != "eDP-1") | .name' | head -n 1)
+
+    if [ -z "$EXTERNAL" ]; then
+      notify-send "Display" "No external monitor detected."
+      exit 0
+    fi
+
+    # Check if mirroring is currently active
+    IS_MIRRORED=$(hyprctl monitors -j | jq -r '.[] | select(.name != "eDP-1") | .mirrorOf' | grep -v "null")
+
+    if [ -z "$IS_MIRRORED" ]; then
+      # SWITCH TO MIRROR
+      notify-send "Display" "Mirroring Screens"
+      hyprctl keyword monitor "$EXTERNAL, preferred, auto, 1, mirror, $INTERNAL"
+    else
+      # SWITCH TO EXTEND
+      notify-send "Display" "Extending Desktop"
+      hyprctl keyword monitor "$EXTERNAL, preferred, auto, 1"
+    fi
+  '';
 in {
   imports = [
     inputs.hyprland.homeManagerModules.default
@@ -245,8 +270,11 @@ in {
     playerctl
     pavucontrol
     networkmanagerapplet
+    brightnessctl
+    jq
     power-toggle
     mic-toggle
+    display-toggle
   ];
 
   programs = { 
