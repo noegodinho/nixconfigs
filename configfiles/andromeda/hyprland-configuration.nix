@@ -233,4 +233,82 @@ in {
       ];
     };
   };
+
+  home.packages = with pkgs; [
+    rofi         # The application launcher
+    swaynotificationcenter         # The notification daemon
+    grim         # For screenshots
+    slurp        # For selecting screen regions
+    wl-clipboard # Clipboard utilities
+    hyprsunset
+    libnotify
+    playerctl
+    pavucontrol
+    networkmanagerapplet
+    power-toggle
+    mic-toggle
+  ];
+
+  programs.waybar = {
+    enable = true;
+    # systemd.enable = true;
+    
+    settings.mainBar = {
+      layer = "top";
+      position = "top";
+      height = 36;
+      modules-left = [ "custom/launcher" "wlr/taskbar" ];
+      modules-center = [ "hyprland/workspaces" ];
+      modules-right = [ "tray" "pulseaudio" "network" "battery" "clock" ];
+      
+      "custom/launcher" = {
+        format = "  "; 
+        on-click = "rofi -show drun"; 
+      };
+
+      "wlr/taskbar" = {
+        format = "{icon}";
+        on-click = "activate";
+        on-click-middle = "close";
+      };
+      
+      "clock" = {
+        format = "{:%I:%M %p  %a, %b %d}";
+      };
+      
+      "battery" = {
+        format = "{capacity}% {icon}";
+        format-icons = ["" "" "" "" ""];
+      };
+      
+      "pulseaudio#slider" = {
+        format = "{icon}  {volume}%";
+        format-icons = {
+          default = [ "" "" "" ];
+        };
+        on-click = "pavucontrol";
+        on-scroll-up = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+";
+        on-scroll-down = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-";
+        drawer = {
+          transition-duration = 500;
+          children-class = "not-memory";
+          transition-left-to-right = false;
+        };
+      };
+      
+      "mpris" = {
+        format = "{player_icon} {title} - {artist}";
+        format-paused = " {title} - {artist}";
+        player-icons = {
+          default = "";
+          brave = "";
+          elisa = "";
+        };
+        status-icons = {
+          paused = "";
+        };
+        max-length = 40;
+      };
+    };
+  };
 }
