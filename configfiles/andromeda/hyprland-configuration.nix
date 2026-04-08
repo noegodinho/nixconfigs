@@ -235,6 +235,8 @@ in {
         "$mod SHIFT, 2, movetoworkspace, 2"
         "$mod SHIFT, 3, movetoworkspace, 3"
         "$mod SHIFT, 4, movetoworkspace, 4"
+
+        ", XF86Display, exec, toggle-display"
       ];
 
       # -- Mouse Binds (KDE Style Window Dragging) --
