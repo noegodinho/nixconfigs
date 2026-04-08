@@ -31,7 +31,7 @@
   outputs = {self, nixpkgs, nixpkgs-unstable, home-manager, solaar, ...} @ inputs: let #, nix-matlab, nix-vscode-extensions, ...} @ inputs: let
     stdenv.hostPlatform.system = "x86_64-linux";
     
-    unstable = import nix/nix/store/76cnmqn3blb7alxy4wnic9mnkvf5bjr5-home-manager-path.drvpkgs-unstable {
+    unstable = import nixpkgs-unstable {
       system = "x86_64-linux";
       config = {
         allowUnfree = true;
