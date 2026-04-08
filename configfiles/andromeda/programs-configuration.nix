@@ -1,4 +1,4 @@
-{ pkgs, nixpkgs-unstable, ... }:
+{ inputs, pkgs, nixpkgs-unstable, ... }:
 let
   papercutClient = pkgs.callPackage ./papercut.nix { };
 in
@@ -25,11 +25,20 @@ in
 
   # Enable the XDG Desktop Portal for Hyprland
   # This is needed for screen sharing, file pickers, etc.
-  xdg.portal.enable = true;
+  xdg.portal = {
+    enable = true;
+    # extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
 
   programs = {
     # Enable Hyprland window manager
-    hyprland.enable = true;
+    hyprland = {
+      enable = true;
+      
+      # Use the package from the flake input
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    };
 
     # Enable zsh
     zsh.enable = true;
@@ -59,7 +68,7 @@ in
     };
 
     # BPF-based Linux IO analysis, networking, monitoring, and more
-    bcc.enable = true;
+    # bcc.enable = true;
 
     # Some programs need SUID wrappers, can be configured further or are started in user sessions.
     # mtr.enable = true;
@@ -88,9 +97,6 @@ in
       qemu
       # For easy VM management
       quickemu
-      # matlab
-      # mesa
-      # distrobox
 
       gst_all_1.gstreamer
       # Common plugins like "filesrc" to combine within e.g. gst-launch
@@ -118,13 +124,40 @@ in
 
   virtualisation = {
     # In case I need docker
-    # docker.enable = true;
+    docker.enable = true;
     # Redirect USB devices to VM
     spiceUSBRedirection.enable = true;
 
-    # podman = {
-    #   enable = true;
-    #   dockerCompat = true;
-    # };
+    oci-containers = {
+      backend = "docker";
+      
+      containers.vert = {
+        image = "ghcr.io/vert-sh/vert:latest";
+        
+        ports = [
+          "3000:80" # Maps port 80 in the container to 3000 on your host
+        ];
+        
+        environment = {
+          # You can adjust these environment variables based on your needs
+          PUB_HOSTNAME = "localhost:3000"; # Change to your actual domain if reverse proxying
+          PUB_ENV = "production";
+          PUB_DISABLE_ALL_EXTERNAL_REQUESTS = "false";
+          
+          # Optional: If you also self-host 'vertd' for video conversions
+          PUB_VERTD_URL = "http://localhost:24153"; 
+        };
+        
+        # Optional: wait for network to be up before starting
+        dependsOn = [ "vertd" ]; 
+      };
+
+      containers.vertd = {
+        image = "ghcr.io/vert-sh/vertd:latest";
+        ports = [ 
+          "3001:3000" 
+        ];        
+      };
+    };
   };
 }
