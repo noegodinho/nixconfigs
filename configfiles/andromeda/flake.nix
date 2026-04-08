@@ -17,6 +17,12 @@
 
     weathr.url = "github:Veirt/weathr";
 
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+
     # nix-vscode-extensions = {
     #   url = "github:nix-community/nix-vscode-extensions";
     # };
@@ -25,7 +31,7 @@
   outputs = {self, nixpkgs, nixpkgs-unstable, home-manager, solaar, ...} @ inputs: let #, nix-matlab, nix-vscode-extensions, ...} @ inputs: let
     stdenv.hostPlatform.system = "x86_64-linux";
     
-    unstable = import nixpkgs-unstable {
+    unstable = import nix/nix/store/76cnmqn3blb7alxy4wnic9mnkvf5bjr5-home-manager-path.drvpkgs-unstable {
       system = "x86_64-linux";
       config = {
         allowUnfree = true;
