@@ -38,18 +38,6 @@ in {
     username = "andromeda";
     homeDirectory = "/home/andromeda";
 
-    sessionVariables = {
-      PASSWORD_STORE = "kwallet6";
-      GTK_THEME = "Breeze-Dark";
-      # Ensures Qt apps don't accidentally fall back to light mode
-      QT_QPA_PLATFORMTHEME = "kde";
-      QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-      XCURSOR_THEME = "breeze_cursors";
-      XCURSOR_SIZE = "24";
-      # Ensures GTK uses Wayland natively
-      GDK_BACKEND = "wayland,x11";
-    };
-
     # Packages that should be installed to the user profile.
     packages = with pkgs; [
       linux-manual
