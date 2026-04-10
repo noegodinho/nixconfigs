@@ -300,6 +300,15 @@ in {
     };
   };
 
+  home.sessionVariables = {
+    PASSWORD_STORE = "kwallet6";
+    # Ensures Qt apps don't accidentally fall back to light mode
+    QT_QPA_PLATFORMTHEME = "kde";
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+    # Ensures GTK uses Wayland natively
+    GDK_BACKEND = "wayland,x11";
+  };
+
   home.packages = with pkgs; [
     rofi         # The application launcher
     swaynotificationcenter         # The notification daemon
@@ -329,16 +338,16 @@ in {
         };
         background = [
           {
-            path = "screenshot"; # Takes a screenshot of your desktop to blur
-            blur_passes = 3;
-            blur_size = 8;
+            path = "~/.cache/daily-lockscreen.jpg"; # Takes a screenshot of your desktop to blur
+            # blur_passes = 3;
+            # blur_size = 8;
           }
         ];
         input-field = [
           {
             size = "200, 50";
             position = "0, -80";
-            monitor = "";
+            monitor = "eDP-1";
             dots_center = true;
             fade_on_empty = false;
             font_color = "rgb(202, 211, 245)";
@@ -495,5 +504,60 @@ in {
         ];
       };
     };
+  };
+
+  systemd.user = {
+    services.fetch-daily-lockscreen = {
+      Unit = {
+        Description = "Fetch daily image for Hyprlock";
+      };
+      Service = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.bash}/bin/bash %h/.config/hypr/scripts/fetch-apod.sh";
+      };
+    };
+
+    timers.fetch-daily-lockscreen = {
+      Unit = {
+        Description = "Run daily lockscreen fetcher";
+      };
+      Timer = {
+        # Run once a day at midnight
+        OnCalendar = "daily";
+        # If the computer is off at midnight, run it immediately upon the next boot
+        Persistent = true; 
+      };
+      Install = {
+        WantedBy = [ "timers.target" ];
+      };
+    };
+  };
+
+  xdg.configFile."hypr/scripts/fetch-apod.sh" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+
+      # Define paths
+      CACHE_DIR="$HOME/.cache"
+      IMG_PATH="$CACHE_DIR/daily-lockscreen.jpg"
+      
+      mkdir -p "$CACHE_DIR"
+
+      # Fetch the daily data from NASA API using their public DEMO_KEY
+      JSON_DATA=$(${pkgs.curl}/bin/curl -s "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY")
+
+      # Use jq to extract the media type and the high-res URL
+      MEDIA_TYPE=$(echo "$JSON_DATA" | ${pkgs.jq}/bin/jq -r '.media_type')
+      IMG_URL=$(echo "$JSON_DATA" | ${pkgs.jq}/bin/jq -r '.hdurl // .url')
+
+      # NASA sometimes posts videos. Only download if it is an image.
+      if [ "$MEDIA_TYPE" = "image" ] && [ "$IMG_URL" != "null" ]; then
+          ${pkgs.curl}/bin/curl -s -L "$IMG_URL" -o "$IMG_PATH"
+          echo "NASA APOD downloaded successfully."
+      else
+          echo "Today's APOD is a video or unavailable. Keeping yesterday's image."
+      fi
+    '';
   };
 }
