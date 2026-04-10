@@ -144,6 +144,9 @@ in
       package = nixpkgs-unstable.legacyPackages."${pkgs.stdenv.hostPlatform.system}".fwupd;
     };
 
+    gvfs.enable = true; # Mount, trash, and other functionalities
+    tumbler.enable = true; # Thumbnail support for images
+
     # Ad blocking system-wide
     blocky = {
       enable = true;
