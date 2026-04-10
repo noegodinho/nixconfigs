@@ -51,7 +51,7 @@ in
       };
 
       # Set the default session for autologin
-      defaultSession = "plasma";
+      defaultSession = "hyprland";
     };
 
     # Enable CUPS to print documents.
