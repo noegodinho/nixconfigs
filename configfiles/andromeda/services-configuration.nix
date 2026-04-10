@@ -54,6 +54,15 @@ in
       defaultSession = "hyprland";
     };
 
+    logind.settings.Login = {
+      # What to do when the lid is closed (options: "suspend", "hibernate", "poweroff", "ignore")
+      HandleLidSwitch = "suspend";
+      
+      # Optional: What to do when the lid is closed BUT the laptop is plugged into the wall
+      # Many people set this to "ignore" so they can use the laptop like a desktop PC with an external monitor.
+      HandleLidSwitchExternalPower = "suspend"; 
+    };
+
     # Enable CUPS to print documents.
     printing = {
       enable = true;
