@@ -85,6 +85,14 @@ in {
     inputs.hyprland.homeManagerModules.default
   ];
 
+  home.pointerCursor = {
+    gtk.enable = true;
+    x11.enable = true;
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Classic";
+    size = 20;
+  };
+
   wayland.windowManager.hyprland = {
     # Whether to enable Hyprland wayland compositor
     enable = true;
@@ -112,6 +120,13 @@ in {
         "eDP-1, 3072x1920@120, 0x0, 1.6"
       ];
 
+      env = [
+        "XCURSOR_THEME,Bibata-Modern-Classic"
+        "XCURSOR_SIZE,20"
+        "HYPRCURSOR_THEME,Bibata-Modern-Classic"
+        "HYPRCURSOR_SIZE,20"
+      ];
+
       # xwayland = {
       #   force_zero_scaling = true;
       # };
@@ -121,6 +136,7 @@ in {
 
       # Autostart applications
       "exec-once" = [
+        "hyprctl setcursor Bibata-Modern-Classic 20"
         "waybar"                # Launch the bar
         "swaynotificationcenter"                  # Launch the notification daemon
         "hyprpaper"             # Launch the wallpaper daemon
@@ -165,7 +181,7 @@ in {
         gaps_out = 10;
         border_size = 2;
         "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-        "col.inactive_border" = "rgba(595959aa)";
+        "col.inactive_border" = "rgba(31363bff)";
         layout = "dwindle";
       };
 
@@ -430,36 +446,54 @@ in {
     # };
   };
 
-  services.hypridle = {
-    enable = true;
-    settings = {
-      general = {
-        # The command to run when the session is locked
-        lock_cmd = "pidof hyprlock || hyprlock";
-        # Lock before the system suspends
-        before_sleep_cmd = "loginctl lock-session";
-        # Turn screens back on after waking up
-        after_sleep_cmd = "hyprctl dispatch dpms on";
-      };
+  services = {
+    hypridle = {
+      enable = true;
+      settings = {
+        general = {
+          # The command to run when the session is locked
+          lock_cmd = "pidof hyprlock || hyprlock";
+          # Lock before the system suspends
+          before_sleep_cmd = "loginctl lock-session";
+          # Turn screens back on after waking up
+          after_sleep_cmd = "hyprctl dispatch dpms on";
+        };
 
-      listener = [
-        {
-          # 1. Lock the screen after 5 minutes (300 seconds)
-          timeout = 300;
-          on-timeout = "loginctl lock-session";
-        }
-        {
-          # 2. Turn off screens after 5.5 minutes (330 seconds)
-          timeout = 330;
-          on-timeout = "hyprctl dispatch dpms off";
-          on-resume = "hyprctl dispatch dpms on";
-        }
-        {
-          # 3. Suspend the system after 15 minutes (900 seconds)
-          timeout = 900;
-          on-timeout = "systemctl suspend";
-        }
-      ];
+        listener = [
+          {
+            # 1. Lock the screen after 5 minutes (300 seconds)
+            timeout = 300;
+            on-timeout = "loginctl lock-session";
+          }
+          {
+            # 2. Turn off screens after 5.5 minutes (330 seconds)
+            timeout = 330;
+            on-timeout = "hyprctl dispatch dpms off";
+            on-resume = "hyprctl dispatch dpms on";
+          }
+          {
+            # 3. Suspend the system after 15 minutes (900 seconds)
+            timeout = 900;
+            on-timeout = "systemctl suspend";
+          }
+        ];
+      };
+    };
+
+    hyprpaper = {
+      enable = true;
+      settings = {
+        preload = [
+          "~/Pictures/Wallpapers/kde_space.jpg"
+          "~/Pictures/Wallpapers/forest.png"
+          "~/Pictures/Wallpapers/bad_math_bird.jpeg"
+        ];
+        wallpaper = [
+          "eDP-1,~/Pictures/Wallpapers/kde_space.jpg"
+          "HDMI-A-1,~/Pictures/Wallpapers/bad_math_bird.jpeg"
+          ",~/Pictures/Wallpapers/forest.png"
+        ];
+      };
     };
   };
 }
