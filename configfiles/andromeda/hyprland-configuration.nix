@@ -9,6 +9,8 @@
         hyprctl keyword animations:enabled true
         hyprctl keyword decoration:blur:enabled true
         hyprctl keyword decoration:drop_shadow true
+        brightnessctl set 50%
+        brightnessctl --device='*kbd_backlight*' set 2
         # Restore 120Hz (Update 'eDP-1' to your monitor name)
         # hyprctl keyword monitor "eDP-1, 3072x1920@120, 0x0, 1.6"
         
@@ -19,6 +21,8 @@
         hyprctl keyword animations:enabled false
         hyprctl keyword decoration:blur:enabled false
         hyprctl keyword decoration:drop_shadow false
+        brightnessctl set 35%
+        brightnessctl --device='*kbd_backlight*' set 0
         # Drop to 60Hz to save Intel Arc power
         # hyprctl keyword monitor "eDP-1, 3072x1920@60, 0x0, 1.6"
         
@@ -29,6 +33,8 @@
         hyprctl keyword animations:enabled true
         hyprctl keyword decoration:blur:enabled true
         hyprctl keyword decoration:drop_shadow true
+        brightnessctl set 50%
+        brightnessctl --device='*kbd_backlight*' set 2
         # Restore 120Hz (Update 'eDP-1' to your monitor name)
         # hyprctl keyword monitor "eDP-1, 3072x1920@120, 0x0, 1.6"
         
@@ -64,7 +70,7 @@
     # Check if mirroring is currently active
     IS_MIRRORED=$(hyprctl monitors -j | jq -r '.[] | select(.name != "eDP-1") | .mirrorOf' | grep -v "null")
 
-    if [ -z "$IS_MIRRORED" ]; then
+    if [ "$IS_MIRRORED" == "none" ]; then
       # SWITCH TO MIRROR
       notify-send "Display" "Mirroring Screens"
       hyprctl keyword monitor "$EXTERNAL, preferred, auto, 1, mirror, $INTERNAL"
@@ -203,7 +209,6 @@ in {
         "$mod, B, exec, brave --password-store=kwallet6 --ozone-platform-hint=auto"
 
         # Window Management
-        "$mod, Q, killactive,"               # Close Window (KDE allows Alt+F4 too, but this is standard)
         "ALT, F4, killactive,"                 # Traditional close
         "$mod, F, fullscreen,"               # Fullscreen
         "$mod, V, togglefloating,"           # Toggle Float
@@ -236,7 +241,7 @@ in {
         "$mod SHIFT, 3, movetoworkspace, 3"
         "$mod SHIFT, 4, movetoworkspace, 4"
 
-        ", XF86Display, exec, toggle-display"
+        ", XF86Display, exec, display-toggle"
       ];
 
       # -- Mouse Binds (KDE Style Window Dragging) --
