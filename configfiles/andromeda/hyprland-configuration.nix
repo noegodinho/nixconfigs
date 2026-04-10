@@ -150,6 +150,14 @@ in {
 
         sensitivity = 0.5; # -1.0 - 1.0, 0 means no modification.
       };
+
+      misc = {
+        # Wakes up the monitor if you move the mouse
+        mouse_move_enables_dpms = true;
+        
+        # Wakes up the monitor if you press any key on the keyboard
+        key_press_enables_dpms = true;
+      };
       
       # General settings
       general = {
@@ -241,6 +249,17 @@ in {
         "$mod SHIFT, 3, movetoworkspace, 3"
         "$mod SHIFT, 4, movetoworkspace, 4"
 
+        # Lock screen (SUPER + L)
+        # We use loginctl so it properly registers with the system and hypridle
+        "$mod, L, exec, loginctl lock-session"
+        
+        # Turn off screen (SUPER + Ç)
+        # The 'sleep 1' is crucial. Without it, releasing the keys will immediately wake the screen back up.
+        "$mod SHIFT, L, exec, sleep 1 && hyprctl dispatch dpms off"
+        
+        # Open power menu (SUPER + Escape)
+        "$mod, Escape, exec, wlogout"
+
         ", XF86Display, exec, display-toggle"
       ];
 
@@ -284,7 +303,41 @@ in {
     display-toggle
   ];
 
-  programs = { 
+  programs = {
+    wlogout.enable = true;
+
+    hyprlock = {
+      enable = true;
+      settings = {
+        general = {
+          disable_loading_bar = true;
+          hide_cursor = true;
+        };
+        background = [
+          {
+            path = "screenshot"; # Takes a screenshot of your desktop to blur
+            blur_passes = 3;
+            blur_size = 8;
+          }
+        ];
+        input-field = [
+          {
+            size = "200, 50";
+            position = "0, -80";
+            monitor = "";
+            dots_center = true;
+            fade_on_empty = false;
+            font_color = "rgb(202, 211, 245)";
+            inner_color = "rgb(91, 96, 120)";
+            outer_color = "rgb(24, 24, 37)";
+            outline_thickness = 5;
+            placeholder_text = "Password...";
+            shadow_passes = 2;
+          }
+        ];
+      };
+    };
+
     waybar = {
       enable = true;
       # systemd.enable = true;
@@ -293,9 +346,9 @@ in {
         layer = "top";
         position = "top";
         height = 36;
-        modules-left = [ "custom/launcher" "wlr/taskbar" ];
+        modules-left = [ "custom/power" "custom/launcher" "wlr/taskbar" ];
         modules-center = [ "hyprland/workspaces" ];
-        modules-right = [ "tray" "pulseaudio" "network" "battery" "clock" ];
+        modules-right = [ "tray" "mpris" "pulseaudio#slider" "network" "battery" "clock" ];
         
         "custom/launcher" = {
           format = "  "; 
@@ -345,14 +398,54 @@ in {
           };
           max-length = 40;
         };
+
+        # Snippet to add inside your Waybar configuration
+        "custom/power" = {
+          format = "⏻"; # Your power icon
+          on-click = "wlogout";
+          tooltip = false;
+        };
       };
     };
+
+    # eww = {
+    #   enable = true;
+    #   package = pkgs.eww;
+    #   enableZshIntegration = true;
+    #   configDir = /. + builtins.getEnv("HOME");
+    # };
   };
 
-  # eww = {
-  #   enable = true;
-  #   package = pkgs.eww;
-  #   enableZshIntegration = true;
-  #   configDir = /. + builtins.getEnv("HOME");
-  # };
+  services.hypridle = {
+    enable = true;
+    settings = {
+      general = {
+        # The command to run when the session is locked
+        lock_cmd = "pidof hyprlock || hyprlock";
+        # Lock before the system suspends
+        before_sleep_cmd = "loginctl lock-session";
+        # Turn screens back on after waking up
+        after_sleep_cmd = "hyprctl dispatch dpms on";
+      };
+
+      listener = [
+        {
+          # 1. Lock the screen after 5 minutes (300 seconds)
+          timeout = 300;
+          on-timeout = "loginctl lock-session";
+        }
+        {
+          # 2. Turn off screens after 5.5 minutes (330 seconds)
+          timeout = 330;
+          on-timeout = "hyprctl dispatch dpms off";
+          on-resume = "hyprctl dispatch dpms on";
+        }
+        {
+          # 3. Suspend the system after 15 minutes (900 seconds)
+          timeout = 900;
+          on-timeout = "systemctl suspend";
+        }
+      ];
+    };
+  };
 }
