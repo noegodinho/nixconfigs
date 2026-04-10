@@ -81,7 +81,6 @@ in {
       gnupg
       gnutar
       lsof
-      kdePackages.filelight
       rare-regex
 
       htop
@@ -116,9 +115,13 @@ in {
       hunspellDicts.pt_PT
       hunspellDicts.en_GB-ise
 
+      kdePackages.elisa
+      kdePackages.okular
+      kdePackages.gwenview
+      kdePackages.ktorrent
+
       keepassxc
       thunderbird
-      kdePackages.ktorrent
       unstable.brave
       unstable.telegram-desktop
       teams-for-linux
@@ -141,13 +144,13 @@ in {
       unstable.gurobi
 
       nerd-fonts.meslo-lg
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.symbols-only
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
       noto-fonts-color-emoji
       font-awesome
-      nerd-fonts.jetbrains-mono
-      nerd-fonts.symbols-only
       
       ardour
       musescore
