@@ -124,10 +124,10 @@ in {
         "waybar"                # Launch the bar
         "swaynotificationcenter"                  # Launch the notification daemon
         "hyprpaper"             # Launch the wallpaper daemon
-        "/usr/lib/polkit-kde-authentication-agent-1" # Polkit agent
-        # Crucial for KWallet/Brave communication
+        "/usr/lib/polkit-kde-authentication-agent-1" # Polkit agent (to remove later)
+        # Crucial for KWallet/Brave communication (to remove later)
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=KDE"
-        # Start the wallet daemon if it's not already running
+        # Start the wallet daemon if it's not already running (to remove later)
         "kwalletd6"
         "com.surfshark.Surfshark"
         "hyprsunset -t 4000"
@@ -225,7 +225,7 @@ in {
         "$mod SHIFT, E, exit,"               # Log out
 
         # Screenshots
-        ", Print, exec, grim -g \"$(slurp)\" - | wl-copy"
+        ", Print, exec, grimblast copy area"
         "$mod, N, exec, swaync-client -t -sw"
 
         # Toggle Power Mode with F8
@@ -236,18 +236,6 @@ in {
         "$mod, l, movefocus, r"
         "$mod, k, movefocus, u"
         "$mod, j, movefocus, d"
-
-        # Workspaces (1-9)
-        "$mod, 1, workspace, 1"
-        "$mod, 2, workspace, 2"
-        "$mod, 3, workspace, 3"
-        "$mod, 4, workspace, 4"
-
-        # Move to Workspaces
-        "$mod SHIFT, 1, movetoworkspace, 1"
-        "$mod SHIFT, 2, movetoworkspace, 2"
-        "$mod SHIFT, 3, movetoworkspace, 3"
-        "$mod SHIFT, 4, movetoworkspace, 4"
 
         # Lock screen (SUPER + L)
         # We use loginctl so it properly registers with the system and hypridle
@@ -261,7 +249,18 @@ in {
         "$mod, Escape, exec, wlogout"
 
         ", XF86Display, exec, display-toggle"
-      ];
+      ] ++ (
+        # workspaces
+        # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
+        builtins.concatLists (builtins.genList (i:
+            let ws = i + 1;
+            in [
+              "$mod, code:1${toString i}, workspace, ${toString ws}"
+              "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
+            ]
+          )
+          9)
+      );
 
       # -- Mouse Binds (KDE Style Window Dragging) --
       bindm = [
@@ -288,8 +287,7 @@ in {
   home.packages = with pkgs; [
     rofi         # The application launcher
     swaynotificationcenter         # The notification daemon
-    grim         # For screenshots
-    slurp        # For selecting screen regions
+    grimblast
     wl-clipboard # Clipboard utilities
     hyprsunset
     libnotify
