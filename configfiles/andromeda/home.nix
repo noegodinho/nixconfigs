@@ -43,6 +43,11 @@ in {
       GTK_THEME = "Breeze-Dark";
       # Ensures Qt apps don't accidentally fall back to light mode
       QT_QPA_PLATFORMTHEME = "kde";
+      QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+      XCURSOR_THEME = "breeze_cursors";
+      XCURSOR_SIZE = "24";
+      # Ensures GTK uses Wayland natively
+      GDK_BACKEND = "wayland,x11";
     };
 
     # Packages that should be installed to the user profile.
@@ -490,6 +495,66 @@ in {
             };
           };
         };
+      };
+    };
+  };
+
+  xdg = {
+    enable = true;
+
+    configFile."mimeapps.list".force = true;
+    dataFile."applications/mimeapps.list".force = true;
+
+    configFile."Thunar/uca.xml".text = ''
+      <?xml version="1.0" encoding="UTF-8"?>
+      <actions>
+        <action>
+          <icon>utilities-terminal</icon>
+          <name>Open Terminal Here</name>
+          <submenu></submenu>
+          <unique-id>custom-terminal-action</unique-id>
+          <command>ghostty --working-directory=%f</command>
+          <description>Open a terminal in the current folder</description>
+          <range></range>
+          <patterns>*</patterns>
+          <startup-notify/>
+          <directories/>
+        </action>
+      </actions>
+    '';
+    
+    mimeApps = {
+      enable = true;
+      
+      defaultApplications = {
+        "inode/directory" = "thunar.desktop";
+
+        # Web / Browser links
+        "text/html" = "brave-browser.desktop";
+        "x-scheme-handler/http" = "brave-browser.desktop";
+        "x-scheme-handler/https" = "brave-browser.desktop";
+        "x-scheme-handler/about" = "brave-browser.desktop";
+        "x-scheme-handler/unknown" = "brave-browser.desktop";
+
+        # Images
+        "image/jpeg" = "org.kde.gwenview.desktop";
+        "image/png" = "org.kde.gwenview.desktop";
+        "image/gif" = "org.kde.gwenview.desktop";
+        "image/webp" = "org.kde.gwenview.desktop";
+
+        # Audio
+        "audio/mp3" = "org.kde.elisa.desktop";
+        "audio/flac" = "org.kde.elisa.desktop";
+        "audio/wma" = "org.kde.elisa.desktop";
+        "audio/wav" = "org.kde.elisa.desktop";
+
+        # Videos
+        "video/mp4" = "mpv.desktop";
+        "video/x-matroska" = "mpv.desktop";
+
+        # Documents
+        "application/pdf" = "org.kde.okular.desktop";
+        "text/plain" = "codium.desktop";
       };
     };
   };
