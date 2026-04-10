@@ -362,7 +362,24 @@ in {
         };
         
         "clock" = {
-          format = "{:%I:%M %p  %a, %b %d}";
+          # Set interval to 1 so the seconds actually tick
+          interval = 1;
+          
+          # The exact format: 14:30:05 | Saturday, 11 April 2026 | Timezone
+          format = "{:%H:%M:%S | %A, %d %B %Y | %Z}";
+          
+          # Gives you a KDE-style full calendar when you hover over the clock
+          tooltip-format = "<tt><small>{calendar}</small></tt>";
+          
+          calendar = {
+            mode = "month";
+            mode-mon-col = 3;
+            on-scroll = 1;
+            format = {
+              # Injecting your green accent color into the calendar for today's date
+              today = "<span color='#2ecc71'><b><u>{}</u></b></span>";
+            };
+          };
         };
         
         "battery" = {
@@ -399,9 +416,8 @@ in {
           max-length = 40;
         };
 
-        # Snippet to add inside your Waybar configuration
         "custom/power" = {
-          format = "⏻"; # Your power icon
+          format = "⏻";
           on-click = "wlogout";
           tooltip = false;
         };
