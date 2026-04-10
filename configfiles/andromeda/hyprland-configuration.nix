@@ -129,7 +129,7 @@ in {
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=KDE"
         # Start the wallet daemon if it's not already running
         "kwalletd6"
-        "surfshark"
+        "com.surfshark.Surfshark"
         "hyprsunset -t 4000"
         "nm-applet --indicator"
       ];
@@ -211,7 +211,7 @@ in {
       bind = [
         # Core Apps
         "CTRL ALT, T, exec, ghostty"        # Terminal
-        "$mod, E, exec, dolphin"             # File Manager
+        "$mod, E, exec, thunar"             # File Manager
         "$mod, SPACE, exec, rofi -show drun" # KRunner style launcher
         
         "$mod, B, exec, brave --password-store=kwallet6 --ozone-platform-hint=auto"
