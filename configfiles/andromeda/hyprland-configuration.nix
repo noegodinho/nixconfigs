@@ -127,9 +127,9 @@ in {
         "HYPRCURSOR_SIZE,20"
       ];
 
-      # xwayland = {
-      #   force_zero_scaling = true;
-      # };
+      xwayland = {
+        force_zero_scaling = true;
+      };
 
       # Set the Super key as the main modifier
       "$mod" = "SUPER";
@@ -142,12 +142,14 @@ in {
         "hyprpaper"             # Launch the wallpaper daemon
         "/usr/lib/polkit-kde-authentication-agent-1" # Polkit agent (to remove later)
         # Crucial for KWallet/Brave communication (to remove later)
-        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=KDE"
+        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        "systemctl --user restart xdg-desktop-portal-hyprland"
         # Start the wallet daemon if it's not already running (to remove later)
         "kwalletd6"
         "com.surfshark.Surfshark"
         "hyprsunset -t 4000"
         "nm-applet --indicator"
+        "brave --password-store=kwallet6 --ozone-platform-hint=auto"
       ];
 
       # Input settings
@@ -310,7 +312,6 @@ in {
   };
 
   home.packages = with pkgs; [
-    rofi         # The application launcher
     swaynotificationcenter         # The notification daemon
     grimblast
     wl-clipboard # Clipboard utilities
@@ -328,6 +329,22 @@ in {
 
   programs = {
     wlogout.enable = true;
+
+    rofi = {
+      enable = true;
+      theme = "fullscreen-preview";
+      font = "sans-serif";
+      package = pkgs.rofi;
+      modes = [
+        "drun"
+        "run"
+        "window"
+        "ssh"  
+      ];
+      extraConfig = {
+        show-icons = true;
+      };
+    };
 
     hyprlock = {
       enable = true;
@@ -369,17 +386,23 @@ in {
         layer = "top";
         position = "top";
         height = 36;
-        modules-left = [ "custom/power" "custom/launcher" "wlr/taskbar" ];
+        modules-left = [ "custom/launcher" "wlr/taskbar" ];
         modules-center = [ "hyprland/workspaces" ];
-        modules-right = [ "tray" "mpris" "pulseaudio#slider" "network" "battery" "clock" ];
+        modules-right = [ "tray" "mpris" "pulseaudio#slider" "network" "battery" "clock" "custom/power" ];
         
         "custom/launcher" = {
-          format = "  "; 
+          format = "   "; 
           on-click = "rofi -show drun"; 
         };
 
         "wlr/taskbar" = {
-          format = "{icon}";
+          format = " {icon} ";
+          on-click = "activate";
+          on-click-middle = "close";
+        };
+
+        "tray" =  {
+          format = "  {icon}  ";
           on-click = "activate";
           on-click-middle = "close";
         };
@@ -426,21 +449,21 @@ in {
         };
         
         "mpris" = {
-          format = "{player_icon} {title} - {artist}";
-          format-paused = " {title} - {artist}";
+          format = " {player_icon} {title} - {artist} ";
+          format-paused = "  {title} - {artist} ";
           player-icons = {
-            default = "";
-            brave = "";
-            elisa = "";
+            default = "  ";
+            brave = "  ";
+            elisa = "  ";
           };
           status-icons = {
-            paused = "";
+            paused = "  ";
           };
           max-length = 40;
         };
 
         "custom/power" = {
-          format = "⏻";
+          format = "  ⏻  ";
           on-click = "wlogout";
           tooltip = false;
         };
