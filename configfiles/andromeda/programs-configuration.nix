@@ -27,7 +27,26 @@ in
   # This is needed for screen sharing, file pickers, etc.
   xdg.portal = {
     enable = true;
-    # extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
+    # Add the GTK portal as a fallback for apps that don't support Hyprland's native one
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
+    # to remove in the future when no KDE exists
+    config = {
+      hyprland = {
+        default = [ "hyprland" "gtk" ];
+        # Ignore KDE's portal completely when in Hyprland
+        "org.freedesktop.impl.portal.FileChooser" = "gtk";
+      };
+    };
+  };
+
+  # To remove in the future when there is no KDE
+  environment.sessionVariables = {
+    # Tells the portal system strictly what environment we are in
+    XDG_CURRENT_DESKTOP = "Hyprland";
+    XDG_SESSION_DESKTOP = "Hyprland";
+    XDG_SESSION_TYPE = "wayland";
   };
 
   programs = {
