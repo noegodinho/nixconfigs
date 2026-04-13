@@ -388,7 +388,7 @@ in {
         height = 36;
         modules-left = [ "custom/launcher" "wlr/taskbar" ];
         modules-center = [ "hyprland/workspaces" ];
-        modules-right = [ "tray" "mpris" "pulseaudio#slider" "network" "battery" "clock" "custom/power" ];
+        modules-right = [ "mpris" "tray" "idle_inhibitor" "pulseaudio#slider" "network" "battery" "clock" "custom/power" ];
         
         "custom/launcher" = {
           format = "   "; 
@@ -467,6 +467,16 @@ in {
           on-click = "wlogout";
           tooltip = false;
         };
+
+        "idle_inhibitor" = {
+          format = "{icon}";
+          tooltip = true;
+          format-icons = {
+            # You can change these icons to whatever you prefer (e.g., a coffee cup ☕)
+            activated = ""; # Eye open (stay awake)
+            deactivated = ""; # Eye closed (allow sleep)
+          };
+        };
       };
     };
 
@@ -498,8 +508,8 @@ in {
             on-timeout = "loginctl lock-session";
           }
           {
-            # 2. Turn off screens after 5.5 minutes (330 seconds)
-            timeout = 330;
+            # 2. Turn off screens after 1 minute (60 seconds)
+            timeout = 60;
             on-timeout = "hyprctl dispatch dpms off";
             on-resume = "hyprctl dispatch dpms on";
           }
