@@ -147,6 +147,8 @@ in
     gvfs.enable = true; # Mount, trash, and other functionalities
     tumbler.enable = true; # Thumbnail support for images
 
+    blueman.enable = true;
+
     # Ad blocking system-wide
     blocky = {
       enable = true;
