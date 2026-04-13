@@ -388,7 +388,7 @@ in {
         height = 36;
         modules-left = [ "custom/launcher" "wlr/taskbar" ];
         modules-center = [ "hyprland/workspaces" ];
-        modules-right = [ "mpris" "tray" "idle_inhibitor" "pulseaudio#slider" "network" "battery" "clock" "custom/power" ];
+        modules-right = [ "mpris" "tray" "idle_inhibitor" "pulseaudio#slider" "bluetooth" "network" "battery" "clock" "custom/power" ];
         
         "custom/launcher" = {
           format = "   "; 
@@ -476,6 +476,25 @@ in {
             activated = ""; # Eye open (stay awake)
             deactivated = ""; # Eye closed (allow sleep)
           };
+        };
+
+        "bluetooth" = {
+          # Default format when Bluetooth is on but not connected to anything
+          format = " {status}";
+          
+          # Format when Bluetooth is turned off completely
+          format-disabled = "󰂲 Disabled";
+          
+          # Format when connected to one or more devices
+          format-connected = "󰂱 {num_connections}";
+          
+          # Tooltips show exactly what is connected when you hover over the icon
+          tooltip-format = "{controller_alias}\t{controller_address}";
+          tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{device_enumerate}";
+          tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
+          
+          # Opens a graphical Bluetooth manager when you click the icon
+          on-click = "blueman-manager"; 
         };
       };
     };
