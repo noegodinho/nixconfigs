@@ -103,11 +103,12 @@ in {
       hunspellDicts.pt_PT
       hunspellDicts.en_GB-ise
 
-      kdePackages.elisa
-      kdePackages.okular
-      kdePackages.gwenview
       kdePackages.ktorrent
 
+      file-roller
+      papers
+      lollypop
+      gthumb
       keepassxc
       thunderbird
       unstable.brave
@@ -528,23 +529,23 @@ in {
         "x-scheme-handler/unknown" = "brave-browser.desktop";
 
         # Images
-        "image/jpeg" = "org.kde.gwenview.desktop";
-        "image/png" = "org.kde.gwenview.desktop";
-        "image/gif" = "org.kde.gwenview.desktop";
-        "image/webp" = "org.kde.gwenview.desktop";
+        "image/jpeg" = "gthumb.desktop";
+        "image/png" = "gthumb.desktop";
+        "image/gif" = "gthumb.desktop";
+        "image/webp" = "gthumb.desktop";
 
         # Audio
-        "audio/mp3" = "org.kde.elisa.desktop";
-        "audio/flac" = "org.kde.elisa.desktop";
-        "audio/wma" = "org.kde.elisa.desktop";
-        "audio/wav" = "org.kde.elisa.desktop";
+        "audio/mp3" = "lollypop.desktop";
+        "audio/flac" = "lollypop.desktop";
+        "audio/wma" = "lollypop.desktop";
+        "audio/wav" = "lollypop.desktop";
 
         # Videos
         "video/mp4" = "mpv.desktop";
         "video/x-matroska" = "mpv.desktop";
 
         # Documents
-        "application/pdf" = "org.kde.okular.desktop";
+        "application/pdf" = "papers.desktop";
         "text/plain" = "codium.desktop";
       };
     };
