@@ -89,7 +89,7 @@ in {
       smartmontools
       fastfetch
       gparted
-      testdisk-qt
+      testdisk
       dig
       ffmpeg
       unstable.micromamba
@@ -98,7 +98,7 @@ in {
       nurl
       glow
       
-      libreoffice-qt6-fresh
+      libreoffice-fresh
       hunspell
       hunspellDicts.pt_PT
       hunspellDicts.en_GB-ise
@@ -123,7 +123,7 @@ in {
       duplicati # http://localhost:8200/
       texliveFull
       todo-txt-cli
-      qalculate-qt
+      qalculate-gtk
       imagemagick
       projecteur
       khronos
