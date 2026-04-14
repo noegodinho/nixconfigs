@@ -529,23 +529,23 @@ in {
         "x-scheme-handler/unknown" = "brave-browser.desktop";
 
         # Images
-        "image/jpeg" = "gthumb.desktop";
-        "image/png" = "gthumb.desktop";
-        "image/gif" = "gthumb.desktop";
-        "image/webp" = "gthumb.desktop";
+        "image/jpeg" = "org.gnome.gThumb.desktop";
+        "image/png" = "org.gnome.gThumb.desktop";
+        "image/gif" = "org.gnome.gThumb.desktop";
+        "image/webp" = "org.gnome.gThumb.desktop";
 
         # Audio
-        "audio/mp3" = "lollypop.desktop";
-        "audio/flac" = "lollypop.desktop";
-        "audio/wma" = "lollypop.desktop";
-        "audio/wav" = "lollypop.desktop";
+        "audio/mp3" = "org.gnome.Lollypop.desktop";
+        "audio/flac" = "org.gnome.Lollypop.desktop";
+        "audio/wma" = "org.gnome.Lollypop.desktop";
+        "audio/wav" = "org.gnome.Lollypop.desktop";
 
         # Videos
         "video/mp4" = "mpv.desktop";
         "video/x-matroska" = "mpv.desktop";
 
         # Documents
-        "application/pdf" = "papers.desktop";
+        "application/pdf" = "org.gnome.Papers.desktop";
         "text/plain" = "codium.desktop";
       };
     };
