@@ -139,15 +139,10 @@ in
 
       nixpkgs-unstable.legacyPackages."${pkgs.stdenv.hostPlatform.system}".libinput
 
+      polkit_gnome
       libsecret
 
       papercutClient
-    ];
-
-    # Exclude KDE & system packages
-    plasma6.excludePackages = with pkgs; [
-      kdePackages.khelpcenter
-      kdePackages.kate
     ];
   };
 
