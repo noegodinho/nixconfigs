@@ -139,6 +139,8 @@ in
 
       nixpkgs-unstable.legacyPackages."${pkgs.stdenv.hostPlatform.system}".libinput
 
+      libsecret
+
       papercutClient
     ];
 
