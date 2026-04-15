@@ -96,6 +96,12 @@ in {
   gtk = {
     enable = true;
 
+    font = {
+      name = "Noto Sans";   # The font family
+      size = 11;            # The font size
+      package = pkgs.noto-fonts;
+    };
+
     theme = {
       name = "Colloid-Green-Dark";
       package = pkgs.colloid-gtk-theme.override {
@@ -382,7 +388,7 @@ in {
     rofi = {
       enable = true;
       theme = "fullscreen-preview";
-      font = "sans-serif";
+      font = "Noto Sans 14";
       package = pkgs.rofi;
       modes = [
         "drun"

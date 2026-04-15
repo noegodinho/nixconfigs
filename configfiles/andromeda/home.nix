@@ -243,6 +243,7 @@ in {
       settings = {
         cursor-style = "block";
         shell-integration-features = "no-cursor";
+        font-family = "MesloLGS Nerd Font"; # Great for coding and ZSH powerlevel10k
         font-size = 10;
         theme = "Adventure";
         keybind = [
