@@ -94,7 +94,7 @@ in {
       hunspellDicts.pt_PT
       hunspellDicts.en_GB-ise
 
-      kdePackages.ktorrent
+      qbittorrent
       file-roller
       papers
       lollypop
