@@ -3,22 +3,13 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "9d01befbc519cd218f557b9cd500c56b1ec2f995";
+      rev = "fe83f24decd2b7c73b47e2eb569345c57c284bd9";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
       inputs.weathr.homeModules.weathr
       ./hyprland-configuration.nix
   ];
-  # link the configuration file in current directory to the specified location in home directory
-  # home.file.".config/'«i3/wallpaper.jpg".source = ./wallpaper.jpg;
-
-  # link all files in `./scripts` to `~/.config/i3/scripts`
-  # home.file.".config/i3/scripts" = {
-  #   source = ./scripts;
-  #   recursive = true;   # link recursively
-  #   executable = true;  # make all files executable
-  # };
 
   # encode the file content in nix configuration file directly
   # home.file.".xxx".text = ''
@@ -104,14 +95,12 @@ in {
       hunspellDicts.en_GB-ise
 
       kdePackages.ktorrent
-
       file-roller
       papers
       lollypop
       gthumb
       keepassxc
       thunderbird
-      unstable.brave
       unstable.telegram-desktop
       teams-for-linux
       zotero
@@ -166,9 +155,20 @@ in {
   };
 
   programs = {
-    brave.nativeMessagingHosts = [ 
-      pkgs.keepassxc
-    ];
+    brave = {
+      enable = true;
+      package = unstable.brave;
+
+      # nativeMessagingHosts = [ 
+      #   pkgs.keepassxc
+      # ];
+
+      commandLineArgs = [
+        "--password-store=gnome"
+        "--enable-features=UseOzonePlatform"
+        "--ozone-platform=wayland"
+      ];
+    };
 
     git = {
       enable = true;
