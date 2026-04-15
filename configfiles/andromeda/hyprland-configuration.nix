@@ -126,7 +126,7 @@ in {
 
   qt = {
     enable = true;
-    style.name = "breeze";
+    style.name = "kvantum";
   };
 
   dconf.settings = {
@@ -134,50 +134,6 @@ in {
       color-scheme = "prefer-dark";
     };
   };
-
-  home.file.".config/kdeglobals".text = ''
-    [General]
-    AccentColor=46,204,113
-    LastUsedCustomAccentColor=46,204,113
-    ColorScheme=BreezeDark
-    Name=Breeze Dark
-
-    [KDE]
-    LookandFeelPackage=org.kde.breezedark.desktop
-
-    [Colors:Selection]
-    BackgroundNormal=46,204,113
-    BackgroundAlternate=46,204,113
-    ForegroundNormal=255,255,255
-    ForegroundInactive=255,255,255
-
-    [Colors:View]
-    # This is what controls the highlighted files in Dolphin
-    DecorationFocus=46,204,113
-    DecorationHover=46,204,113
-    BackgroundNormal=35,38,39
-    BackgroundAlternate=30,33,34
-    ForegroundNormal=252,252,252
-
-    [Colors:Button]
-    # This controls active tabs and toggles
-    BackgroundNormal=49,54,59
-    BackgroundAlternate=49,54,59
-    DecorationFocus=46,204,113
-    DecorationHover=46,204,113
-    ForegroundNormal=252,252,252
-    ForegroundInactive=161,169,177
-
-    [Colors:Window]
-    BackgroundNormal=35,38,39
-    ForegroundNormal=252,252,252
-
-    [Colors:Tooltip]
-    BackgroundNormal=49,54,59
-    BackgroundAlternate=49,54,59
-    ForegroundNormal=252,252,252
-    ForegroundInactive=161,169,177
-  '';
 
   wayland.windowManager.hyprland = {
     # Whether to enable Hyprland wayland compositor
@@ -218,8 +174,7 @@ in {
         "QT_QPA_PLATFORM,wayland;xcb"
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
         "QT_AUTO_SCREEN_SCALE_FACTOR,1"
-        "QT_STYLE_OVERRIDE,breeze"
-        "QT_QPA_PLATFORMTHEME,kde"
+        "QT_STYLE_OVERRIDE,kvantum"
       ];
 
       xwayland = {
@@ -236,12 +191,14 @@ in {
         "swaynotificationcenter"                  # Launch the notification daemon
         "hyprpaper"             # Launch the wallpaper daemon
         "gnome-keyring-daemon --start --components=secrets"
+        "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user restart xdg-desktop-portal-hyprland"
         "com.surfshark.Surfshark"
         "hyprsunset -t 4000"
         "nm-applet --indicator"
         "brave"
+        "keepassxc"
       ];
 
       # Input settings
@@ -413,6 +370,10 @@ in {
     power-toggle
     mic-toggle
     display-toggle
+
+    # The lightweight standalone Qt engines
+    libsForQt5.qtstyleplugin-kvantum
+    qt6Packages.qtstyleplugin-kvantum
   ];
 
   programs = {
@@ -701,6 +662,17 @@ in {
         fi
       '';
     };
+
+    "Kvantum/catppuccin-mocha-green".source = "${pkgs.catppuccin-kvantum.override {
+      accent = "green";
+      variant = "mocha";
+    }}/share/Kvantum/catppuccin-mocha-green";
+
+    # 2. Tell Kvantum to use the exact lowercase name
+    "Kvantum/kvantum.kvconfig".text = ''
+      [General]
+      theme=catppuccin-mocha-green
+    '';
 
     "gtk-4.0/assets".source = "${pkgs.colloid-gtk-theme}/share/themes/Colloid-Green-Dark/gtk-4.0/assets";
     "gtk-4.0/gtk.css".source = "${pkgs.colloid-gtk-theme}/share/themes/Colloid-Green-Dark/gtk-4.0/gtk.css";
