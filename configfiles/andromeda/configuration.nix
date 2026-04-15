@@ -250,7 +250,8 @@
     # Enable real-time sound
     rtkit.enable = true;
 
-    pam.services.sddm.enableKwallet = true;
+    polkit.enable = true;
+    pam.services.sddm.enableGnomeKeyring = true;
 
     # Disable OS limits
     pam.loginLimits = [
