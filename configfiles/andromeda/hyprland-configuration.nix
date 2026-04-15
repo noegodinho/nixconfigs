@@ -93,6 +93,92 @@ in {
     size = 20;
   };
 
+  gtk = {
+    enable = true;
+
+    theme = {
+      name = "Colloid-Green-Dark";
+      package = pkgs.colloid-gtk-theme.override {
+        themeVariants = [ "green" ];
+        colorVariants = [ "dark" ];
+      };
+    };
+
+    iconTheme = {
+      name = "Papirus-Dark"; 
+      package = (pkgs.papirus-icon-theme.override { color = "teal"; });
+    };
+
+    cursorTheme = {
+      name = "Bibata-Modern-Classic";
+      package = pkgs.bibata-cursors;
+      size = 20;
+    };
+
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+  };
+
+  qt = {
+    enable = true;
+    style.name = "breeze";
+  };
+
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
+  };
+
+  home.file.".config/kdeglobals".text = ''
+    [General]
+    AccentColor=46,204,113
+    LastUsedCustomAccentColor=46,204,113
+    ColorScheme=BreezeDark
+    Name=Breeze Dark
+
+    [KDE]
+    LookandFeelPackage=org.kde.breezedark.desktop
+
+    [Colors:Selection]
+    BackgroundNormal=46,204,113
+    BackgroundAlternate=46,204,113
+    ForegroundNormal=255,255,255
+    ForegroundInactive=255,255,255
+
+    [Colors:View]
+    # This is what controls the highlighted files in Dolphin
+    DecorationFocus=46,204,113
+    DecorationHover=46,204,113
+    BackgroundNormal=35,38,39
+    BackgroundAlternate=30,33,34
+    ForegroundNormal=252,252,252
+
+    [Colors:Button]
+    # This controls active tabs and toggles
+    BackgroundNormal=49,54,59
+    BackgroundAlternate=49,54,59
+    DecorationFocus=46,204,113
+    DecorationHover=46,204,113
+    ForegroundNormal=252,252,252
+    ForegroundInactive=161,169,177
+
+    [Colors:Window]
+    BackgroundNormal=35,38,39
+    ForegroundNormal=252,252,252
+
+    [Colors:Tooltip]
+    BackgroundNormal=49,54,59
+    BackgroundAlternate=49,54,59
+    ForegroundNormal=252,252,252
+    ForegroundInactive=161,169,177
+  '';
+
   wayland.windowManager.hyprland = {
     # Whether to enable Hyprland wayland compositor
     enable = true;
@@ -108,7 +194,6 @@ in {
       enable = true;
     };
   
-    # Optional
     # Whether to enable hyprland-session.target on hyprland startup
     systemd = {
       enable = true;
@@ -125,6 +210,16 @@ in {
         "XCURSOR_SIZE,20"
         "HYPRCURSOR_THEME,Bibata-Modern-Classic"
         "HYPRCURSOR_SIZE,20"
+
+        # --- GTK Variables ---
+        "GTK_THEME,Colloid-Green-Dark"
+        
+        # --- Qt / KDE Variables ---
+        "QT_QPA_PLATFORM,wayland;xcb"
+        "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
+        "QT_AUTO_SCREEN_SCALE_FACTOR,1"
+        "QT_STYLE_OVERRIDE,breeze"
+        "QT_QPA_PLATFORMTHEME,kde"
       ];
 
       xwayland = {
@@ -140,16 +235,13 @@ in {
         "waybar"                # Launch the bar
         "swaynotificationcenter"                  # Launch the notification daemon
         "hyprpaper"             # Launch the wallpaper daemon
-        "/usr/lib/polkit-kde-authentication-agent-1" # Polkit agent (to remove later)
-        # Crucial for KWallet/Brave communication (to remove later)
+        "gnome-keyring-daemon --start --components=secrets"
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user restart xdg-desktop-portal-hyprland"
-        # Start the wallet daemon if it's not already running (to remove later)
-        "kwalletd6"
         "com.surfshark.Surfshark"
         "hyprsunset -t 4000"
         "nm-applet --indicator"
-        "brave --password-store=kwallet6 --ozone-platform-hint=auto"
+        "brave"
       ];
 
       # Input settings
@@ -232,7 +324,7 @@ in {
         "$mod, E, exec, thunar"             # File Manager
         "$mod, SPACE, exec, rofi -show drun" # KRunner style launcher
         
-        "$mod, B, exec, brave --password-store=kwallet6 --ozone-platform-hint=auto"
+        "$mod, B, exec, brave"
 
         # Window Management
         "ALT, F4, killactive,"                 # Traditional close
@@ -303,10 +395,6 @@ in {
   };
 
   home.sessionVariables = {
-    PASSWORD_STORE = "kwallet6";
-    # Ensures Qt apps don't accidentally fall back to light mode
-    QT_QPA_PLATFORMTHEME = "kde";
-    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     # Ensures GTK uses Wayland natively
     GDK_BACKEND = "wayland,x11";
   };
@@ -527,8 +615,8 @@ in {
             on-timeout = "loginctl lock-session";
           }
           {
-            # 2. Turn off screens after 1 minute (60 seconds)
-            timeout = 60;
+            # 2. Turn off screens after 2 minutes (120 seconds)
+            timeout = 120;
             on-timeout = "hyprctl dispatch dpms off";
             on-resume = "hyprctl dispatch dpms on";
           }
@@ -585,31 +673,37 @@ in {
     };
   };
 
-  xdg.configFile."hypr/scripts/fetch-apod.sh" = {
-    executable = true;
-    text = ''
-      #!/usr/bin/env bash
+  xdg.configFile = {
+    "hypr/scripts/fetch-apod.sh" = {
+      executable = true;
+      text = ''
+        #!/usr/bin/env bash
 
-      # Define paths
-      CACHE_DIR="$HOME/.cache"
-      IMG_PATH="$CACHE_DIR/daily-lockscreen.jpg"
-      
-      mkdir -p "$CACHE_DIR"
+        # Define paths
+        CACHE_DIR="$HOME/.cache"
+        IMG_PATH="$CACHE_DIR/daily-lockscreen.jpg"
+        
+        mkdir -p "$CACHE_DIR"
 
-      # Fetch the daily data from NASA API using their public DEMO_KEY
-      JSON_DATA=$(${pkgs.curl}/bin/curl -s "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY")
+        # Fetch the daily data from NASA API using their public DEMO_KEY
+        JSON_DATA=$(${pkgs.curl}/bin/curl -s "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY")
 
-      # Use jq to extract the media type and the high-res URL
-      MEDIA_TYPE=$(echo "$JSON_DATA" | ${pkgs.jq}/bin/jq -r '.media_type')
-      IMG_URL=$(echo "$JSON_DATA" | ${pkgs.jq}/bin/jq -r '.hdurl // .url')
+        # Use jq to extract the media type and the high-res URL
+        MEDIA_TYPE=$(echo "$JSON_DATA" | ${pkgs.jq}/bin/jq -r '.media_type')
+        IMG_URL=$(echo "$JSON_DATA" | ${pkgs.jq}/bin/jq -r '.hdurl // .url')
 
-      # NASA sometimes posts videos. Only download if it is an image.
-      if [ "$MEDIA_TYPE" = "image" ] && [ "$IMG_URL" != "null" ]; then
-          ${pkgs.curl}/bin/curl -s -L "$IMG_URL" -o "$IMG_PATH"
-          echo "NASA APOD downloaded successfully."
-      else
-          echo "Today's APOD is a video or unavailable. Keeping yesterday's image."
-      fi
-    '';
+        # NASA sometimes posts videos. Only download if it is an image.
+        if [ "$MEDIA_TYPE" = "image" ] && [ "$IMG_URL" != "null" ]; then
+            ${pkgs.curl}/bin/curl -s -L "$IMG_URL" -o "$IMG_PATH"
+            echo "NASA APOD downloaded successfully."
+        else
+            echo "Today's APOD is a video or unavailable. Keeping yesterday's image."
+        fi
+      '';
+    };
+
+    "gtk-4.0/assets".source = "${pkgs.colloid-gtk-theme}/share/themes/Colloid-Green-Dark/gtk-4.0/assets";
+    "gtk-4.0/gtk.css".source = "${pkgs.colloid-gtk-theme}/share/themes/Colloid-Green-Dark/gtk-4.0/gtk.css";
+    "gtk-4.0/gtk-dark.css".source = "${pkgs.colloid-gtk-theme}/share/themes/Colloid-Green-Dark/gtk-4.0/gtk-dark.css";
   };
 }
