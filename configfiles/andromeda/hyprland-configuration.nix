@@ -617,9 +617,12 @@ in {
     services.fetch-daily-lockscreen = {
       Unit = {
         Description = "Fetch daily image for Hyprlock";
+        After = [ "network-online.target" ];
       };
       Service = {
         Type = "oneshot";
+        Environment = "PATH=/run/current-system/sw/bin:/etc/profiles/per-user/%u/bin";
+        ExecStartPre = "${pkgs.coreutils}/bin/sleep 15";
         ExecStart = "${pkgs.bash}/bin/bash %h/.config/hypr/scripts/fetch-apod.sh";
       };
     };
