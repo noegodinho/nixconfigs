@@ -535,13 +535,13 @@ in {
 
         "bluetooth" = {
           # Default format when Bluetooth is on but not connected to anything
-          format = " {status}";
+          format = "  {status} ";
           
           # Format when Bluetooth is turned off completely
-          format-disabled = "󰂲 Disabled";
+          format-disabled = " 󰂲 Disabled ";
           
           # Format when connected to one or more devices
-          format-connected = "󰂱 {num_connections}";
+          format-connected = " 󰂱 {num_connections} ";
           
           # Tooltips show exactly what is connected when you hover over the icon
           tooltip-format = "{controller_alias}\t{controller_address}";
@@ -622,7 +622,7 @@ in {
       Service = {
         Type = "oneshot";
         Environment = "PATH=/run/current-system/sw/bin:/etc/profiles/per-user/%u/bin";
-        ExecStartPre = "${pkgs.coreutils}/bin/sleep 15";
+        ExecStartPre = "${pkgs.coreutils}/bin/sleep 300";
         ExecStart = "${pkgs.bash}/bin/bash %h/.config/hypr/scripts/fetch-apod.sh";
       };
     };
