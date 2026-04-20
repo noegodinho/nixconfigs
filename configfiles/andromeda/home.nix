@@ -61,6 +61,7 @@ in {
       gnutar
       lsof
       rare-regex
+      tirith
 
       htop
       btop
@@ -210,6 +211,8 @@ in {
 
         export GRB_LICENSE_FILE=~/gurobi.lic
 
+        eval "$(tirith init --shell zsh)"
+
         eval "$(micromamba shell hook --shell zsh)"
         # >>> mamba initialize >>>
         # !! Contents within this block are managed by 'mamba init' !!
@@ -319,6 +322,7 @@ in {
           bbenoist.nix
           ccls-project.ccls
           # detachhead.basedpyright
+          eamodio.gitlens
           james-yu.latex-workshop
           jeff-hykin.better-c-syntax
           jeff-hykin.better-cpp-syntax
