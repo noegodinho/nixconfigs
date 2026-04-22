@@ -166,6 +166,19 @@ in {
       monitor = [
         "eDP-1, 3072x1920@120, 0x0, 1.6"
       ];
+      
+      gesture = [
+        "4, horizontal, workspace"
+
+        # 3-Finger Media Controls (Using the 'dispatcher' wrapper)
+        "3, horizontal,    dispatcher, exec, playerctl play-pause"
+        "3, down,  dispatcher, exec, playerctl previous"
+        "3, up, dispatcher, exec, playerctl next"
+
+        # 2-Finger Nath,ive Zoom (Pinch)
+        "2, pinchout, cursorZoom, 1.5"
+        "2, pinchin,  cursorZoom, 1.0"
+      ];
 
       env = [
         "XCURSOR_THEME,Bibata-Modern-Classic"
