@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "3dfd035bedf934bf8bd42ca1297db34a87e0c31d";
+      rev = "ea6764d22ff5478f5db39ede57eeafc70d14e8e6";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -548,6 +548,18 @@ in {
         # Videos
         "video/mp4" = "mpv.desktop";
         "video/x-matroska" = "mpv.desktop";
+
+        # C and C++ Files
+        "text/x-c" = "codium.desktop";
+        "text/x-csrc" = "codium.desktop";
+        "text/x-chdr" = "codium.desktop";
+        "text/x-c++" = "codium.desktop";
+        "text/x-c++src" = "codium.desktop";
+        "text/x-c++hdr" = "codium.desktop";
+
+        # Python Files
+        "text/x-python" = "codium.desktop";
+        "application/x-python-code" = "codium.desktop";
 
         # Documents
         "application/pdf" = "org.gnome.Papers.desktop";
