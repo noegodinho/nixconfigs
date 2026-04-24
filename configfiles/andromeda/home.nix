@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "ea6764d22ff5478f5db39ede57eeafc70d14e8e6";
+      rev = "5716665ea6f08119d993bd479b70bb4dde405f50";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -409,6 +409,16 @@ in {
           longitude = 8.3741;
         };
       };
+    };
+
+    obs-studio = {
+      enable = true;
+      # enableVirtualCamera = true; # Automatically sets up v4l2loopback
+      plugins = with pkgs.obs-studio-plugins; [
+        wlrobs
+        obs-backgroundremoval
+        obs-pipewire-audio-capture
+      ];
     };
 
     # thunderbird = {
