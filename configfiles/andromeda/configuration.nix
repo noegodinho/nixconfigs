@@ -4,7 +4,7 @@
 
 # flake-overlays:
 
-{ pkgs, nixpkgs-unstable, ... }:
+{ pkgs, nixpkgs-unstable, config, ... }:
 {
   imports = [ 
     # Include the results of the hardware scan.
@@ -27,8 +27,11 @@
       efi.canTouchEfiVariables = true;
     };
     kernelParams = [ "psmouse.synaptics_intertouch=1" "thinkpad_acpi" ];
+    extraModulePackages = with config.boot.kernelPackages; [
+      v4l2loopback
+    ];
     extraModprobeConfig = ''
-      options thinkpad_acpi fan_control=1
+      options thinkpad_acpi fan_control=1 v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
     '';
   };
 
