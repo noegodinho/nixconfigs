@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "5716665ea6f08119d993bd479b70bb4dde405f50";
+      rev = "9b6d532b8c6840e9e4e23e1c4f661b5ff4df4512";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -136,14 +136,14 @@ in {
       yabridge
       yabridgectl
 
-      # unstable.renpy
+      unstable.renpy
       # duckstation
       # wineWowPackages.full
       wineWowPackages.waylandFull
       winetricks
       vulkan-tools
       heroic
-      (unstable.lutris.override {
+      (lutris.override {
         extraPkgs = pkgs: [
           mangohud
         ];
