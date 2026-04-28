@@ -108,7 +108,7 @@
       updateMicrocode = true;
 
       # Enable the Intel NPU firmware.
-      # npu.enable = true;
+      npu.enable = true;
     };
 
     # Graphic drivers
