@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "9b6d532b8c6840e9e4e23e1c4f661b5ff4df4512";
+      rev = "de5f0ef30d7c677a06b064d6b390fcddd2bcc503";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -137,8 +137,8 @@ in {
       yabridgectl
 
       unstable.renpy
+      archisteamfarm
       # duckstation
-      # wineWowPackages.full
       wineWowPackages.waylandFull
       winetricks
       vulkan-tools
