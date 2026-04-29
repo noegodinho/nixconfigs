@@ -26,12 +26,13 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    kernelParams = [ "psmouse.synaptics_intertouch=1" "thinkpad_acpi" ];
+    kernelParams = [ "psmouse.synaptics_intertouch=1" "thinkpad_acpi" "v4l2loopback" ];
     extraModulePackages = with config.boot.kernelPackages; [
       v4l2loopback
     ];
     extraModprobeConfig = ''
-      options thinkpad_acpi fan_control=1 v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
+      options thinkpad_acpi fan_control=1 
+      options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
     '';
   };
 
@@ -61,7 +62,7 @@
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "Andromeda";
-    extraGroups = [ "input" "networkmanager" "video" "wheel" "lpadmin" ];
+    extraGroups = [ "input" "networkmanager" "video" "wheel" "lpadmin" "render" ];
     # packages = with pkgs; [
     #   kdePackages.kate
     # ];
@@ -121,6 +122,8 @@
         intel-media-driver
         intel-compute-runtime
         vpl-gpu-rt
+        intel-npu-driver
+        level-zero
       ];
     };
 
