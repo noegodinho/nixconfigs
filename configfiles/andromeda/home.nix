@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "de5f0ef30d7c677a06b064d6b390fcddd2bcc503";
+      rev = "f32bb01e6a12b74fa67261e9d690ff9d0603d86b";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -118,7 +118,6 @@ in {
       imagemagick
       projecteur
       khronos
-      stellarium
       xournalpp
       unstable.gurobi
 
