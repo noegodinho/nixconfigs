@@ -218,6 +218,7 @@ in {
         "nm-applet --indicator"
         "brave"
         "keepassxc"
+        "batsignal -w 15 -c 10 -d 5"
       ];
 
       # Input settings
@@ -386,6 +387,8 @@ in {
     networkmanagerapplet
     brightnessctl
     jq
+    batsignal
+
     power-toggle
     mic-toggle
     display-toggle
