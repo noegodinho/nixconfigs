@@ -601,8 +601,8 @@ in {
             on-resume = "hyprctl dispatch dpms on";
           }
           {
-            # 3. Suspend the system after 15 minutes (900 seconds)
-            timeout = 900;
+            # 3. Suspend the system after 30 minutes (1800 seconds)
+            timeout = 1800;
             on-timeout = "systemctl suspend";
           }
         ];
