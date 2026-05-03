@@ -19,6 +19,7 @@ in
 
     gnome.gnome-keyring.enable = true;
     power-profiles-daemon.enable = true;
+    upower.enable = true;
 
     xserver = {
       # Enable the X11 windowing system
