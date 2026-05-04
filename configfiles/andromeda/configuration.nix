@@ -255,25 +255,29 @@
   security = {
     # Enable real-time sound
     rtkit.enable = true;
-
     polkit.enable = true;
-    pam.services.sddm.enableGnomeKeyring = true;
 
-    # Disable OS limits
-    pam.loginLimits = [
-      {
-        domain = "*";
-        type = "-";
-        item = "memlock";
-        value = "unlimited";
-      }
-      {
-        domain = "*";
-        type = "-";
-        item = "rtprio";
-        value = "99";
-      }
-    ];
+    pam = {
+      # Disable OS limits
+      loginLimits = [
+        {
+          domain = "*";
+          type = "-";
+          item = "memlock";
+          value = "unlimited";
+        }
+        {
+          domain = "*";
+          type = "-";
+          item = "rtprio";
+          value = "99";
+        }
+      ];
+
+      services = {
+        sddm.enableGnomeKeyring = true;
+      };
+    };    
   };
 
   system = {
