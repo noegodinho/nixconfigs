@@ -600,7 +600,7 @@ in {
           }
           {
             # 2. Turn off screens after 2 minutes (120 seconds)
-            timeout = 120;
+            timeout = 300;
             on-timeout = "hyprctl dispatch dpms off";
             on-resume = "hyprctl dispatch dpms on";
           }
