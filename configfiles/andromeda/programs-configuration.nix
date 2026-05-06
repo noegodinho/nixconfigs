@@ -55,8 +55,10 @@ in
       enable = true;
       
       # Use the package from the flake input
-      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-      portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+      # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      # portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+      package = nixpkgs-unstable.legacyPackages."${pkgs.stdenv.hostPlatform.system}".hyprland;
+      portalPackage = nixpkgs-unstable.legacyPackages."${pkgs.stdenv.hostPlatform.system}".xdg-desktop-portal-hyprland;
     };
 
     thunar = {
@@ -147,9 +149,7 @@ in
   };
 
   virtualisation = {
-    # In case I need docker
     docker.enable = true;
-    # Redirect USB devices to VM
     spiceUSBRedirection.enable = true;
 
     oci-containers = {
@@ -159,28 +159,33 @@ in
         image = "ghcr.io/vert-sh/vert:latest";
         
         ports = [
-          "3000:80" # Maps port 80 in the container to 3000 on your host
+          "3000:80"
         ];
         
         environment = {
-          # You can adjust these environment variables based on your needs
-          PUB_HOSTNAME = "localhost:3000"; # Change to your actual domain if reverse proxying
+          PUB_HOSTNAME = "localhost:3000";
           PUB_ENV = "production";
           PUB_DISABLE_ALL_EXTERNAL_REQUESTS = "false";
           
-          # Optional: If you also self-host 'vertd' for video conversions
+          # Self-host 'vertd' for video conversions
           PUB_VERTD_URL = "http://localhost:24153"; 
         };
         
-        # Optional: wait for network to be up before starting
+        # Wait for network to be up before starting
         dependsOn = [ "vertd" ]; 
       };
 
       containers.vertd = {
         image = "ghcr.io/vert-sh/vertd:latest";
         ports = [ 
-          "3001:3000" 
-        ];        
+          "24153:24153" 
+        ];
+        environment = {
+          CORS_ORIGINS = "http://localhost:3000";
+        };
+        extraOptions = [
+          "--device=/dev/dri:/dev/dri" 
+        ];
       };
     };
   };
