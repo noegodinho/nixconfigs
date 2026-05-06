@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "034da763804cff07a677b9159ca3a103440d8f66";
+      rev = "02bf2c2e687b87308895a2791c16ef075be27e8d";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -110,7 +110,7 @@ in {
       pympress
       maestral
       rclone
-      veracrypt
+      # unstable.veracrypt
       duplicati # http://localhost:8200/
       texliveFull
       todo-txt-cli
@@ -201,7 +201,7 @@ in {
         rebuild="sudo nixos-rebuild switch --upgrade-all --log-format bar-with-logs --flake ~/nixconfigs/configfiles/andromeda/#laniakea -v";
         mmamba="micromamba";
         mmamba_update="mmamba activate general && mmamba update --all -y -c conda-forge && mmamba activate space && mmamba update --all -y -c conda-forge && mmamba activate gurobi_solver && mmamba update --all -y -c conda-forge && mmamba activate yafs && mmamba update --all -y -c conda-forge";
-        update_all="flake_update && rebuild && mmamba_update && nix-collect-garbage -d && flatpak update -y && zplug update";
+        update_all="flake_update && rebuild && mmamba_update && flatpak update -y && zplug update";
         projecteur="QT_QPA_PLATFORM=xcb projecteur -D abc8:ca08";
       };
 
