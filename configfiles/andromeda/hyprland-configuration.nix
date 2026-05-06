@@ -599,7 +599,7 @@ in {
             on-timeout = "loginctl lock-session";
           }
           {
-            # 2. Turn off screens after 2 minutes (120 seconds)
+            # 2. Turn off screens after 5 minutes (300 seconds)
             timeout = 300;
             on-timeout = "hyprctl dispatch dpms off";
             on-resume = "hyprctl dispatch dpms on";
