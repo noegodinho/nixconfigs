@@ -58,26 +58,45 @@
 
   # This script detects if we are mirroring and flips the state
   display-toggle = pkgs.writeShellScriptBin "display-toggle" ''
-    # Get the names of your monitors
+    # 1. Define monitors
     INTERNAL="eDP-1"
-    EXTERNAL=$(hyprctl monitors -j | jq -r '.[] | select(.name != "eDP-1") | .name' | head -n 1)
+    EXTERNAL=$(hyprctl monitors all -j | jq -r '.[] | select(.name != "eDP-1") | .name' | head -n 1)
 
     if [ -z "$EXTERNAL" ]; then
-      notify-send "Display" "No external monitor detected."
+      notify-send "Display Error" "No external monitor detected."
       exit 0
     fi
 
-    # Check if mirroring is currently active
-    IS_MIRRORED=$(hyprctl monitors -j | jq -r '.[] | select(.name != "eDP-1") | .mirrorOf' | grep -v "null")
+    # 2. Define our custom state file
+    STATE_FILE="/tmp/hypr_display_state"
 
-    if [ "$IS_MIRRORED" == "none" ]; then
-      # SWITCH TO MIRROR
-      notify-send "Display" "Mirroring Screens"
-      hyprctl keyword monitor "$EXTERNAL, preferred, auto, 1, mirror, $INTERNAL"
+    # If the file doesn't exist yet (e.g., after a reboot), assume we are extended
+    if [ ! -f "$STATE_FILE" ]; then
+      echo "extend" > "$STATE_FILE"
+    fi
+
+    # 3. Read the last action we took
+    CURRENT_STATE=$(cat "$STATE_FILE")
+
+    # 4. Toggle based on OUR file, not Hyprland's JSON
+    if [ "$CURRENT_STATE" == "mirror" ]; then
+      # IT WAS MIRRORED -> BREAK THE MIRROR AND EXTEND
+      notify-send "Display" "Extending to $EXTERNAL"
+      
+      # Command to break the mirror
+      hyprctl keyword monitor "$EXTERNAL, preferred, auto-right, 1"
+      
+      # Save the new state
+      echo "extend" > "$STATE_FILE"
     else
-      # SWITCH TO EXTEND
-      notify-send "Display" "Extending Desktop"
-      hyprctl keyword monitor "$EXTERNAL, preferred, auto, 1"
+      # IT WAS EXTENDED -> FORCE MIRROR
+      notify-send "Display" "Mirroring to $EXTERNAL"
+      
+      # Command to create the mirror
+      hyprctl keyword monitor "$EXTERNAL, preferred, auto, 1, mirror, $INTERNAL"
+      
+      # Save the new state
+      echo "mirror" > "$STATE_FILE"
     fi
   '';
 in {
@@ -388,6 +407,7 @@ in {
     brightnessctl
     jq
     batsignal
+    socat
 
     power-toggle
     mic-toggle
