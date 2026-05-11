@@ -55,10 +55,10 @@ in
       enable = true;
       
       # Use the package from the flake input
-      # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-      # portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-      package = nixpkgs-unstable.legacyPackages."${pkgs.stdenv.hostPlatform.system}".hyprland;
-      portalPackage = nixpkgs-unstable.legacyPackages."${pkgs.stdenv.hostPlatform.system}".xdg-desktop-portal-hyprland;
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+      # package = nixpkgs-unstable.legacyPackages."${pkgs.stdenv.hostPlatform.system}".hyprland;
+      # portalPackage = nixpkgs-unstable.legacyPackages."${pkgs.stdenv.hostPlatform.system}".xdg-desktop-portal-hyprland;
     };
 
     thunar = {
