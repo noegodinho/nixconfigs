@@ -141,7 +141,7 @@ in {
       wineWowPackages.waylandFull
       winetricks
       vulkan-tools
-      heroic
+      unstable.heroic
       (lutris.override {
         extraPkgs = pkgs: [
           mangohud
