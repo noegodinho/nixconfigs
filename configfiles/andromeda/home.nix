@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "7e5f123b1b2cb998c2e2781ec6758015ec1ae189";
+      rev = "7e435fbede66e7079ee8f9e77fbc8f49b3de60ad";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -110,7 +110,7 @@ in {
       pympress
       maestral
       rclone
-      # unstable.veracrypt
+      # veracrypt
       duplicati # http://localhost:8200/
       texliveFull
       todo-txt-cli
@@ -142,15 +142,14 @@ in {
       winetricks
       vulkan-tools
       unstable.heroic
-      (lutris.override {
-        extraPkgs = pkgs: [
-          mangohud
-        ];
-
-        extraLibraries = pkgs: [
-          # List library dependencies here
-        ];
-      })
+      # (lutris.override {
+      #   extraPkgs = pkgs: [
+      #     mangohud
+      #   ];
+      #   extraLibraries = pkgs: [
+      #     # List library dependencies here
+      #   ];
+      # })
     ];
   };
 
