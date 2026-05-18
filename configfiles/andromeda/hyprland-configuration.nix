@@ -190,13 +190,18 @@ in {
         "4, horizontal, workspace"
 
         # 3-Finger Media Controls (Using the 'dispatcher' wrapper)
-        "3, horizontal,    dispatcher, exec, playerctl play-pause"
-        "3, down,  dispatcher, exec, playerctl previous"
+        "4, vertical, dispatcher, exec, playerctl play-pause"
+        "3, down, dispatcher, exec, playerctl previous"
         "3, up, dispatcher, exec, playerctl next"
+
+        # Navigate Back (Alt + Left Arrow)
+        "3, left, dispatcher, exec, wtype -M alt -k Left -m alt"
+        # Navigate Forward (Alt + Right Arrow)
+        "3, right, dispatcher, exec, wtype -M alt -k Right -m alt"
 
         # 2-Finger Nath,ive Zoom (Pinch)
         "2, pinchout, cursorZoom, 1.5"
-        "2, pinchin,  cursorZoom, 1.0"
+        "2, pinchin, cursorZoom, 1.0"
       ];
 
       env = [
@@ -408,6 +413,7 @@ in {
     jq
     batsignal
     socat
+    wtype
 
     power-toggle
     mic-toggle
