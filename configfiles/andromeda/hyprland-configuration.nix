@@ -243,6 +243,7 @@ in {
         "brave"
         "keepassxc"
         "batsignal -w 15 -c 10 -d 5"
+        "maestral start"
       ];
 
       # Input settings
