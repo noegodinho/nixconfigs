@@ -164,7 +164,7 @@ in
       enable = true;
       settings = {
         # Tell blocky where to send DNS requests
-        upstream = {
+        upstreams.groups = {
           default = [
             "1.1.1.1"
             "1.0.0.1"
