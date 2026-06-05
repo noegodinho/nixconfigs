@@ -19,7 +19,7 @@ in
         package = nixpkgs-unstable.legacyPackages."${pkgs.stdenv.hostPlatform.system}".mandoc;
       };
       
-      generateCaches = true;
+      cache.enable = true;
     };
   };
 
@@ -53,6 +53,8 @@ in
     # Enable Hyprland window manager
     hyprland = {
       enable = true;
+      withUWSM = true; # recommended for most users
+      xwayland.enable = true; # Xwayland can be disabled.
       
       # Use the package from the flake input
       package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
@@ -63,7 +65,7 @@ in
 
     thunar = {
       enable = true;
-      plugins = with pkgs.xfce; [
+      plugins = with pkgs; [
         thunar-archive-plugin
         thunar-volman
       ];
@@ -119,6 +121,7 @@ in
   environment = {
     sessionVariables = {
       LIBVA_DRIVER_NAME = "iHD";
+      NIXOS_OZONE_WL = "1";
     };
 
     systemPackages = with pkgs; [
