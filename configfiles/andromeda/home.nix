@@ -1,9 +1,9 @@
-{ pkgs, unstable, stdenv, inputs, ... }: let
+{ config, pkgs, unstable, stdenv, inputs, user, ... }: let
   extensions =
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "643933e02c0d2c56e80e2a0c1abd705743de98cf";
+      rev = "639982843f1b69ea3f5e3394177d2b09d868e7d3";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -26,8 +26,8 @@ in {
   };
 
   home = {
-    username = "andromeda";
-    homeDirectory = "/home/andromeda";
+    username = "${user}";
+    homeDirectory = "/home/${user}";
 
     # Packages that should be installed to the user profile.
     packages = with pkgs; [
@@ -138,7 +138,7 @@ in {
       unstable.renpy
       archisteamfarm
       # duckstation
-      wineWowPackages.waylandFull
+      wineWow64Packages.waylandFull
       winetricks
       vulkan-tools
       unstable.heroic
@@ -184,6 +184,7 @@ in {
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       enableCompletion = true;
+      dotDir =  "${config.xdg.configHome}/zsh";
 
       zplug = {
         enable = true;
@@ -196,8 +197,8 @@ in {
       };
 
       shellAliases = {
-        flake_update="sudo nix flake update --flake ~/nixconfigs/configfiles/andromeda";
-        rebuild="sudo nixos-rebuild switch --upgrade-all --log-format bar-with-logs --flake ~/nixconfigs/configfiles/andromeda/#laniakea -v";
+        flake_update="sudo nix flake update --flake ~/nixconfigs/configfiles/${user}";
+        rebuild="sudo nixos-rebuild switch --upgrade-all --log-format bar-with-logs --flake ~/nixconfigs/configfiles/${user}/#laniakea -v";
         mmamba="micromamba";
         mmamba_update="mmamba activate general && mmamba update --all -y -c conda-forge && mmamba activate space && mmamba update --all -y -c conda-forge && mmamba activate gurobi_solver && mmamba update --all -y -c conda-forge && mmamba activate yafs && mmamba update --all -y -c conda-forge";
         update_all="flake_update && rebuild && mmamba_update && flatpak update -y && zplug update";
@@ -214,8 +215,8 @@ in {
         eval "$(micromamba shell hook --shell zsh)"
         # >>> mamba initialize >>>
         # !! Contents within this block are managed by 'mamba init' !!
-        export MAMBA_EXE='/etc/profiles/per-user/andromeda/bin/micromamba';
-        export MAMBA_ROOT_PREFIX='/home/andromeda/micromamba';
+        export MAMBA_EXE='/etc/profiles/per-user/${user}/bin/micromamba';
+        export MAMBA_ROOT_PREFIX='/home/${user}/micromamba';
         __mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
         if [ $? -eq 0 ]; then
             eval "$__mamba_setup"
@@ -302,12 +303,7 @@ in {
       package = pkgs.bat;
     };
 
-    neovim = {
-      enable = true;
-      package = pkgs.neovim-unwrapped;
-    };
-
-    vscode = {
+    vscodium = {
       enable = true;
       package = unstable.vscodium;
 
@@ -351,12 +347,12 @@ in {
           "ltex.additionalRules.motherTongue" = "pt-PT";
           "ltex.language" = "en-GB";
           "ltex.enabled" = ["bibtex" "context" "context.tex" "html" "latex" "markdown" "org" "restructuredtext" "rsweave"];
-          "python.defaultInterpreterPath" = "/home/andromeda/micromamba/envs/general/bin/python";
+          "python.defaultInterpreterPath" = "/home/${user}/micromamba/envs/general/bin/python";
           "nix.enableLanguageServer" = true;
           "nix.serverPath" = "nil";
           "git.openRepositoryInParentFolders" = "always";
           "cmake.pinnedCommands" = ["workbench.action.tasks.configureTaskRunner" "workbench.action.tasks.runTask"];
-          "ccls.launch.command" = "/etc/profiles/per-user/andromeda/bin/ccls";
+          "ccls.launch.command" = "/etc/profiles/per-user/${user}/bin/ccls";
           "ccls.highlight.function.face" = ["enabled"];
           "ccls.highlight.type.face" = ["enabled"];
           "ccls.highlight.variable.face" = ["enabled"];
@@ -433,8 +429,14 @@ in {
   xdg = {
     enable = true;
 
-    configFile."mimeapps.list".force = true;
     dataFile."applications/mimeapps.list".force = true;
+    configFile."mimeapps.list".force = true;
+
+    # configFile."hypr" = {
+    #     source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/hypr";
+    #     force = true;
+    #     recursive = true;
+    # };
 
     configFile."Thunar/uca.xml".text = ''
       <?xml version="1.0" encoding="UTF-8"?>
@@ -498,6 +500,9 @@ in {
         # Documents
         "application/pdf" = "org.gnome.Papers.desktop";
         "text/plain" = "codium.desktop";
+        "text/empty" = "codium.desktop";
+        "text/markdown" = "codium.desktop";
+        "application/json" = "codium.desktop";
       };
     };
   };
