@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }: let
+{ config, pkgs, inputs, user, ... }: let
   power-toggle = pkgs.writeShellScriptBin "power-toggle" ''
     # Get the current profile from power-profiles-daemon
     CURRENT_PROFILE=$(powerprofilesctl get)
@@ -114,6 +114,7 @@ in {
 
   gtk = {
     enable = true;
+    gtk4.theme = config.gtk.theme;
 
     font = {
       name = "Noto Sans";   # The font family
@@ -169,6 +170,9 @@ in {
     # portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     package = null;
     portalPackage = null;
+
+    configType = "hyprlang";
+    # configType = "lua";
 
     # Whether to enable XWayland
     xwayland = {
@@ -229,21 +233,25 @@ in {
 
       # Autostart applications
       "exec-once" = [
-        "hyprctl setcursor Bibata-Modern-Classic 20"
-        "waybar"                # Launch the bar
-        "swaynotificationcenter"                  # Launch the notification daemon
-        "hyprpaper"             # Launch the wallpaper daemon
+        # "hyprctl setcursor Bibata-Modern-Classic 20"
+        "waybar"
+        "swaynotificationcenter"
         "gnome-keyring-daemon --start --components=secrets"
         "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user restart xdg-desktop-portal-hyprland"
-        "com.surfshark.Surfshark"
         "hyprsunset -t 4000"
         "nm-applet --indicator"
-        "brave"
-        "keepassxc"
         "batsignal -w 15 -c 10 -d 5"
         "maestral start"
+        "[workspace special:minimized silent] com.surfshark.Surfshark &"
+        "[workspace 1 silent] brave"
+        "discord"
+        "[workspace 2 silent] thunderbird"
+        "[workspace 3 silent] Telegram"
+        "[workspace 4 silent] teams-for-linux"
+        "[workspace 4 silent] keepassxc"
+        "[workspace special:minimized silent] qbittorrent"
       ];
 
       # Input settings
@@ -281,9 +289,9 @@ in {
         layout = "dwindle";
       };
 
-      # windowrule = [
-      #   "float, class:^(dolphin|systemsettings|pavucontrol|spectacle)$"
-      # ];
+      windowrule = [
+        "match:class ^(discord)$, workspace 3 silent"
+      ];
 
       # Decoration (shadows, rounding)
       decoration = {
@@ -643,15 +651,30 @@ in {
     hyprpaper = {
       enable = true;
       settings = {
+        ipc = false;
+        splash = false;
+
         preload = [
-          "~/Pictures/Wallpapers/kde_space.jpg"
-          "~/Pictures/Wallpapers/forest.png"
-          "~/Pictures/Wallpapers/bad_math_bird.jpeg"
+          "/home/${user}/Pictures/Wallpapers/kde_space.jpg"
+          "/home/${user}/Pictures/Wallpapers/forest.png"
+          "/home/${user}/Pictures/Wallpapers/bad_math_bird.jpeg"
         ];
         wallpaper = [
-          "eDP-1,~/Pictures/Wallpapers/kde_space.jpg"
-          "HDMI-A-1,~/Pictures/Wallpapers/bad_math_bird.jpeg"
-          ",~/Pictures/Wallpapers/forest.png"
+          {
+            monitor = "eDP-1";
+            path = "/home/${user}/Pictures/Wallpapers/kde_space.jpg";
+            fit_mode = "cover";
+          }
+          {
+            monitor = "HDMI-A-1";
+            path = "/home/${user}/Pictures/Wallpapers/bad_math_bird.jpeg";
+            fit_mode = "cover";
+          }
+          {
+            monitor = "";
+            path = "/home/${user}/Pictures/Wallpapers/forest.png";
+            fit_mode = "cover";
+          }
         ];
       };
     };
