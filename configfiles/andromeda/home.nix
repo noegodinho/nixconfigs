@@ -432,12 +432,6 @@ in {
     dataFile."applications/mimeapps.list".force = true;
     configFile."mimeapps.list".force = true;
 
-    # configFile."hypr" = {
-    #     source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/hypr";
-    #     force = true;
-    #     recursive = true;
-    # };
-
     configFile."Thunar/uca.xml".text = ''
       <?xml version="1.0" encoding="UTF-8"?>
       <actions>
