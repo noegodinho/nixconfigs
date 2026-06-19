@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "37d164940d9db2188b3d12ab1cd5206494ea4ac1";
+      rev = "c964ff7750c6794b44ad44f4a76c9d33c1ec489d";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -248,6 +248,8 @@ in {
         font-family = "MesloLGS Nerd Font"; # Great for coding and ZSH powerlevel10k
         font-size = 10;
         theme = "Adventure";
+        custom-shader = "/home/${user}/ghostty-blackhole/blackhole.glsl";
+        custom-shader-animation = true;
         keybind = [
           "alt+b=new_split:left"
           "alt+n=new_split:right"
