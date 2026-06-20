@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, unstable, ... }:
 {
   home.username = "albireo";
   home.homeDirectory = "/home/albireo";
@@ -43,7 +43,7 @@
 
       nerd-fonts.meslo-lg
 
-      librewolf
+      # librewolf
   ];
 
   programs = {
@@ -84,7 +84,7 @@
 
       ghostty = {
         enable = true;
-        package = pkgs.ghostty;
+        package = unstable.ghostty;
         enableZshIntegration = true;
         settings = {
           cursor-style = "block";
@@ -127,7 +127,7 @@
         enableZshIntegration = true;
       };
 
-      firefox.enable = false;
+      firefox.enable = true;
       java.enable = true;
       home-manager.enable = true;
   };
