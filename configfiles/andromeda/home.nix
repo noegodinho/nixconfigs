@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "c964ff7750c6794b44ad44f4a76c9d33c1ec489d";
+      rev = "eae9f4530da971a9a8c6793ae9c35c731e52c2a5";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -212,7 +212,8 @@ in {
 
         eval "$(tirith init --shell zsh)"
 
-        eval "$(micromamba shell hook --shell zsh)"
+        # eval "$(micromamba shell hook --shell zsh)"
+        eval "$(micromamba shell hook --shell zsh | sed 's/\.mamba-wrapped/micromamba/g')"
         # >>> mamba initialize >>>
         # !! Contents within this block are managed by 'mamba init' !!
         export MAMBA_EXE='/etc/profiles/per-user/${user}/bin/micromamba';
@@ -221,7 +222,7 @@ in {
         if [ $? -eq 0 ]; then
             eval "$__mamba_setup"
         else
-            alias micromamba="$MAMBA_EXE"  # Fallback on help from mamba activate
+            alias .mamba-wrapped="$MAMBA_EXE"  # Fallback on help from mamba activate
         fi
         unset __mamba_setup
         # <<< mamba initialize <<<
@@ -248,8 +249,8 @@ in {
         font-family = "MesloLGS Nerd Font"; # Great for coding and ZSH powerlevel10k
         font-size = 10;
         theme = "Adventure";
-        custom-shader = "/home/${user}/ghostty-blackhole/blackhole.glsl";
-        custom-shader-animation = true;
+        # custom-shader = "/home/${user}/ghostty-blackhole/blackhole.glsl";
+        # custom-shader-animation = true;
         keybind = [
           "alt+b=new_split:left"
           "alt+n=new_split:right"
