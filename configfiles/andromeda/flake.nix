@@ -23,12 +23,14 @@
       inputs.hyprland.follows = "hyprland";
     };
 
+    thyx.url = "github:rccyx/thyx";
+
     # nix-vscode-extensions = {
     #   url = "github:nix-community/nix-vscode-extensions";
     # };
   };
 
-  outputs = {self, nixpkgs, nixpkgs-unstable, home-manager, solaar, ...} @ inputs: let #, nix-matlab, nix-vscode-extensions, ...} @ inputs: let
+  outputs = {self, nixpkgs, nixpkgs-unstable, home-manager, solaar, weathr, hyprland, thyx, ...} @ inputs: let #, nix-matlab, nix-vscode-extensions, ...} @ inputs: let
     stdenv.hostPlatform.system = "x86_64-linux";
     
     unstable = import nixpkgs-unstable {
@@ -60,6 +62,11 @@
           home-manager.users.${user} = import ./home.nix;
         }
         solaar.nixosModules.default
+        thyx.nixosModules.default
+        {
+          services.displayManager.sddm.thyx.enable = true;
+          services.displayManager.sddm.wayland.enable = true;
+        }
         ./configuration.nix
       ];
     };
