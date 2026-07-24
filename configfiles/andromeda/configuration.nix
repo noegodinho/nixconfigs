@@ -229,8 +229,6 @@
         "nix-command" "flakes" 
       ];
     };
-    
-    
 
     # Nix garbage collector
     gc = {
@@ -245,23 +243,6 @@
       # Allow proprietary packages
       allowUnfree = true;
     };
-
-    # Override version of pscslite
-    # overlays = [
-    #   (final: prev: {
-    #     pcscliteWithPolkit = prev.pcscliteWithPolkit.overrideAttrs(oldAttrs: {
-    #       version = "2.1.0";
-    #       
-    #       src = pkgs.fetchFromGitLab {
-    #         domain = "salsa.debian.org";
-    #         owner = "rousseau";
-    #         repo = "PCSC";
-    #         rev = "refs/tags/${oldAttrs.version}";
-    #         hash = "sha256-hKyxXqZaqg8KGFoBWhRHV1/50uoxqiG0RsYtgw2BuQ4=";
-    #       };
-    #     });
-    #   })
-    # ]; # ++ flake-overlays;
   };
 
   security = {
