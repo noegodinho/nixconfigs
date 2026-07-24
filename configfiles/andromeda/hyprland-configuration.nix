@@ -293,6 +293,10 @@ in {
         "match:class ^(discord)$, workspace 3 silent"
       ];
 
+      # workspace = [
+      #   "2, layout:scrolling"
+      # ];
+
       # Decoration (shadows, rounding)
       decoration = {
         rounding = 10;
