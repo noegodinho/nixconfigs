@@ -1,4 +1,4 @@
-{ pkgs, unstable, ... }:
+{ pkgs, unstable, config, ... }:
 {
   home.username = "albireo";
   home.homeDirectory = "/home/albireo";
@@ -42,8 +42,6 @@
       mission-center
 
       nerd-fonts.meslo-lg
-
-      # librewolf
   ];
 
   programs = {
@@ -128,6 +126,7 @@
       };
 
       firefox.enable = true;
+      firefox.configPath = "${config.xdg.configHome}/mozilla/firefox";
       java.enable = true;
       home-manager.enable = true;
   };
