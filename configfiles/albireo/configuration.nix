@@ -17,7 +17,7 @@
   boot.supportedFilesystems = [ "ntfs" ];
   hardware.cpu.intel.updateMicrocode = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_6_6;
+  # boot.kernelPackages = pkgs.linuxPackages_6_6;
 
   boot.blacklistedKernelModules = [
     "nvidia"
