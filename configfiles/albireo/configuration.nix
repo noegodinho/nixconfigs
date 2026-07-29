@@ -1,3 +1,4 @@
+
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
@@ -31,7 +32,20 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
+
+    extraPackages = with pkgs; [
+      intel-vaapi-driver # For older pre-Broadwell / legacy hardware (i965)
+    ];
+
+    extraPackages32 = with pkgs.pkgsi686Linux; [
+      intel-vaapi-driver # 32-bit acceleration support
+    ];
   };
+
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "i965"; # or "i965" for older chips
+  };
+
   /*
   nixpkgs.config.nvidia.acceptLicense = true;
 
