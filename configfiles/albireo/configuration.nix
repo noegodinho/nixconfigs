@@ -19,6 +19,15 @@
 
   boot.kernelPackages = pkgs.linuxPackages_6_6;
 
+  boot.blacklistedKernelModules = [
+    "nvidia"
+    "nvidiafb"
+    "nvidia-drm"
+    "nvidia-uvm"
+    "nvidia-modeset"
+    "nouveau"
+  ];
+
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
