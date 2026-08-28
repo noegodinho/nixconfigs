@@ -151,7 +151,7 @@ in
     # Firmware and BIOS updates
     fwupd = {
       enable = true;
-      package = nixpkgs-unstable.legacyPackages."${pkgs.stdenv.hostPlatform.system}".fwupd;
+      package = pkgs.fwupd;
     };
 
     gvfs.enable = true; # Mount, trash, and other functionalities
