@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "c961461eab1c9009a66d86584332e56739703032";
+      rev = "afb516e7ccb5c83b22711c33e49e5436dd03cadc";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -100,6 +100,7 @@ in {
       papers
       lollypop
       gthumb
+      calibre
       keepassxc
       thunderbird
       unstable.telegram-desktop
@@ -389,7 +390,7 @@ in {
       package = pkgs.yt-dlp;
     };
 
-    weathr = {
+    /*weathr = {
       enable = true;
       
       settings = {
@@ -406,7 +407,7 @@ in {
           longitude = 8.3741;
         };
       };
-    };
+    };*/
 
     obs-studio = {
       enable = true;
@@ -497,9 +498,25 @@ in {
         # Documents
         "application/pdf" = "org.gnome.Papers.desktop";
         "text/plain" = "codium.desktop";
-        "text/empty" = "codium.desktop";
+        "application/x-zerosize" = "codium.desktop";
+        "inode/empty" = "codium.desktop";
         "text/markdown" = "codium.desktop";
         "application/json" = "codium.desktop";
+
+        # Ebook
+        "application/epub+zip" = "calibre-ebook-viewer.desktop";
+        "application/x-mobipocket-ebook" = "calibre-ebook-viewer.desktop";
+        "application/vnd.amazon.mobi8-ebook" = "calibre-ebook-viewer.desktop";
+        "application/x-fictionbook+xml" = "calibre-ebook-viewer.desktop";
+        
+        # Comic book archives
+        "application/x-cbz" = "calibre-ebook-viewer.desktop";
+        "application/x-cbr" = "calibre-ebook-viewer.desktop";
+
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = "libreoffice-writer.desktop";
+        "application/msword" = "libreoffice-writer.desktop";
+
+        "application/octet-stream" = "codium.desktop";
       };
     };
   };
