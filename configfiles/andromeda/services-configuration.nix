@@ -130,6 +130,7 @@ in
       package = pkgs.fprintd-tod;
     };
 
+    # To remove after 26.11
     # "Driver" for MX Master 3S
     solaar = {
       enable = true;
