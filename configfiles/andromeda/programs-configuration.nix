@@ -71,6 +71,19 @@ in
       ];
     };
 
+    # To use here in 26.11
+    # "Driver" for MX Master 3S
+    /*solaar = {
+      enable = true;
+      package = nixpkgs-unstable.legacyPackages."${pkgs.stdenv.hostPlatform.system}".solaar;
+      # Show the window on startup (show, *hide*, only [window only])
+      window = "hide";
+      # Which battery icons to use (*regular*, symbolic, solaar)
+      batteryIcons = "regular";
+      # Extra arguments to pass to solaar on startup
+      extraArgs = "";
+    };*/
+
     # Enable zsh
     zsh.enable = true;
 
@@ -148,6 +161,9 @@ in
       libsecret
 
       papercutClient
+
+      wireguard-tools
+      openresolv
     ];
   };
 
