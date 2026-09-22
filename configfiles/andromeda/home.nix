@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "f68a95e55722bc52b5fa597fadf9bfb9202d6f6e";
+      rev = "6ffe8130661c7a5d28fa10cf344660652c443609";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -62,6 +62,8 @@ in {
       lsof
       rare-regex
       tirith
+      cheat
+      tealdeer
 
       htop
       btop
