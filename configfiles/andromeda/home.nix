@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "86c56105e1e11b1d2a927e93bda8801088747aa2";
+      rev = "061d4dbbe3556135301f07e8a0e67aea3ea27dc7";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -392,7 +392,7 @@ in {
       package = pkgs.yt-dlp;
     };
 
-    /*weathr = {
+    weathr = {
       enable = true;
       
       settings = {
@@ -409,7 +409,7 @@ in {
           longitude = 8.3741;
         };
       };
-    };*/
+    };
 
     obs-studio = {
       enable = true;
