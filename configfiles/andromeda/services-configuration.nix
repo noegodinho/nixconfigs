@@ -211,7 +211,6 @@ in
         "qwen3:14b"
         "deepseek-r1:14b"
         "qwen2.5-coder:14b"
-        "nomic-embed-text:latest"
       ];
     };
 
@@ -219,6 +218,13 @@ in
       enable = true;
       host = "127.0.0.1";
       port = 8081;
+      
+      environment = {
+        OLLAMA_API_BASE_URL = "http://127.0.0.1:11434";
+        WEBUI_AUTH = "False";
+        CONTENT_EXTRACTION_ENGINE = "tika";
+        TIKA_SERVER_URL = "http://127.0.0.1:9998";
+      };
     };
 
     # Detailed fan control
