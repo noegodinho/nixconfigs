@@ -168,43 +168,58 @@ in
   };
 
   virtualisation = {
-    docker.enable = true;
+    docker = {
+      enable = true;
+
+      daemon.settings = {
+        "max-concurrent-downloads" = 10;
+        "ipv6" = false;
+      };
+    };
+
     spiceUSBRedirection.enable = true;
 
     oci-containers = {
       backend = "docker";
       
-      containers.vert = {
-        image = "ghcr.io/vert-sh/vert:latest";
-        
-        ports = [
-          "3000:80"
-        ];
-        
-        environment = {
-          PUB_HOSTNAME = "localhost:3000";
-          PUB_ENV = "production";
-          PUB_DISABLE_ALL_EXTERNAL_REQUESTS = "false";
+      containers = {
+        vert = {
+          image = "ghcr.io/vert-sh/vert:latest";
           
-          # Self-host 'vertd' for video conversions
-          PUB_VERTD_URL = "http://localhost:24153"; 
+          ports = [
+            "3000:80"
+          ];
+          
+          environment = {
+            PUB_HOSTNAME = "localhost:3000";
+            PUB_ENV = "production";
+            PUB_DISABLE_ALL_EXTERNAL_REQUESTS = "false";
+            
+            # Self-host 'vertd' for video conversions
+            PUB_VERTD_URL = "http://localhost:24153"; 
+          };
+          
+          # Wait for network to be up before starting
+          dependsOn = [ "vertd" ]; 
         };
-        
-        # Wait for network to be up before starting
-        dependsOn = [ "vertd" ]; 
-      };
 
-      containers.vertd = {
-        image = "ghcr.io/vert-sh/vertd:latest";
-        ports = [ 
-          "24153:24153" 
-        ];
-        environment = {
-          CORS_ORIGINS = "http://localhost:3000";
+        vertd = {
+          image = "ghcr.io/vert-sh/vertd:latest";
+          ports = [ 
+            "24153:24153" 
+          ];
+          environment = {
+            CORS_ORIGINS = "http://localhost:3000";
+          };
+          extraOptions = [
+            "--device=/dev/dri:/dev/dri" 
+          ];
         };
-        extraOptions = [
-          "--device=/dev/dri:/dev/dri" 
-        ];
+
+        tika = {
+          image = "apache/tika:latest-full";
+          ports = [ "127.0.0.1:9998:9998" ];
+        };
       };
     };
   };
