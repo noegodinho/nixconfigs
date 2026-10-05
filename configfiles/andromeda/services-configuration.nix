@@ -202,6 +202,25 @@ in
       };
     };
 
+    ollama = {
+      enable = true;
+      package = pkgs.ollama-vulkan;
+      loadModels = [ 
+        "qwen3.5:9b"
+        "qwen3.5:4b"
+        "qwen3:14b"
+        "deepseek-r1:14b"
+        "qwen2.5-coder:14b"
+        "nomic-embed-text:latest"
+      ];
+    };
+
+    open-webui = {
+      enable = true;
+      host = "127.0.0.1";
+      port = 8081;
+    };
+
     # Detailed fan control
     /*
     thinkfan = {
