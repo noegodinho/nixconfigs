@@ -84,7 +84,7 @@
       notify-send "Display" "Extending to $EXTERNAL"
       
       # Command to break the mirror
-      hyprctl keyword monitor "$EXTERNAL, preferred, auto-right, 1"
+      hyprctl keyword monitor "$EXTERNAL, highres, auto-right, 1"
       
       # Save the new state
       echo "extend" > "$STATE_FILE"
@@ -93,7 +93,7 @@
       notify-send "Display" "Mirroring to $EXTERNAL"
       
       # Command to create the mirror
-      hyprctl keyword monitor "$EXTERNAL, preferred, auto, 1, mirror, $INTERNAL"
+      hyprctl keyword monitor "$EXTERNAL, highres, auto, 1, mirror, $INTERNAL"
       
       # Save the new state
       echo "mirror" > "$STATE_FILE"
