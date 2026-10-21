@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "8c5f0bbced8860c98785e2c347ad67d92a69faf4";
+      rev = "2a46f9d8fac507c47e8a659d5a4e91676d06273c";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -31,7 +31,7 @@ in {
 
     # Packages that should be installed to the user profile.
     packages = with pkgs; [
-      linux-manual
+      # linux-manual
       man-pages
       man-pages-posix
       gcc
