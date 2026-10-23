@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "2a46f9d8fac507c47e8a659d5a4e91676d06273c";
+      rev = "38be83a22538cc79c3d14d53e8d312d5c32eedea";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -122,6 +122,7 @@ in {
       projecteur
       khronos
       xournalpp
+      obsidian
       unstable.gurobi
 
       nerd-fonts.meslo-lg
