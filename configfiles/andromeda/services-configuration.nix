@@ -221,7 +221,6 @@ in
       
       environment = {
         OLLAMA_API_BASE_URL = "http://127.0.0.1:11434";
-        WEBUI_AUTH = "False";
         CONTENT_EXTRACTION_ENGINE = "tika";
         TIKA_SERVER_URL = "http://127.0.0.1:9998";
       };
