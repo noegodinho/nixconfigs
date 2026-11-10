@@ -13,7 +13,7 @@
 
   # Bootloader.
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    # kernelPackages = pkgs.linuxPackages_latest;
     extraModulePackages = [ config.boot.kernelPackages.msi-ec ];
     kernelModules = [ "msi-ec" ];
     blacklistedKernelModules = [ "psmouse" ];
