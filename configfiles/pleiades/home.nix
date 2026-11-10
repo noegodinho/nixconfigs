@@ -1,13 +1,13 @@
-{ pkgs, unstable, system, ... }: let
+{ pkgs, unstable, system, user, ... }: let
   extensions =
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "969bb9a90fa1365e8b5028d1b67dbd439b268675";
+      rev = "934620178cf8eed2058484c24b5db62dbf4f08b1";
     })).extensions.${system};
 in {
-  home.username = "pleiades";
-  home.homeDirectory = "/home/pleiades";
+  home.username = "${user}";
+  home.homeDirectory = "/home/${user}";
 
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
@@ -94,12 +94,8 @@ in {
     keepassxc
     thunderbird
     kdePackages.ktorrent
-    unstable.brave
-    unstable.telegram-desktop
-    teams-for-linux
-    unstable.zotero
-    slack
-    discord
+    # unstable.brave
+    zotero
     pympress
     maestral
     veracrypt
@@ -115,7 +111,7 @@ in {
 
     nerd-fonts.meslo-lg
     
-    wineWowPackages.waylandFull # wineWowPackages.full
+    wineWow64Packages.waylandFull # wineWowPackages.full
     winetricks
     vulkan-tools
     (unstable.lutris.override {
@@ -131,7 +127,7 @@ in {
   ];
 
   programs = {
-      brave.nativeMessagingHosts = [ pkgs.keepassxc ];
+      # brave.nativeMessagingHosts = [ pkgs.keepassxc ];
 
       git = {
         enable = true;
@@ -158,8 +154,8 @@ in {
         };
 
         shellAliases = {
-          flake_update="sudo nix flake update --flake ~/nixconfigs/configfiles/pleiades";
-          rebuild="sudo nixos-rebuild switch --upgrade-all --flake ~/nixconfigs/configfiles/pleiades/#milkyway -v";
+          flake_update="sudo nix flake update --flake ~/nixconfigs/configfiles/${user}";
+          rebuild="sudo nixos-rebuild switch --upgrade-all --flake ~/nixconfigs/configfiles/${user}/#milkyway -v";
           mmamba="micromamba";
           mmamba_update="micromamba activate general && micromamba update --all -y -c conda-forge && micromamba activate solver && micromamba update --all -y -c conda-forge && micromamba activate space && micromamba update --all -y -c conda-forge && micromamba activate tudat-space && micromamba update --all -y -c conda-forge && micromamba activate yafs && micromamba update --all -y -c conda-forge";
           update_all="flake_update && rebuild && mmamba_update && nix-collect-garbage -d";
@@ -169,16 +165,17 @@ in {
         initContent=''
           source ~/.p10k.zsh
 
-          eval "$(micromamba shell hook --shell zsh)"
+          # eval "$(micromamba shell hook --shell zsh)"
+          eval "$(micromamba shell hook --shell zsh | sed 's/\.mamba-wrapped/micromamba/g')"
           # >>> mamba initialize >>>
           # !! Contents within this block are managed by 'mamba init' !!
-          export MAMBA_EXE='/etc/profiles/per-user/pleiades/bin/micromamba';
-          export MAMBA_ROOT_PREFIX='/home/pleiades/micromamba';
+          export MAMBA_EXE='/etc/profiles/per-user/${user}/bin/micromamba';
+          export MAMBA_ROOT_PREFIX='/home/${user}/micromamba';
           __mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
           if [ $? -eq 0 ]; then
               eval "$__mamba_setup"
           else
-              alias micromamba="$MAMBA_EXE"  # Fallback on help from mamba activate
+              alias .mamba-wrapped="$MAMBA_EXE"  # Fallback on help from mamba activate
           fi
           unset __mamba_setup
           # <<< mamba initialize <<<
@@ -227,12 +224,6 @@ in {
         enableZshIntegration = true;
       };
 
-      direnv = {
-        enable = true;
-        package = pkgs.direnv;
-        enableZshIntegration = true;
-      };
-
       atuin = {
         enable = true;
         package = unstable.atuin;
@@ -244,12 +235,7 @@ in {
         package = pkgs.bat;
       };
 
-      neovim = {
-        enable = true;
-        package = pkgs.neovim-unwrapped;
-      };
-
-      vscode = {
+      vscodium = {
         enable = true;
         package = unstable.vscodium;
 
@@ -259,7 +245,7 @@ in {
 
         profiles.default = { 
           extensions = with extensions.vscode-marketplace; [
-            detachhead.basedpyright
+            # detachhead.basedpyright
             jeff-hykin.better-m-syntax
             bbenoist.nix
             ccls-project.ccls        
@@ -275,9 +261,9 @@ in {
             usernamehw.errorlens
             valentjn.vscode-ltex
             yzhang.markdown-all-in-one
-          ] ++ (with import <unstable> {}; (with unstable.vscode-extensions; [
-            github.copilot
-          ]));
+          ]; # ++ (with import <unstable> {}; (with unstable.vscode-extensions; [
+            # github.copilot
+          #]));
             
           userSettings = {
             "files.autoSave" = "afterDelay";
@@ -287,12 +273,12 @@ in {
             "ltex.additionalRules.motherTongue" = "pt-PT";
             "ltex.language" = "en-GB";
             "ltex.enabled" = ["bibtex" "context" "context.tex" "html" "latex" "markdown" "org" "restructuredtext" "rsweave"];
-            "python.defaultInterpreterPath" = "/home/pleiades/micromamba/envs/general/bin/python";
+            "python.defaultInterpreterPath" = "/home/${user}/micromamba/envs/general/bin/python";
             "nix.enableLanguageServer" = true;
             "nix.serverPath" = "nil";
             "git.openRepositoryInParentFolders" = "always";
             "cmake.pinnedCommands" = ["workbench.action.tasks.configureTaskRunner" "workbench.action.tasks.runTask"];
-            "ccls.launch.command" = "/etc/profiles/per-user/pleiades/bin/ccls";
+            "ccls.launch.command" = "/etc/profiles/per-user/${user}/bin/ccls";
             "ccls.highlight.function.face" = ["enabled"];
             "ccls.highlight.type.face" = ["enabled"];
             "ccls.highlight.variable.face" = ["enabled"];
@@ -303,9 +289,8 @@ in {
         };
       };
 
-      firefox.enable = false;
+      firefox.enable = true;
       java.enable = true;
-      # hyprland.enable = false; # change later to true if decide to try it
       home-manager.enable = true;
   };
 
@@ -321,7 +306,7 @@ in {
       extraPackages = with pkgs; [
         xdotool
         coreutils-full
-        xorg.xprop
+        xprop
         playerctl
       ];
 
