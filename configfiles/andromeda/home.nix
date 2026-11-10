@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "dfc54bda15d150e5d38c18d9ac31e640284774e4";
+      rev = "3ae5de090ea5bc16fc75cd7593486c76e41d1878";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -160,7 +160,7 @@ in {
   programs = {
     brave = {
       enable = true;
-      package = unstable.brave;
+      package = pkgs.brave;
 
       # nativeMessagingHosts = [ 
       #   pkgs.keepassxc
