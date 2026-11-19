@@ -3,7 +3,7 @@
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/nix-vscode-extensions";
       ref = "refs/heads/master";
-      rev = "77d3be10aec929935137107397308d512494f823";
+      rev = "f80658b487635b3e7156ad61606033f0dc5316bf";
     })).extensions.${stdenv.hostPlatform.system};
 in {
   imports = [
@@ -91,6 +91,7 @@ in {
       nil
       nurl
       glow
+      yazi
       
       libreoffice-fresh
       hunspell
